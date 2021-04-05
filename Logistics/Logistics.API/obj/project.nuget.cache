@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "FtSjkqjVt1OC5ZrKOIA13eQzlsAny80q+LuO8P3iacx9dbrSnKCExZ+34Ladppa8+kPJkqTrC2tcpRguEIlsnQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Predrag Djukic\\source\\repos\\tim_4_socialbuzz-tim-4\\Logistics\\Logistics.API\\Logistics.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Predrag Djukic\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
