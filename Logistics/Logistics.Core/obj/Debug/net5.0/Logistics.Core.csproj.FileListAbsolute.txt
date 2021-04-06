@@ -1,0 +1,12 @@
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\bin\Debug\net5.0\Logistics.Core.deps.json
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\bin\Debug\net5.0\Logistics.Core.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\bin\Debug\net5.0\ref\Logistics.Core.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\bin\Debug\net5.0\Logistics.Core.pdb
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.csprojAssemblyReference.cache
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.AssemblyInfoInputs.cache
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.AssemblyInfo.cs
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.csproj.CoreCompileInputs.cache
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\ref\Logistics.Core.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.Core\obj\Debug\net5.0\Logistics.Core.pdb

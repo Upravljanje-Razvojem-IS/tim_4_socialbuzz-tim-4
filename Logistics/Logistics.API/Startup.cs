@@ -1,7 +1,13 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Logistics.Core.Entities;
+using Logistics.Infrastructure;
+using Logistics.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,10 +34,22 @@ namespace Logistics.API
         {
 
             services.AddControllers();
+            services.AddMvc().AddFluentValidation();
+
+            services.AddTransient<IValidator<Address>, AddressConfiguration>();
+            services.AddTransient<IValidator<City>, CityConfiguration>();
+            services.AddTransient<IValidator<DeliveryService>, DeliveryServiceConfiguration>();
+            services.AddTransient<IValidator<Purchase>, PurchaseConfiguration>();
+            services.AddTransient<IValidator<WeightRange>, WeightRangeConfiguration>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Logistics.API", Version = "v1" });
             });
+
+            services.AddDbContext<LogisticsDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DatabaseString"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
