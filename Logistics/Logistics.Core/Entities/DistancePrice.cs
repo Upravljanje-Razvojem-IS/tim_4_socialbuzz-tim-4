@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Logistics.Core.Entities
 {
-    public class DeliveryService
+    public class DistancePrice
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public int MinimalDistance { get; set; }
+        public int MaximalDistance { get; set; }
+        public double Price { get; set; }
     }
 }

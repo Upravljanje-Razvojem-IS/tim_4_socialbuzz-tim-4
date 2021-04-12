@@ -12,11 +12,12 @@ namespace Logistics.Infrastructure.Configurations
     {
         public PurchaseConfiguration()
         {
-            RuleFor(c => c.Item).NotEmpty().Length(1, 55);
-            RuleFor(c => c.Weight).NotEmpty().GreaterThan(0);
+            RuleFor(c => c.ItemId).NotEmpty();
+            RuleFor(c => c.TotalWeight).NotEmpty().GreaterThan(0);
+            RuleFor(c => c.TotalPriceWithWeightAndDistance).NotEmpty().GreaterThan(0);
             RuleFor(c => c.Pieces).NotEmpty().GreaterThan(0);
             RuleFor(c => c.WeightRangeId).NotEmpty();
-            RuleFor(c => c.DeliveryServiceId).NotEmpty();
+            RuleFor(c => c.DistancePriceId).NotEmpty();
             RuleFor(c => c.FromAddressId).NotEmpty();
             RuleFor(c => c.ToAddressId).NotEmpty();
             

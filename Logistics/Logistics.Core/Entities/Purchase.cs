@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logistics.Core.Mock;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,26 @@ namespace Logistics.Core.Entities
     public class Purchase
     {
         public Guid Id { get; set; }
-        public string Item { get; set; }
-        public float Weight { get; set; }
+
+        public Guid ItemId { get; set; }
+        public ItemMock ItemMock { get; set; }
+
         public int Pieces { get; set; }
+        public double TotalWeight { get; set; }
+        public double TotalPriceWithWeightAndDistance { get; set; }
+        public double Distance { get; set; }
 
         public Guid WeightRangeId { get; set; }
         public WeightRange WeightRange { get; set; }
 
-        public Guid DeliveryServiceId { get; set; }
-        public DeliveryService DeliveryService { get; set; }
+        public Guid DistancePriceId { get; set; }
+        public DistancePrice DistancePrice { get; set; }
 
         public Guid FromAddressId { get; set; }
         public Address FromAddess { get; set; }
 
         public Guid ToAddressId { get; set; }
-        public Guid ToAddress { get; set; }
+        public Address ToAddress { get; set; }
 
     }
 }

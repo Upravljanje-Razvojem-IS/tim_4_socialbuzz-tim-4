@@ -66,3 +66,5 @@ C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\FluentValidation.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

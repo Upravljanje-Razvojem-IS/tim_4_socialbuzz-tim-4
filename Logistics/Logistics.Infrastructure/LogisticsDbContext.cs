@@ -21,7 +21,7 @@ namespace Logistics.Infrastructure
 
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<DeliveryService> DeliveryServices { get; set; }
+        public virtual DbSet<DistancePrice> DistancePrices { get; set; }
         public virtual DbSet<WeightRange> WeightRanges { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
     }

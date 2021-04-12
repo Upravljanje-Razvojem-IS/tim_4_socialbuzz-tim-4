@@ -1,22 +1,18 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Logistics.API.Interfaces;
+using Logistics.API.Services;
 using Logistics.Core.Entities;
 using Logistics.Infrastructure;
 using Logistics.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Logistics.API
 {
@@ -38,7 +34,7 @@ namespace Logistics.API
 
             services.AddTransient<IValidator<Address>, AddressConfiguration>();
             services.AddTransient<IValidator<City>, CityConfiguration>();
-            services.AddTransient<IValidator<DeliveryService>, DeliveryServiceConfiguration>();
+            services.AddTransient<IValidator<DistancePrice>, DistanceServiceConfiguration>();
             services.AddTransient<IValidator<Purchase>, PurchaseConfiguration>();
             services.AddTransient<IValidator<WeightRange>, WeightRangeConfiguration>();
 
@@ -50,6 +46,14 @@ namespace Logistics.API
             services.AddDbContext<LogisticsDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DatabaseString"))
             );
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IDistancePrice, DistancePriceService>();
+            services.AddScoped<IWeightRangeService, WeightRangeService>();
+            services.AddScoped<IPurchaseService, PurchaseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

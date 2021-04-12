@@ -47,11 +47,11 @@ namespace Logistics.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Longitude")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -64,18 +64,24 @@ namespace Logistics.Infrastructure.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Logistics.Core.Entities.DeliveryService", b =>
+            modelBuilder.Entity("Logistics.Core.Entities.DistancePrice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MaximalDistance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinimalDistance")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryServices");
+                    b.ToTable("DistancePrices");
                 });
 
             modelBuilder.Entity("Logistics.Core.Entities.Purchase", b =>
@@ -84,7 +90,7 @@ namespace Logistics.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DeliveryServiceId")
+                    b.Property<Guid>("DistancePriceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("FromAddessId")
@@ -93,19 +99,22 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<Guid>("FromAddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Item")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ItemMockId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Pieces")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ToAddress")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ToAddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Weight")
+                    b.Property<float>("TotalPriceWithWeightAndDistance")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TotalWeight")
                         .HasColumnType("real");
 
                     b.Property<Guid>("WeightRangeId")
@@ -113,9 +122,13 @@ namespace Logistics.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryServiceId");
+                    b.HasIndex("DistancePriceId");
 
                     b.HasIndex("FromAddessId");
+
+                    b.HasIndex("ItemMockId");
+
+                    b.HasIndex("ToAddressId");
 
                     b.HasIndex("WeightRangeId");
 
@@ -142,6 +155,26 @@ namespace Logistics.Infrastructure.Migrations
                     b.ToTable("WeightRanges");
                 });
 
+            modelBuilder.Entity("Logistics.Core.Mock.ItemMock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("PriceOfOne")
+                        .HasColumnType("real");
+
+                    b.Property<float>("WeightOfOne")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemMock");
+                });
+
             modelBuilder.Entity("Logistics.Core.Entities.Address", b =>
                 {
                     b.HasOne("Logistics.Core.Entities.City", "City")
@@ -155,9 +188,9 @@ namespace Logistics.Infrastructure.Migrations
 
             modelBuilder.Entity("Logistics.Core.Entities.Purchase", b =>
                 {
-                    b.HasOne("Logistics.Core.Entities.DeliveryService", "DeliveryService")
+                    b.HasOne("Logistics.Core.Entities.DistancePrice", "DistancePrice")
                         .WithMany()
-                        .HasForeignKey("DeliveryServiceId")
+                        .HasForeignKey("DistancePriceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -165,15 +198,29 @@ namespace Logistics.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("FromAddessId");
 
+                    b.HasOne("Logistics.Core.Mock.ItemMock", "ItemMock")
+                        .WithMany()
+                        .HasForeignKey("ItemMockId");
+
+                    b.HasOne("Logistics.Core.Entities.Address", "ToAddress")
+                        .WithMany()
+                        .HasForeignKey("ToAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Logistics.Core.Entities.WeightRange", "WeightRange")
                         .WithMany()
                         .HasForeignKey("WeightRangeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeliveryService");
+                    b.Navigation("DistancePrice");
 
                     b.Navigation("FromAddess");
+
+                    b.Navigation("ItemMock");
+
+                    b.Navigation("ToAddress");
 
                     b.Navigation("WeightRange");
                 });
