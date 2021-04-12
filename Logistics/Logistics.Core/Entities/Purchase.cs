@@ -12,7 +12,6 @@ namespace Logistics.Core.Entities
         public Guid Id { get; set; }
 
         public Guid ItemId { get; set; }
-        public ItemMock ItemMock { get; set; }
 
         public int Pieces { get; set; }
         public double TotalWeight { get; set; }

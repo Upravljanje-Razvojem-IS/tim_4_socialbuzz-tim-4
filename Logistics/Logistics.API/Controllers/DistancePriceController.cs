@@ -60,9 +60,9 @@ namespace Logistics.API.Controllers
         }
 
         [HttpDelete("{distanceId}")]
-        public async Task<IActionResult> DeleteDistancePrice(Guid distance)
+        public async Task<IActionResult> DeleteDistancePrice(Guid distanceId)
         {
-            await _distance.DeleteAsync(distance);
+            await _distance.DeleteAsync(distanceId);
             return NoContent();
         }
     }

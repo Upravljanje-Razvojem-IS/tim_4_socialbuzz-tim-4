@@ -44,7 +44,10 @@ namespace Logistics.API.Services
         public async Task<PurchaseResponse> CreatePurchase(PurchasePostBody purchase)
         {
             var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
+            fromAddress.City = await _context.Cities.FirstOrDefaultAsync(e => e.Id == fromAddress.CityId);
             var toAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.ToAddressId);
+            toAddress.City = await _context.Cities.FirstOrDefaultAsync(e => e.Id == toAddress.CityId);
+
             var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
 
             if (fromAddress == null || toAddress == null || item == null)
@@ -54,7 +57,6 @@ namespace Logistics.API.Services
             {
                 Id = Guid.NewGuid(),
                 ItemId = item.Id,
-                ItemMock = item,
                 Pieces = purchase.Pieces,
                 TotalWeight = 0,
                 TotalPriceWithWeightAndDistance = 0,
@@ -63,11 +65,11 @@ namespace Logistics.API.Services
                 ToAddressId = purchase.ToAddressId,
                 ToAddress = toAddress
             };
-            p.TotalWeight = p.ItemMock.WeightOfOne * p.Pieces;
+            p.TotalWeight = item.WeightOfOne * p.Pieces;
             p.WeightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight <= p.TotalWeight && e.MaximalWeight > p.TotalWeight);
             p.WeightRangeId = p.WeightRange.Id;
 
-            p.Distance = CalculateDistance.Calculate(p.FromAddess.City, p.ToAddress.City);
+            p.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
             p.DistancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance <= p.Distance && e.MaximalDistance > p.Distance);
             p.DistancePriceId = p.DistancePrice.Id;
 
@@ -85,39 +87,38 @@ namespace Logistics.API.Services
             if (p == null)
                 return null;
 
-            if (p.ItemId != purchase.ItemId)
-            {
-                var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
-                if (item == null)
-                    return null;
+            var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
+            if (item == null)
+                return null;
+            p.ItemId = purchase.ItemId;
+;
+            var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
+            if (fromAddress == null)
+                return null;
+            p.FromAddess = fromAddress;
+            p.FromAddressId = purchase.FromAddressId;
 
-                p.ItemMock = item;
-                p.ItemId = purchase.ItemId;
-            }
+            var toAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.ToAddressId);
+            if (toAddress == null)
+                return null;
+            p.ToAddress = toAddress;
+            p.ToAddressId = purchase.ToAddressId;
 
-            if (p.FromAddressId != purchase.FromAddressId)
-            {
-                var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
-                if (fromAddress == null)
-                    return null;
-
-                p.FromAddess = fromAddress;
-                p.FromAddressId = purchase.FromAddressId;
-            }
-
-            if (p.ToAddressId != purchase.ToAddressId)
-            {
-                var toAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.ToAddressId);
-                if (toAddress == null)
-                    return null;
-
-                p.ToAddress = toAddress;
-                p.ToAddressId = purchase.ToAddressId;
-            }
+            var fromCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.FromAddess.CityId);
+            var toCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.ToAddress.CityId);
 
             p.Pieces = purchase.Pieces;
-            p.TotalWeight = p.ItemMock.WeightOfOne * p.Pieces;
-            //total price update bussiness logic method
+            p.Distance = CalculateDistance.Calculate(fromCity, toCity);
+
+            p.TotalWeight = item.WeightOfOne * p.Pieces;
+            var weightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight < p.TotalWeight && e.MaximalWeight > p.TotalWeight);
+            p.WeightRangeId = weightRange.Id;
+
+            p.Distance = CalculateDistance.Calculate(fromCity, toCity);
+            var distancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance <= p.Distance && e.MaximalDistance > p.Distance);
+            p.DistancePriceId = distancePrice.Id;
+
+            p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, distancePrice.Price, weightRange.PriceCoefficient);
 
             await _context.SaveChangesAsync();
 

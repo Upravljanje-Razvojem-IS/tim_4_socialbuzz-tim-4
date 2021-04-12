@@ -10,6 +10,6 @@ namespace Logistics.API.Models
         public Guid Id { get; set; }
         public float MinimalWeight { get; set; }
         public float MaximalWeight { get; set; }
-        public float PriceCoefficient { get; set; }
+        public double PriceCoefficient { get; set; }
     }
 }

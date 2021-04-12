@@ -4,14 +4,16 @@ using Logistics.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Logistics.Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticsDbContext))]
-    partial class LogisticsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210412185915_double")]
+    partial class @double
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,6 +107,9 @@ namespace Logistics.Infrastructure.Migrations
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ItemMockId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Pieces")
                         .HasColumnType("int");
 
@@ -125,6 +130,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.HasIndex("DistancePriceId");
 
                     b.HasIndex("FromAddessId");
+
+                    b.HasIndex("ItemMockId");
 
                     b.HasIndex("ToAddressId");
 
@@ -153,6 +160,26 @@ namespace Logistics.Infrastructure.Migrations
                     b.ToTable("WeightRanges");
                 });
 
+            modelBuilder.Entity("Logistics.Core.Mock.ItemMock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PriceOfOne")
+                        .HasColumnType("float");
+
+                    b.Property<float>("WeightOfOne")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemMock");
+                });
+
             modelBuilder.Entity("Logistics.Core.Entities.Address", b =>
                 {
                     b.HasOne("Logistics.Core.Entities.City", "City")
@@ -176,6 +203,10 @@ namespace Logistics.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("FromAddessId");
 
+                    b.HasOne("Logistics.Core.Mock.ItemMock", "ItemMock")
+                        .WithMany()
+                        .HasForeignKey("ItemMockId");
+
                     b.HasOne("Logistics.Core.Entities.Address", "ToAddress")
                         .WithMany()
                         .HasForeignKey("ToAddressId")
@@ -191,6 +222,8 @@ namespace Logistics.Infrastructure.Migrations
                     b.Navigation("DistancePrice");
 
                     b.Navigation("FromAddess");
+
+                    b.Navigation("ItemMock");
 
                     b.Navigation("ToAddress");
 

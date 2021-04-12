@@ -12,13 +12,13 @@ namespace Logistics.API.Models
 
         public Guid WeightRangeId { get; set; }
 
-        public Guid DistanceServiceId { get; set; }
+        public Guid DistancePriceId { get; set; }
 
         public Guid FromAddressId { get; set; }
 
         public Guid ToAddressId { get; set; }
         public int Pieces { get; set; }
-        public float TotalWeight { get; set; }
-        public float TotalPriceWithWeightAndDistance { get; set; }
+        public double TotalWeight { get; set; }
+        public double TotalPriceWithWeightAndDistance { get; set; }
     }
 }

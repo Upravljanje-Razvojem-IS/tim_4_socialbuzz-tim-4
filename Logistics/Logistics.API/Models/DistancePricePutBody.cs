@@ -9,6 +9,6 @@ namespace Logistics.API.Models
     {
         public int MinimalDistance { get; set; }
         public int MaximalDistance { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
     }
 }
