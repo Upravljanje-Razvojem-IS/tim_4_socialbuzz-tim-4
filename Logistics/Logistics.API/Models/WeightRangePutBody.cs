@@ -7,7 +7,6 @@ namespace Logistics.API.Models
 {
     public class WeightRangePutBody
     {
-        public Guid Id { get; set; }
         public float MinimalWeight { get; set; }
         public float MaximalWeight { get; set; }
         public double PriceCoefficient { get; set; }

@@ -50,7 +50,7 @@ namespace Logistics.API.Services
 
             var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
 
-            if (fromAddress == null || toAddress == null || item == null)
+            if (fromAddress == null || toAddress == null || item == null || purchase.Pieces == 0)
                 return null;
 
             Purchase p = new Purchase
@@ -70,7 +70,7 @@ namespace Logistics.API.Services
             p.WeightRangeId = p.WeightRange.Id;
 
             p.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
-            p.DistancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance <= p.Distance && e.MaximalDistance > p.Distance);
+            p.DistancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance < p.Distance && e.MaximalDistance >= p.Distance);
             p.DistancePriceId = p.DistancePrice.Id;
 
             p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, p.DistancePrice.Price, p.WeightRange.PriceCoefficient);
@@ -108,10 +108,11 @@ namespace Logistics.API.Services
             var toCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.ToAddress.CityId);
 
             p.Pieces = purchase.Pieces;
-            p.Distance = CalculateDistance.Calculate(fromCity, toCity);
+            if (p.Pieces == 0)
+                return null;
 
             p.TotalWeight = item.WeightOfOne * p.Pieces;
-            var weightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight < p.TotalWeight && e.MaximalWeight > p.TotalWeight);
+            var weightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight < p.TotalWeight && e.MaximalWeight >= p.TotalWeight);
             p.WeightRangeId = weightRange.Id;
 
             p.Distance = CalculateDistance.Calculate(fromCity, toCity);

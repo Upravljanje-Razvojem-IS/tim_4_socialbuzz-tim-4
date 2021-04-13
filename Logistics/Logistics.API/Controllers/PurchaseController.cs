@@ -41,7 +41,9 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<PurchaseResponse>> PostPurchase(PurchasePostBody purchase)
         {
             var p = await _purchase.CreatePurchase(purchase);
-            return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = p.Id }, p);
+            if(p!=null)
+                return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = p.Id }, p);
+            return BadRequest();
         }
         
         [HttpPut("{purchaseId}")]

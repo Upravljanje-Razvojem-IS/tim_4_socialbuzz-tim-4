@@ -43,7 +43,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<WeightRangeResponse>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
         {
             var weight = await _weight.CreateAsync(weightRange);
-            return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = weightRange.Id }, weight);
+            return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = weight.Id }, weight);
         }
 
         [HttpPut("{weightId}")]
