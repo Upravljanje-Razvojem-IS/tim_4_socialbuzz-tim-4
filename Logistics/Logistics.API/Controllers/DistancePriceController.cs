@@ -1,5 +1,6 @@
 ﻿using Logistics.API.Interfaces;
 using Logistics.API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,27 +20,47 @@ namespace Logistics.API.Controllers
             _distance = distance;
         }
 
+        /// <summary>
+        /// Get all DistancePrices
+        /// </summary>
+        /// <returns>Return list of DistancePrices</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<ActionResult<DistancePriceResponse>> GetDistancePrice()
         {
             var distances = await _distance.BrowseAsync();
             if (distances.Count == 0)
-                return NoContent();
+                return NotFound();
 
             return Ok(distances);
         }
 
+        /// <summary>
+        /// Get DistancePrice by Id
+        /// </summary>
+        /// <param name="distanceId">Id of DistancePrice</param>
+        /// <returns>Distance with "distanceId"</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{distanceId}")]
         public async Task<ActionResult<DistancePriceResponse>> GetDistancePriceById(Guid distanceId)
         {
             var distance = await _distance.FindAsync(distanceId);
 
             if (distance == null)
-                return NoContent();
+                return NotFound();
 
             return Ok(distance);
         }
 
+        /// <summary>
+        /// Post DistancePrice
+        /// </summary>
+        /// <param name="distancePrice">New DistancePrice body</param>
+        /// <returns>Created DistancePrice with 201</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<ActionResult<DistancePriceResponse>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
         {
@@ -48,6 +69,14 @@ namespace Logistics.API.Controllers
             return CreatedAtAction(nameof(GetDistancePriceById), new { distanceId = distance.Id }, distance);
         }
 
+        /// <summary>
+        /// Update DistancePrice
+        /// </summary>
+        /// <param name="distanceId">Id of updated DistancePrice</param>
+        /// <param name="distancePrice">New DistancePrice body</param>
+        /// <returns>Updated DistancePrice</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{distanceId}")]
         public async Task<ActionResult<DistancePriceResponse>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
         {
@@ -59,6 +88,12 @@ namespace Logistics.API.Controllers
             return Ok(distance);
         }
 
+        /// <summary>
+        /// Delete DistancePrice
+        /// </summary>
+        /// <param name="distanceId">Id of deleted DistancePrice</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("{distanceId}")]
         public async Task<IActionResult> DeleteDistancePrice(Guid distanceId)
         {

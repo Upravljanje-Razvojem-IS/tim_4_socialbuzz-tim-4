@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Logistics.API</name>
+    </assembly>
+    <members>
+        <member name="M:Logistics.API.Controllers.AddressController.GetAddresses(System.Guid)">
+            <summary>
+            Get all addresses with "cityId" param
+            </summary>
+            <param name="cityId">Id of city where address is</param>
+            <returns>Return list of all addresses in city with "cityId" id</returns>
+        </member>
+        <member name="M:Logistics.API.Controllers.AddressController.GetAddressById(System.Guid,System.Guid)">
+            <summary>
+            Get address with "cityId" and "addressId" param
+            </summary>
+            <param name="cityId">Id of city where address is</param>
+            <param name="addressId">Id of returned address</param>
+            <returns>Address with "addressId"</returns>
+        </member>
+        <member name="M:Logistics.API.Controllers.AddressController.PostAddress(System.Guid,Logistics.API.Models.AddressPostBody)">
+            <summary>
+            Create new Address in City with "cityId" Id
+            </summary>
+            <param name="cityId">Id of city</param>
+            <param name="address">New Address body</param>
+            <returns>New Address with 201 status code</returns>
+        </member>
+        <member name="M:Logistics.API.Controllers.AddressController.PutAddress(System.Guid,System.Guid,Logistics.API.Models.AddressPutBody)">
+            <summary>
+            Update address with "addressId" Id
+            </summary>
+            <param name="cityId">Id of city where address is</param>
+            <param name="addressId">Id of updated address</param>
+            <param name="address">New body to address</param>
+            <returns></returns>
+        </member>
+        <member name="M:Logistics.API.Controllers.AddressController.DeleteAddress(System.Guid,System.Guid)">
+            <summary>
+            Delete address with "addressId" id
+            </summary>
+            <param name="cityId">Id of city where address is</param>
+            <param name="addressId">Id of deleted address</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
