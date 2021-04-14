@@ -11,7 +11,6 @@ C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -69,3 +68,4 @@ C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Logistics.API.xml
+C:\Users\Predrag Djukic\source\repos\tim_4_socialbuzz-tim-4\Logistics\Logistics.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

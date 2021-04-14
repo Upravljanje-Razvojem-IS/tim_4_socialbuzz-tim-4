@@ -1,5 +1,6 @@
 ﻿using Logistics.API.Interfaces;
 using Logistics.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,6 +27,9 @@ namespace Logistics.API.Controllers
         /// <returns>Return list of DistancePrices</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public async Task<ActionResult<DistancePriceResponse>> GetDistancePrice()
         {
@@ -43,6 +47,9 @@ namespace Logistics.API.Controllers
         /// <returns>Distance with "distanceId"</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{distanceId}")]
         public async Task<ActionResult<DistancePriceResponse>> GetDistancePriceById(Guid distanceId)
         {
@@ -61,6 +68,9 @@ namespace Logistics.API.Controllers
         /// <returns>Created DistancePrice with 201</returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<DistancePriceResponse>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
         {
@@ -77,6 +87,9 @@ namespace Logistics.API.Controllers
         /// <returns>Updated DistancePrice</returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{distanceId}")]
         public async Task<ActionResult<DistancePriceResponse>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
         {
@@ -94,6 +107,9 @@ namespace Logistics.API.Controllers
         /// <param name="distanceId">Id of deleted DistancePrice</param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{distanceId}")]
         public async Task<IActionResult> DeleteDistancePrice(Guid distanceId)
         {

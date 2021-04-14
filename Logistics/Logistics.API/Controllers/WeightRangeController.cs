@@ -1,5 +1,6 @@
 ﻿using Logistics.API.Interfaces;
 using Logistics.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,6 +27,9 @@ namespace Logistics.API.Controllers
         /// <returns>List of WeightRanges</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public async Task<ActionResult<WeightRangeResponse>> GetWeightRange()
         {
@@ -43,6 +47,9 @@ namespace Logistics.API.Controllers
         /// <returns>WeightRange with "weightId"</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{weightId}")]
         public async Task<ActionResult<WeightRangeResponse>> GetWeightRangeById(Guid weightId)
         {
@@ -60,6 +67,9 @@ namespace Logistics.API.Controllers
         /// <returns>Created WeightRange with 201</returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<WeightRangeResponse>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
         {
@@ -75,6 +85,9 @@ namespace Logistics.API.Controllers
         /// <returns>New WeightRange</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{weightId}")]
         public async Task<ActionResult<WeightRangeResponse>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
         {
@@ -91,6 +104,9 @@ namespace Logistics.API.Controllers
         /// <param name="weightId">Id of deleted WeightRange</param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{weightId}")]
         public async Task<IActionResult> DeleteWeithRange(Guid weightId)
         {

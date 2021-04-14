@@ -1,5 +1,6 @@
 ﻿using Logistics.API.Interfaces;
 using Logistics.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,6 +27,9 @@ namespace Logistics.API.Controllers
         /// <returns>Return list of cities</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public async Task<ActionResult<CityResponseBody>> GetCities()
         {
@@ -42,6 +46,9 @@ namespace Logistics.API.Controllers
         /// <returns>Returns city with "cityId"</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{cityId}")]
         public async Task<ActionResult<CityResponseBody>> GetCityById(Guid cityId)
         {
@@ -58,6 +65,9 @@ namespace Logistics.API.Controllers
         /// <returns>Return new city with 201 status code</returns>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<CityResponseBody>> PostCity([FromBody] CityPostBody city)
         {
@@ -73,6 +83,9 @@ namespace Logistics.API.Controllers
         /// <returns>Updated city</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{cityId}")]
         public async Task<ActionResult<CityResponseBody>> PutCity(Guid cityId, [FromBody] CityPutBody city)
         {
@@ -89,6 +102,9 @@ namespace Logistics.API.Controllers
         /// <param name="cityId">Id of deleted city</param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{cityId}")]
         public async Task<IActionResult> DeleteCity(Guid cityId)
         {
