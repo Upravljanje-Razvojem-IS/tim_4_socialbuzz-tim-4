@@ -10,9 +10,9 @@ namespace Logistics.API.Interfaces
     public interface ICityService
     {
         Task<IReadOnlyCollection<CityOverview>> BrowseAsync();
-        Task<CityOverview> FindAsync(Guid id);
-        Task<CityOverview> CreateAsync(CityPostBody city);
-        Task<CityOverview> UpdateAsync(Guid id, CityPutBody city);
+        Task<CityDetails> FindAsync(Guid id);
+        Task<CityConfirmation> CreateAsync(CityPostBody city);
+        Task<CityConfirmation> UpdateAsync(Guid id, CityPutBody city);
         Task DeleteAsync(Guid id);
     }
 }

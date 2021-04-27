@@ -51,7 +51,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{distanceId}")]
-        public async Task<ActionResult<DistancePriceOverview>> GetDistancePriceById(Guid distanceId)
+        public async Task<ActionResult<DistancePriceDetails>> GetDistancePriceById(Guid distanceId)
         {
             var distance = await _distance.FindAsync(distanceId);
 
@@ -72,11 +72,11 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DistancePriceOverview>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
+        public async Task<ActionResult<DistancePriceConfirmation>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
         {
-            var distance = await _distance.CreateAsync(distancePrice);
+            var newDistancePrice = await _distance.CreateAsync(distancePrice);
 
-            return CreatedAtAction(nameof(GetDistancePriceById), new { distanceId = distance.Id }, distance);
+            return CreatedAtAction(nameof(GetDistancePriceById), new { distanceId = newDistancePrice.Id }, newDistancePrice);
         }
 
         /// <summary>
@@ -91,14 +91,14 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPut("{distanceId}")]
-        public async Task<ActionResult<DistancePriceOverview>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
+        public async Task<ActionResult<DistancePriceConfirmation>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
         {
-            var distance = await _distance.UpdateAsync(distanceId, distancePrice);
+            var updatedDistancePrice = await _distance.UpdateAsync(distanceId, distancePrice);
 
-            if (distance == null)
+            if (updatedDistancePrice == null)
                 return BadRequest("DistancePrice with that id doesn't exits");
 
-            return Ok(distance);
+            return Ok(updatedDistancePrice);
         }
 
         /// <summary>

@@ -51,7 +51,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{weightId}")]
-        public async Task<ActionResult<WeightRangeOverview>> GetWeightRangeById(Guid weightId)
+        public async Task<ActionResult<WeightRangeDetails>> GetWeightRangeById(Guid weightId)
         {
             var weight = await _weight.FindAsync(weightId);
 
@@ -71,10 +71,10 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<WeightRangeOverview>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
+        public async Task<ActionResult<WeightRangeConfirmation>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
         {
-            var weight = await _weight.CreateAsync(weightRange);
-            return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = weight.Id }, weight);
+            var newWeight = await _weight.CreateAsync(weightRange);
+            return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = newWeight.Id }, newWeight);
         }
 
         /// <summary>
@@ -89,13 +89,13 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPut("{weightId}")]
-        public async Task<ActionResult<WeightRangeOverview>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
+        public async Task<ActionResult<WeightRangeConfirmation>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
         {
-            var weight = await _weight.UpdateAsync(weightId, weightRange);
-            if (weight == null)
+            var updatedWeight = await _weight.UpdateAsync(weightId, weightRange);
+            if (updatedWeight == null)
                 return BadRequest("WeightRange with that Id doesn't exist");
 
-            return Ok(weight);
+            return Ok(updatedWeight);
         }
 
         /// <summary>

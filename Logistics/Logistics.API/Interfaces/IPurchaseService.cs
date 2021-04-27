@@ -1,4 +1,4 @@
-﻿using Logistics.API.Models;
+﻿using Logistics.API.Models.PurchaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ namespace Logistics.API.Interfaces
     public interface IPurchaseService
     {
         Task<IReadOnlyCollection<PurchaseOverview>> BrowsePurchases();
-        Task<PurchaseOverview> FindPurchase(Guid id);
-        Task<PurchaseOverview> CreatePurchase(PurchasePostBody purchase);
-        Task<PurchaseOverview> UpdatePurchase(Guid id, PurchasePutBody purchase);
+        Task<PurchaseDetails> FindPurchase(Guid id);
+        Task<PurchaseConfirmation> CreatePurchase(PurchasePostBody purchase);
+        Task<PurchaseConfirmation> UpdatePurchase(Guid id, PurchasePutBody purchase);
         Task DeletePurchase(Guid id);
 
 

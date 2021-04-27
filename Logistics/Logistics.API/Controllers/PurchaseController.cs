@@ -1,5 +1,5 @@
 ﻿using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.PurchaseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +49,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{purchaseId}")]
-        public async Task<ActionResult<PurchaseOverview>> GetPurchaseById(Guid purchaseId)
+        public async Task<ActionResult<PurchaseDetails>> GetPurchaseById(Guid purchaseId)
         {
             var purchase = await _purchase.FindPurchase(purchaseId);
             if (purchase == null)
@@ -67,11 +67,11 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost]
-        public async Task<ActionResult<PurchaseOverview>> PostPurchase(PurchasePostBody purchase)
+        public async Task<ActionResult<PurchaseConfirmation>> PostPurchase(PurchasePostBody purchase)
         {
-            var p = await _purchase.CreatePurchase(purchase);
-            if(p!=null)
-                return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = p.Id }, p);
+            var newPurchase = await _purchase.CreatePurchase(purchase);
+            if(newPurchase!=null)
+                return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = newPurchase.Id }, newPurchase);
             return BadRequest();
         }
 
@@ -86,12 +86,12 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut("{purchaseId}")]
-        public async Task<ActionResult<PurchaseOverview>> PutPurchase(Guid purchaseId, PurchasePutBody purchase)
+        public async Task<ActionResult<PurchaseConfirmation>> PutPurchase(Guid purchaseId, PurchasePutBody purchase)
         {
-            var p = await _purchase.UpdatePurchase(purchaseId, purchase);
-            if (p == null)
+            var updatedPurchase = await _purchase.UpdatePurchase(purchaseId, purchase);
+            if (updatedPurchase == null)
                 return BadRequest();
-            return Ok(p);
+            return Ok(updatedPurchase);
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Logistics.API.Models;
+using Logistics.API.Models.PurchaseModels;
 using Logistics.Core.Entities;
 using System;
 using System.Collections.Generic;

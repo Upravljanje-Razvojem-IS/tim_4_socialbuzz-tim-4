@@ -31,16 +31,16 @@ namespace Logistics.API.Services
             return await Task.FromResult(distances);
         }
 
-        public async Task<DistancePriceOverview> FindAsync(Guid id)
+        public async Task<DistancePriceDetails> FindAsync(Guid id)
         {
             var distance = await _context.DistancePrices
-                .ProjectTo<DistancePriceOverview>(_mapper.ConfigurationProvider)
+                .ProjectTo<DistancePriceDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
             return await Task.FromResult(distance);
         }
 
-        public async Task<DistancePriceOverview> CreateAsync(DistancePricePostBody distancePrice)
+        public async Task<DistancePriceConfirmation> CreateAsync(DistancePricePostBody distancePrice)
         {
             DistancePrice distance = new DistancePrice
             {
@@ -53,10 +53,10 @@ namespace Logistics.API.Services
             await _context.DistancePrices.AddAsync(distance);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<DistancePriceOverview>(distance));
+            return await Task.FromResult(_mapper.Map<DistancePriceConfirmation>(distance));
         }
 
-        public async Task<DistancePriceOverview> UpdateAsync(Guid id, DistancePricePutBody distancePrice)
+        public async Task<DistancePriceConfirmation> UpdateAsync(Guid id, DistancePricePutBody distancePrice)
         {
             var distance = await _context.DistancePrices.FirstOrDefaultAsync(e => e.Id == id);
 
@@ -69,7 +69,7 @@ namespace Logistics.API.Services
 
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<DistancePriceOverview>(distance));
+            return await Task.FromResult(_mapper.Map<DistancePriceConfirmation>(distance));
         }
 
         public async Task DeleteAsync(Guid id)

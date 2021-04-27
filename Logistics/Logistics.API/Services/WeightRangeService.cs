@@ -29,17 +29,17 @@ namespace Logistics.API.Services
                 .ProjectTo<WeightRangeOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return weights;
+            return await Task.FromResult(weights);
         }
-        public async Task<WeightRangeOverview> FindAsync(Guid id)
+        public async Task<WeightRangeDetails> FindAsync(Guid id)
         {
             var weight = await _context.WeightRanges
-                .ProjectTo<WeightRangeOverview>(_mapper.ConfigurationProvider)
+                .ProjectTo<WeightRangeDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
-            return weight;
+            return await Task.FromResult(weight);
         }
 
-        public async Task<WeightRangeOverview> CreateAsync(WeightRangePostBody weightRange)
+        public async Task<WeightRangeConfirmation> CreateAsync(WeightRangePostBody weightRange)
         {
             WeightRange weight = new WeightRange
             {
@@ -52,10 +52,10 @@ namespace Logistics.API.Services
             await _context.WeightRanges.AddAsync(weight);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<WeightRangeOverview>(weight));
+            return await Task.FromResult(_mapper.Map<WeightRangeConfirmation>(weight));
         }
 
-        public async Task<WeightRangeOverview> UpdateAsync(Guid id, WeightRangePutBody weightRange)
+        public async Task<WeightRangeConfirmation> UpdateAsync(Guid id, WeightRangePutBody weightRange)
         {
             var weight = await _context.WeightRanges.FirstOrDefaultAsync(e => e.Id == id);
 
@@ -67,7 +67,7 @@ namespace Logistics.API.Services
             weight.PriceCoefficient = weightRange.PriceCoefficient;
 
             await _context.SaveChangesAsync();
-            return await Task.FromResult(_mapper.Map<WeightRangeOverview>(weight));
+            return await Task.FromResult(_mapper.Map<WeightRangeConfirmation>(weight));
         }
 
         public async Task DeleteAsync(Guid id)

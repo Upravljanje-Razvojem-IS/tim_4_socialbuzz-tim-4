@@ -53,7 +53,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{addressId}")]
-        public async Task<ActionResult<AddressOverview>> GetAddressById(Guid cityId, Guid addressId)
+        public async Task<ActionResult<AddressDetails>> GetAddressById(Guid cityId, Guid addressId)
         {
             var address = await _address.FindAsync(cityId, addressId);
 
@@ -73,10 +73,10 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost]
-        public async Task<ActionResult<AddressOverview>> PostAddress(Guid cityId, [FromBody] AddressPostBody address)
+        public async Task<ActionResult<AddressConfirmation>> PostAddress(Guid cityId, [FromBody] AddressPostBody address)
         {
-            var a = await _address.CreateAsync(cityId, address);
-            return CreatedAtAction(nameof(GetAddressById), new { cityId, addressId = a.Id }, a);
+            var newAddress = await _address.CreateAsync(cityId, address);
+            return CreatedAtAction(nameof(GetAddressById), new { cityId, addressId = newAddress.Id }, newAddress);
         }
 
         /// <summary>
@@ -91,13 +91,13 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut("{addressId}")]
-        public async Task<ActionResult<AddressOverview>> PutAddress(Guid cityId, Guid addressId, [FromBody] AddressPutBody address)
+        public async Task<ActionResult<AddressConfirmation>> PutAddress(Guid cityId, Guid addressId, [FromBody] AddressPutBody address)
         {
-            var a = await _address.UpdateAsync(cityId, addressId, address);
+            var updatedAddress = await _address.UpdateAsync(cityId, addressId, address);
 
-            if (a == null)
+            if (updatedAddress == null)
                 return BadRequest("Address with that Id doesnt exist");
-            return Ok(a);
+            return Ok(updatedAddress);
         }
 
         /// <summary>

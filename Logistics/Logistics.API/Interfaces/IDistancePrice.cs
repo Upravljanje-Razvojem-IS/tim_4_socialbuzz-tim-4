@@ -9,9 +9,9 @@ namespace Logistics.API.Interfaces
     public interface IDistancePrice
     {
         Task<IReadOnlyCollection<DistancePriceOverview>> BrowseAsync();
-        Task<DistancePriceOverview> FindAsync(Guid id);
-        Task<DistancePriceOverview> CreateAsync(DistancePricePostBody distancePrice);
-        Task<DistancePriceOverview> UpdateAsync(Guid id, DistancePricePutBody distancePrice);
+        Task<DistancePriceDetails> FindAsync(Guid id);
+        Task<DistancePriceConfirmation> CreateAsync(DistancePricePostBody distancePrice);
+        Task<DistancePriceConfirmation> UpdateAsync(Guid id, DistancePricePutBody distancePrice);
         Task DeleteAsync(Guid id);
     }
 }

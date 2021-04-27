@@ -50,7 +50,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{cityId}")]
-        public async Task<ActionResult<CityOverview>> GetCityById(Guid cityId)
+        public async Task<ActionResult<CityDetails>> GetCityById(Guid cityId)
         {
             var city = await _city.FindAsync(cityId);
             if (city == null)
@@ -69,10 +69,10 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<CityOverview>> PostCity([FromBody] CityPostBody city)
+        public async Task<ActionResult<CityConfirmation>> PostCity([FromBody] CityPostBody city)
         {
-            var c = await _city.CreateAsync(city);
-            return CreatedAtAction(nameof(GetCityById), new { cityId = c.Id }, city);
+            var newCity = await _city.CreateAsync(city);
+            return CreatedAtAction(nameof(GetCityById), new { cityId = newCity.Id }, newCity);
         }
 
         /// <summary>
@@ -87,11 +87,11 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPut("{cityId}")]
-        public async Task<ActionResult<CityOverview>> PutCity(Guid cityId, [FromBody] CityPutBody city)
+        public async Task<ActionResult<CityConfirmation>> PutCity(Guid cityId, [FromBody] CityPutBody city)
         {
-            var c = await _city.UpdateAsync(cityId, city);
-            if(c != null)
-                return Ok(c);
+            var updatedCity = await _city.UpdateAsync(cityId, city);
+            if(updatedCity != null)
+                return Ok(updatedCity);
 
             return BadRequest("City with that ID doesn't exist");
         }

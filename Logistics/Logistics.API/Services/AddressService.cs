@@ -32,15 +32,15 @@ namespace Logistics.API.Services
             return await Task.FromResult(addresses);
         }
 
-        public async Task<AddressOverview> FindAsync(Guid cityId, Guid addressId)
+        public async Task<AddressDetails> FindAsync(Guid cityId, Guid addressId)
         {
             var address = await _context.Addresses
-                .ProjectTo<AddressOverview>(_mapper.ConfigurationProvider)
+                .ProjectTo<AddressDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == addressId);
             return await Task.FromResult(address);
         }
 
-        public async Task<AddressOverview> CreateAsync(Guid cityId, AddressPostBody address)
+        public async Task<AddressConfirmation> CreateAsync(Guid cityId, AddressPostBody address)
         {
             var city = await _context.Cities.FirstOrDefaultAsync(e => e.Id == cityId);
             
@@ -59,10 +59,10 @@ namespace Logistics.API.Services
             await _context.Addresses.AddAsync(a);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<AddressOverview>(a));
+            return await Task.FromResult(_mapper.Map<AddressConfirmation>(a));
         }
 
-        public async Task<AddressOverview> UpdateAsync(Guid cityId, Guid addressId, AddressPutBody address)
+        public async Task<AddressConfirmation> UpdateAsync(Guid cityId, Guid addressId, AddressPutBody address)
         {
             var city = await _context.Cities.FirstOrDefaultAsync(e => e.Id == cityId);
 
@@ -79,7 +79,7 @@ namespace Logistics.API.Services
 
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<AddressOverview>(a));
+            return await Task.FromResult(_mapper.Map<AddressConfirmation>(a));
         }
 
         public async Task DeleteAsync(Guid cityId, Guid addressId)
