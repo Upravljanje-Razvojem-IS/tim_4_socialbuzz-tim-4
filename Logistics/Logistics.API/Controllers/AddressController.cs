@@ -1,5 +1,5 @@
 ﻿using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.AddressModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +32,12 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet]
-        public async Task<ActionResult<AddressResponse>> GetAddresses(Guid cityId)
+        public async Task<ActionResult<AddressOverview>> GetAddresses(Guid cityId)
         {
             var addresses = await _address.BrowseAsync(cityId);
 
             if (addresses.Count == 0)
-                return NotFound();
+                return NoContent();
 
             return Ok(addresses);
         }
@@ -53,13 +53,13 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{addressId}")]
-        public async Task<ActionResult<AddressResponse>> GetAddressById(Guid cityId, Guid addressId)
+        public async Task<ActionResult<AddressOverview>> GetAddressById(Guid cityId, Guid addressId)
         {
             var address = await _address.FindAsync(cityId, addressId);
 
             if (address == null)
                 return NotFound();
-
+            
             return Ok(address);
         }
         /// <summary>
@@ -73,7 +73,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost]
-        public async Task<ActionResult<AddressResponse>> PostAddress(Guid cityId, [FromBody] AddressPostBody address)
+        public async Task<ActionResult<AddressOverview>> PostAddress(Guid cityId, [FromBody] AddressPostBody address)
         {
             var a = await _address.CreateAsync(cityId, address);
             return CreatedAtAction(nameof(GetAddressById), new { cityId, addressId = a.Id }, a);
@@ -91,7 +91,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut("{addressId}")]
-        public async Task<ActionResult<AddressResponse>> PutAddress(Guid cityId, Guid addressId, [FromBody] AddressPutBody address)
+        public async Task<ActionResult<AddressOverview>> PutAddress(Guid cityId, Guid addressId, [FromBody] AddressPutBody address)
         {
             var a = await _address.UpdateAsync(cityId, addressId, address);
 

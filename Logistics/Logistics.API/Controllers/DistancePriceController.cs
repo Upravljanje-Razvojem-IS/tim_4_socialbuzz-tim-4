@@ -1,5 +1,5 @@
 ﻿using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.DistancePriceModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,11 +31,11 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet]
-        public async Task<ActionResult<DistancePriceResponse>> GetDistancePrice()
+        public async Task<ActionResult<DistancePriceOverview>> GetDistancePrice()
         {
             var distances = await _distance.BrowseAsync();
             if (distances.Count == 0)
-                return NotFound();
+                return NoContent();
 
             return Ok(distances);
         }
@@ -51,7 +51,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{distanceId}")]
-        public async Task<ActionResult<DistancePriceResponse>> GetDistancePriceById(Guid distanceId)
+        public async Task<ActionResult<DistancePriceOverview>> GetDistancePriceById(Guid distanceId)
         {
             var distance = await _distance.FindAsync(distanceId);
 
@@ -72,7 +72,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<DistancePriceResponse>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
+        public async Task<ActionResult<DistancePriceOverview>> PostDistancePrice([FromBody] DistancePricePostBody distancePrice)
         {
             var distance = await _distance.CreateAsync(distancePrice);
 
@@ -91,7 +91,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPut("{distanceId}")]
-        public async Task<ActionResult<DistancePriceResponse>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
+        public async Task<ActionResult<DistancePriceOverview>> PutDistancePrice(Guid distanceId, [FromBody] DistancePricePutBody distancePrice)
         {
             var distance = await _distance.UpdateAsync(distanceId, distancePrice);
 

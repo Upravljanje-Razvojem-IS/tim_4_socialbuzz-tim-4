@@ -1,18 +1,17 @@
-﻿using Logistics.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.AddressModels
 {
     /// <summary>
-    /// Address response model
+    /// Address confirmation model
     /// </summary>
-    public class AddressResponse
+    public class AddressConfirmation
     {
         /// <summary>
-        /// Id of AddressResponse
+        /// Id of AddressConfirmation
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
@@ -23,9 +22,5 @@ namespace Logistics.API.Models
         /// Address number
         /// </summary>
         public int Number { get; set; }
-        /// <summary>
-        /// Id of Address City
-        /// </summary>
-        public Guid CityId { get; set; }
     }
 }

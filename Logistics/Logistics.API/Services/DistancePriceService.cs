@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.DistancePriceModels;
 using Logistics.Core.Entities;
 using Logistics.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -23,24 +23,24 @@ namespace Logistics.API.Services
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyCollection<DistancePriceResponse>> BrowseAsync()
+        public async Task<IReadOnlyCollection<DistancePriceOverview>> BrowseAsync()
         {
             var distances = await _context.DistancePrices
-                .ProjectTo<DistancePriceResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<DistancePriceOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             return await Task.FromResult(distances);
         }
 
-        public async Task<DistancePriceResponse> FindAsync(Guid id)
+        public async Task<DistancePriceOverview> FindAsync(Guid id)
         {
             var distance = await _context.DistancePrices
-                .ProjectTo<DistancePriceResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<DistancePriceOverview>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
             return await Task.FromResult(distance);
         }
 
-        public async Task<DistancePriceResponse> CreateAsync(DistancePricePostBody distancePrice)
+        public async Task<DistancePriceOverview> CreateAsync(DistancePricePostBody distancePrice)
         {
             DistancePrice distance = new DistancePrice
             {
@@ -53,10 +53,10 @@ namespace Logistics.API.Services
             await _context.DistancePrices.AddAsync(distance);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<DistancePriceResponse>(distance));
+            return await Task.FromResult(_mapper.Map<DistancePriceOverview>(distance));
         }
 
-        public async Task<DistancePriceResponse> UpdateAsync(Guid id, DistancePricePutBody distancePrice)
+        public async Task<DistancePriceOverview> UpdateAsync(Guid id, DistancePricePutBody distancePrice)
         {
             var distance = await _context.DistancePrices.FirstOrDefaultAsync(e => e.Id == id);
 
@@ -69,7 +69,7 @@ namespace Logistics.API.Services
 
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<DistancePriceResponse>(distance));
+            return await Task.FromResult(_mapper.Map<DistancePriceOverview>(distance));
         }
 
         public async Task DeleteAsync(Guid id)

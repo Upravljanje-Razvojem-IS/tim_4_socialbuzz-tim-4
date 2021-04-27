@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.WeightRangeModels
 {
     /// <summary>
-    /// WeightRange response model
+    /// WEightRange Confirmation model
     /// </summary>
-    public class WeightRangeResponse
+    public class WeightRangeConfirmation
     {
         /// <summary>
         /// weight range id

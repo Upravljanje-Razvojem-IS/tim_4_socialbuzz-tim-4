@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.DistancePriceModels
 {
     /// <summary>
-    /// DistancePrice put model
+    /// DistancePriceConfirmation model
     /// </summary>
-    public class DistancePricePutBody
+    public class DistancePriceConfirmation
     {
+        /// <summary>
+        /// DistancePrice confirmation model Id
+        /// </summary>
+        public Guid Id { get; set; }
         /// <summary>
         /// MinimalDistance for price
         /// </summary>

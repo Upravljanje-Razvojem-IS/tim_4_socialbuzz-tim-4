@@ -25,23 +25,23 @@ namespace Logistics.API.Services
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyCollection<PurchaseResponse>> BrowsePurchases()
+        public async Task<IReadOnlyCollection<PurchaseOverview>> BrowsePurchases()
         {
             var purchases = await _context.Purchases
-                .ProjectTo<PurchaseResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<PurchaseOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             return await Task.FromResult(purchases);
         }
 
-        public async Task<PurchaseResponse> FindPurchase(Guid id)
+        public async Task<PurchaseOverview> FindPurchase(Guid id)
         {
             var purchase = await _context.Purchases
-                .ProjectTo<PurchaseResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<PurchaseOverview>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
             return await Task.FromResult(purchase);
         }
 
-        public async Task<PurchaseResponse> CreatePurchase(PurchasePostBody purchase)
+        public async Task<PurchaseOverview> CreatePurchase(PurchasePostBody purchase)
         {
             var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
             fromAddress.City = await _context.Cities.FirstOrDefaultAsync(e => e.Id == fromAddress.CityId);
@@ -78,10 +78,10 @@ namespace Logistics.API.Services
             await _context.Purchases.AddAsync(p);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<PurchaseResponse>(p));
+            return await Task.FromResult(_mapper.Map<PurchaseOverview>(p));
         }
 
-        public async Task<PurchaseResponse> UpdatePurchase(Guid id, PurchasePutBody purchase)
+        public async Task<PurchaseOverview> UpdatePurchase(Guid id, PurchasePutBody purchase)
         {
             var p = await _context.Purchases.FirstOrDefaultAsync(e => e.Id == id);
             if (p == null)
@@ -123,7 +123,7 @@ namespace Logistics.API.Services
 
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<PurchaseResponse>(p));
+            return await Task.FromResult(_mapper.Map<PurchaseOverview>(p));
         }
 
         public async Task DeletePurchase(Guid id)

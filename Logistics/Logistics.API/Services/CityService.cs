@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.CityModels;
 using Logistics.Core.Entities;
 using Logistics.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -23,26 +23,26 @@ namespace Logistics.API.Services
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyCollection<CityResponseBody>> BrowseAsync()
+        public async Task<IReadOnlyCollection<CityOverview>> BrowseAsync()
         {
             var cities = await _context.Cities
-                .ProjectTo<CityResponseBody>(_mapper.ConfigurationProvider)
+                .ProjectTo<CityOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return await Task.FromResult(cities);
         }
 
-        public async Task<CityResponseBody> FindAsync(Guid id)
+        public async Task<CityOverview> FindAsync(Guid id)
         {
 
             var city = await _context.Cities
-                .ProjectTo<CityResponseBody>(_mapper.ConfigurationProvider)
+                .ProjectTo<CityOverview>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
             return await Task.FromResult(city);
         }
 
-        public async Task<CityResponseBody> CreateAsync(CityPostBody city)
+        public async Task<CityOverview> CreateAsync(CityPostBody city)
         {
             City c = new City
             {
@@ -56,10 +56,10 @@ namespace Logistics.API.Services
             await _context.Cities.AddAsync(c);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<CityResponseBody>(c));
+            return await Task.FromResult(_mapper.Map<CityOverview>(c));
         }
 
-        public async Task<CityResponseBody> UpdateAsync(Guid id, CityPutBody city)
+        public async Task<CityOverview> UpdateAsync(Guid id, CityPutBody city)
         {
             var c = await _context.Cities
                 .FirstOrDefaultAsync(e => e.Id == id);
@@ -74,7 +74,7 @@ namespace Logistics.API.Services
 
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<CityResponseBody>(c));
+            return await Task.FromResult(_mapper.Map<CityOverview>(c));
         }
 
         public async Task DeleteAsync(Guid id)

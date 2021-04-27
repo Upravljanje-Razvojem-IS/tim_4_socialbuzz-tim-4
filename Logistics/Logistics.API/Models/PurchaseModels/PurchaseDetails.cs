@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.PurchaseModels
 {
     /// <summary>
-    /// purchase response model
+    /// Purchase details model
     /// </summary>
-    public class PurchaseResponse
+    public class PurchaseDetails
     {
         public Guid Id { get; set; }
         /// <summary>
-        /// Id of purchase item
+        /// Id of details item
         /// </summary>
         public Guid ItemId { get; set; }
 

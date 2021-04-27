@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Logistics.API.Models;
+using Logistics.API.Models.DistancePriceModels;
 using Logistics.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Logistics.API.MapperProfiles
     {
         public DistancePriceProfile()
         {
-            CreateMap<DistancePrice, DistancePriceResponse>();
+            CreateMap<DistancePrice, DistancePriceOverview>();
         }
     }
 }

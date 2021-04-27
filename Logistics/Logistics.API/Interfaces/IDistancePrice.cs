@@ -1,4 +1,4 @@
-﻿using Logistics.API.Models;
+﻿using Logistics.API.Models.DistancePriceModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ namespace Logistics.API.Interfaces
 {
     public interface IDistancePrice
     {
-        Task<IReadOnlyCollection<DistancePriceResponse>> BrowseAsync();
-        Task<DistancePriceResponse> FindAsync(Guid id);
-        Task<DistancePriceResponse> CreateAsync(DistancePricePostBody distancePrice);
-        Task<DistancePriceResponse> UpdateAsync(Guid id, DistancePricePutBody distancePrice);
+        Task<IReadOnlyCollection<DistancePriceOverview>> BrowseAsync();
+        Task<DistancePriceOverview> FindAsync(Guid id);
+        Task<DistancePriceOverview> CreateAsync(DistancePricePostBody distancePrice);
+        Task<DistancePriceOverview> UpdateAsync(Guid id, DistancePricePutBody distancePrice);
         Task DeleteAsync(Guid id);
     }
 }

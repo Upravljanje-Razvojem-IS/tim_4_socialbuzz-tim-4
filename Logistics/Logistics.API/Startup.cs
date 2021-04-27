@@ -8,6 +8,10 @@ using Logistics.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
+using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 
@@ -33,8 +38,19 @@ namespace Logistics.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
+             custom exceptioni za svaki return null
+            refactor
+            logger
+            Validation entiteta,
+            global exception,
+            logger
+             */
 
-            services.AddControllers();
+            services.AddControllers(setup =>
+            {
+                setup.ReturnHttpNotAcceptable = true;
+            });
             services.AddMvc().AddFluentValidation();
 
             services.AddTransient<IValidator<Address>, AddressConfiguration>();
@@ -101,6 +117,8 @@ namespace Logistics.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
 
             app.UseHttpsRedirection();
 

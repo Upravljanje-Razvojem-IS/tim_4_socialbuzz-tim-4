@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.WeightRangeModels;
 using Logistics.Core.Entities;
 using Logistics.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -23,23 +23,23 @@ namespace Logistics.API.Services
             _mapper = mapper;
         }
 
-        public async Task<IReadOnlyCollection<WeightRangeResponse>> BrowseAsync()
+        public async Task<IReadOnlyCollection<WeightRangeOverview>> BrowseAsync()
         {
             var weights = await _context.WeightRanges
-                .ProjectTo<WeightRangeResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<WeightRangeOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return weights;
         }
-        public async Task<WeightRangeResponse> FindAsync(Guid id)
+        public async Task<WeightRangeOverview> FindAsync(Guid id)
         {
             var weight = await _context.WeightRanges
-                .ProjectTo<WeightRangeResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<WeightRangeOverview>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
             return weight;
         }
 
-        public async Task<WeightRangeResponse> CreateAsync(WeightRangePostBody weightRange)
+        public async Task<WeightRangeOverview> CreateAsync(WeightRangePostBody weightRange)
         {
             WeightRange weight = new WeightRange
             {
@@ -52,10 +52,10 @@ namespace Logistics.API.Services
             await _context.WeightRanges.AddAsync(weight);
             await _context.SaveChangesAsync();
 
-            return await Task.FromResult(_mapper.Map<WeightRangeResponse>(weight));
+            return await Task.FromResult(_mapper.Map<WeightRangeOverview>(weight));
         }
 
-        public async Task<WeightRangeResponse> UpdateAsync(Guid id, WeightRangePutBody weightRange)
+        public async Task<WeightRangeOverview> UpdateAsync(Guid id, WeightRangePutBody weightRange)
         {
             var weight = await _context.WeightRanges.FirstOrDefaultAsync(e => e.Id == id);
 
@@ -67,7 +67,7 @@ namespace Logistics.API.Services
             weight.PriceCoefficient = weightRange.PriceCoefficient;
 
             await _context.SaveChangesAsync();
-            return await Task.FromResult(_mapper.Map<WeightRangeResponse>(weight));
+            return await Task.FromResult(_mapper.Map<WeightRangeOverview>(weight));
         }
 
         public async Task DeleteAsync(Guid id)

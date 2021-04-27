@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.CityModels
 {
     /// <summary>
-    /// City response model
+    /// City overview model
     /// </summary>
-    public class CityResponseBody
+    public class CityOverview
     {
         /// <summary>
-        /// City response Id
+        /// City overview Id
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>

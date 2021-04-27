@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Models
+namespace Logistics.API.Models.WeightRangeModels
 {
     /// <summary>
-    /// WeightRange post model
+    /// WeightRange response model
     /// </summary>
-    public class WeightRangePostBody
+    public class WeightRangeOverview
     {
+        /// <summary>
+        /// weight range id
+        /// </summary>
+        public Guid Id { get; set; }
         /// <summary>
         /// MinimalWeight for price coefficient
         /// </summary>
@@ -18,9 +22,5 @@ namespace Logistics.API.Models
         /// MaximalWeight for price coefficient
         /// </summary>
         public float MaximalWeight { get; set; }
-        /// <summary>
-        /// coefficient for calculating price
-        /// </summary>
-        public double PriceCoefficient { get; set; }
     }
 }

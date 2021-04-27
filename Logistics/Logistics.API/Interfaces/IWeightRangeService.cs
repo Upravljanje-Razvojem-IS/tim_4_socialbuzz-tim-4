@@ -1,4 +1,4 @@
-﻿using Logistics.API.Models;
+﻿using Logistics.API.Models.WeightRangeModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ namespace Logistics.API.Interfaces
 {
     public interface IWeightRangeService
     {
-        Task<IReadOnlyCollection<WeightRangeResponse>> BrowseAsync();
-        Task<WeightRangeResponse> FindAsync(Guid id);
-        Task<WeightRangeResponse> CreateAsync(WeightRangePostBody weightRange);
-        Task<WeightRangeResponse> UpdateAsync(Guid id, WeightRangePutBody weightRange);
+        Task<IReadOnlyCollection<WeightRangeOverview>> BrowseAsync();
+        Task<WeightRangeOverview> FindAsync(Guid id);
+        Task<WeightRangeOverview> CreateAsync(WeightRangePostBody weightRange);
+        Task<WeightRangeOverview> UpdateAsync(Guid id, WeightRangePutBody weightRange);
         Task DeleteAsync(Guid id);
     }
 }

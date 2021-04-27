@@ -27,15 +27,15 @@ namespace Logistics.API.Controllers
         /// </summary>
         /// <returns>List of purchases</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet]
-        public async Task<ActionResult<PurchaseResponse>> GetPurchases()
+        public async Task<ActionResult<PurchaseOverview>> GetPurchases()
         {
             var purchases = await _purchase.BrowsePurchases();
             if (purchases.Count == 0)
-                return NotFound();
+                return NoContent();
             return Ok(purchases);
         }
 
@@ -49,7 +49,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{purchaseId}")]
-        public async Task<ActionResult<PurchaseResponse>> GetPurchaseById(Guid purchaseId)
+        public async Task<ActionResult<PurchaseOverview>> GetPurchaseById(Guid purchaseId)
         {
             var purchase = await _purchase.FindPurchase(purchaseId);
             if (purchase == null)
@@ -67,7 +67,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost]
-        public async Task<ActionResult<PurchaseResponse>> PostPurchase(PurchasePostBody purchase)
+        public async Task<ActionResult<PurchaseOverview>> PostPurchase(PurchasePostBody purchase)
         {
             var p = await _purchase.CreatePurchase(purchase);
             if(p!=null)
@@ -86,7 +86,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut("{purchaseId}")]
-        public async Task<ActionResult<PurchaseResponse>> PutPurchase(Guid purchaseId, PurchasePutBody purchase)
+        public async Task<ActionResult<PurchaseOverview>> PutPurchase(Guid purchaseId, PurchasePutBody purchase)
         {
             var p = await _purchase.UpdatePurchase(purchaseId, purchase);
             if (p == null)

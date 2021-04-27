@@ -1,4 +1,4 @@
-﻿using Logistics.API.Models;
+﻿using Logistics.API.Models.CityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ namespace Logistics.API.Interfaces
 {
     public interface ICityService
     {
-        Task<IReadOnlyCollection<CityResponseBody>> BrowseAsync();
-        Task<CityResponseBody> FindAsync(Guid id);
-        Task<CityResponseBody> CreateAsync(CityPostBody city);
-        Task<CityResponseBody> UpdateAsync(Guid id, CityPutBody city);
+        Task<IReadOnlyCollection<CityOverview>> BrowseAsync();
+        Task<CityOverview> FindAsync(Guid id);
+        Task<CityOverview> CreateAsync(CityPostBody city);
+        Task<CityOverview> UpdateAsync(Guid id, CityPutBody city);
         Task DeleteAsync(Guid id);
     }
 }

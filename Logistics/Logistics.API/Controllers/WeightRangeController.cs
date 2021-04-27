@@ -1,5 +1,5 @@
 ﻿using Logistics.API.Interfaces;
-using Logistics.API.Models;
+using Logistics.API.Models.WeightRangeModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +31,12 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet]
-        public async Task<ActionResult<WeightRangeResponse>> GetWeightRange()
+        public async Task<ActionResult<WeightRangeOverview>> GetWeightRange()
         {
             var weight = await _weight.BrowseAsync();
 
             if (weight.Count == 0)
-                return NotFound();
+                return NoContent();
             return Ok(weight);
         }
 
@@ -51,7 +51,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{weightId}")]
-        public async Task<ActionResult<WeightRangeResponse>> GetWeightRangeById(Guid weightId)
+        public async Task<ActionResult<WeightRangeOverview>> GetWeightRangeById(Guid weightId)
         {
             var weight = await _weight.FindAsync(weightId);
 
@@ -71,7 +71,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<WeightRangeResponse>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
+        public async Task<ActionResult<WeightRangeOverview>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
         {
             var weight = await _weight.CreateAsync(weightRange);
             return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = weight.Id }, weight);
@@ -89,7 +89,7 @@ namespace Logistics.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Admin")]
         [HttpPut("{weightId}")]
-        public async Task<ActionResult<WeightRangeResponse>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
+        public async Task<ActionResult<WeightRangeOverview>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
         {
             var weight = await _weight.UpdateAsync(weightId, weightRange);
             if (weight == null)
