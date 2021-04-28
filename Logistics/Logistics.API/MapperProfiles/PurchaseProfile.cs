@@ -13,6 +13,8 @@ namespace Logistics.API.MapperProfiles
         public PurchaseProfile()
         {
             CreateMap<Purchase, PurchaseOverview>();
+            CreateMap<Purchase, PurchaseDetails>();
+            CreateMap<Purchase, PurchaseConfirmation>();
         }
     }
 }

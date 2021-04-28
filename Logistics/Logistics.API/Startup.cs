@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Logistics.API.Interfaces;
+using Logistics.API.MockLogger;
 using Logistics.API.Services;
 using Logistics.Core.Entities;
 using Logistics.Infrastructure;
@@ -101,6 +102,8 @@ namespace Logistics.API
             services.AddScoped<IDistancePrice, DistancePriceService>();
             services.AddScoped<IWeightRangeService, WeightRangeService>();
             services.AddScoped<IPurchaseService, PurchaseService>();
+
+            services.AddSingleton<IFakeLogger, FakeLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Logistics.API.Interfaces;
+using Logistics.API.MockLogger;
 using Logistics.API.Models.PurchaseModels;
 using Logistics.Core.BusinessLogic;
 using Logistics.Core.Entities;
@@ -18,30 +19,34 @@ namespace Logistics.API.Services
     {
         private readonly LogisticsDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IFakeLogger _logger;
 
-        public PurchaseService(LogisticsDbContext context, IMapper mapper)
+        public PurchaseService(LogisticsDbContext context, IMapper mapper, IFakeLogger logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
-        public async Task<IReadOnlyCollection<PurchaseOverview>> BrowsePurchases()
+        public async Task<IReadOnlyCollection<PurchaseOverview>> BrowseAsync()
         {
             var purchases = await _context.Purchases
                 .ProjectTo<PurchaseOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+            _logger.Log("Purchase BrowseAsync() executed!");
             return await Task.FromResult(purchases);
         }
 
-        public async Task<PurchaseDetails> FindPurchase(Guid id)
+        public async Task<PurchaseDetails> FindAsync(Guid id)
         {
-            var purchase = await _context.Purchases
+            var purchaseById = await _context.Purchases
                 .ProjectTo<PurchaseDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
-            return await Task.FromResult(purchase);
+            _logger.Log("Purchase BrowseAsync() executed!");
+            return await Task.FromResult(purchaseById);
         }
 
-        public async Task<PurchaseConfirmation> CreatePurchase(PurchasePostBody purchase)
+        public async Task<PurchaseConfirmation> CreateAsync(PurchasePostBody purchase)
         {
             var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
             fromAddress.City = await _context.Cities.FirstOrDefaultAsync(e => e.Id == fromAddress.CityId);
@@ -53,7 +58,7 @@ namespace Logistics.API.Services
             if (fromAddress == null || toAddress == null || item == null || purchase.Pieces == 0)
                 return null;
 
-            Purchase p = new Purchase
+            Purchase p = new()
             {
                 Id = Guid.NewGuid(),
                 ItemId = item.Id,
@@ -61,27 +66,22 @@ namespace Logistics.API.Services
                 TotalWeight = 0,
                 TotalPriceWithWeightAndDistance = 0,
                 FromAddressId = purchase.FromAddressId,
-                FromAddess = fromAddress,
-                ToAddressId = purchase.ToAddressId,
-                ToAddress = toAddress
+                ToAddressId = purchase.ToAddressId
             };
             p.TotalWeight = item.WeightOfOne * p.Pieces;
-            p.WeightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight <= p.TotalWeight && e.MaximalWeight > p.TotalWeight);
             p.WeightRangeId = p.WeightRange.Id;
-
             p.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
-            p.DistancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance < p.Distance && e.MaximalDistance >= p.Distance);
             p.DistancePriceId = p.DistancePrice.Id;
-
             p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, p.DistancePrice.Price, p.WeightRange.PriceCoefficient);
 
             await _context.Purchases.AddAsync(p);
             await _context.SaveChangesAsync();
+            _logger.Log("Purchase CreateAsync() executed!");
 
             return await Task.FromResult(_mapper.Map<PurchaseConfirmation>(p));
         }
 
-        public async Task<PurchaseConfirmation> UpdatePurchase(Guid id, PurchasePutBody purchase)
+        public async Task<PurchaseConfirmation> UpdateAsync(Guid id, PurchasePutBody purchase)
         {
             var p = await _context.Purchases.FirstOrDefaultAsync(e => e.Id == id);
             if (p == null)
@@ -122,18 +122,21 @@ namespace Logistics.API.Services
             p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, distancePrice.Price, weightRange.PriceCoefficient);
 
             await _context.SaveChangesAsync();
+            _logger.Log("Purchase UpdateAsync() executed!");
 
             return await Task.FromResult(_mapper.Map<PurchaseConfirmation>(p));
         }
 
-        public async Task DeletePurchase(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             var purchase = await _context.Purchases.FirstOrDefaultAsync(e => e.Id == id);
             if (purchase != null)
             {
                 _context.Purchases.Remove(purchase);
                 await _context.SaveChangesAsync();
+                _logger.Log("Purchase DeleteAsync() executed!");
             }
+            _logger.Log("Purchase DeleteAsync() Purchase with given Id doesn't exist");
 
         }
     }

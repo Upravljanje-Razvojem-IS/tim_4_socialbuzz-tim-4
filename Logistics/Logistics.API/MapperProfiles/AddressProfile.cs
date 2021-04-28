@@ -13,6 +13,8 @@ namespace Logistics.API.MapperProfiles
         public AddressProfile()
         {
             CreateMap<Address, AddressOverview>();
+            CreateMap<Address, AddressDetails>();
+            CreateMap<Address, AddressConfirmation>();
         }
     }
 }

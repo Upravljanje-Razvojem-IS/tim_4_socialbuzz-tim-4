@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Logistics.Infrastructure\Logistics.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MockLogger\" />
-  </ItemGroup>
-
 </Project>

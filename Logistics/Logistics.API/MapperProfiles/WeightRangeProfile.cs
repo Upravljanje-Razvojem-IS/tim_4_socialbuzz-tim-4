@@ -13,6 +13,8 @@ namespace Logistics.API.MapperProfiles
         public WeightRangeProfile()
         {
             CreateMap<WeightRange, WeightRangeOverview>();
+            CreateMap<WeightRange, WeightRangeDetails>();
+            CreateMap<WeightRange, WeightRangeConfirmation>();
         }
     }
 }

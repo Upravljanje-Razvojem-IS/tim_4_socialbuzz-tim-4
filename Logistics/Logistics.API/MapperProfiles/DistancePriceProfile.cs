@@ -13,6 +13,8 @@ namespace Logistics.API.MapperProfiles
         public DistancePriceProfile()
         {
             CreateMap<DistancePrice, DistancePriceOverview>();
+            CreateMap<DistancePrice, DistancePriceDetails>();
+            CreateMap<DistancePrice, DistancePriceConfirmation>();
         }
     }
 }

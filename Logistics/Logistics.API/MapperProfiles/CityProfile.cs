@@ -13,6 +13,8 @@ namespace Logistics.API.MapperProfiles
         public CityProfile()
         {
             CreateMap<City, CityOverview>();
+            CreateMap<City, CityDetails>();
+            CreateMap<City, CityConfirmation>();
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Logistics.API.Interfaces
 {
     public interface IPurchaseService
     {
-        Task<IReadOnlyCollection<PurchaseOverview>> BrowsePurchases();
-        Task<PurchaseDetails> FindPurchase(Guid id);
-        Task<PurchaseConfirmation> CreatePurchase(PurchasePostBody purchase);
-        Task<PurchaseConfirmation> UpdatePurchase(Guid id, PurchasePutBody purchase);
-        Task DeletePurchase(Guid id);
+        Task<IReadOnlyCollection<PurchaseOverview>> BrowseAsync();
+        Task<PurchaseDetails> FindAsync(Guid id);
+        Task<PurchaseConfirmation> CreateAsync(PurchasePostBody purchase);
+        Task<PurchaseConfirmation> UpdateAsync(Guid id, PurchasePutBody purchase);
+        Task RemoveAsync(Guid id);
 
 
     }

@@ -19,7 +19,7 @@
             <param name="addressId">Id of returned address</param>
             <returns>Address with "addressId"</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.AddressController.PostAddress(System.Guid,Logistics.API.Models.AddressPostBody)">
+        <member name="M:Logistics.API.Controllers.AddressController.PostAddress(System.Guid,Logistics.API.Models.AddressModels.AddressPostBody)">
             <summary>
             Create new Address in City with "cityId" Id
             </summary>
@@ -27,7 +27,7 @@
             <param name="address">New Address body</param>
             <returns>New Address with 201 status code</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.AddressController.PutAddress(System.Guid,System.Guid,Logistics.API.Models.AddressPutBody)">
+        <member name="M:Logistics.API.Controllers.AddressController.PutAddress(System.Guid,System.Guid,Logistics.API.Models.AddressModels.AddressPutBody)">
             <summary>
             Update address with "addressId" Id
             </summary>
@@ -57,14 +57,14 @@
             <param name="cityId">Id of returned city</param>
             <returns>Returns city with "cityId"</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.CityController.PostCity(Logistics.API.Models.CityPostBody)">
+        <member name="M:Logistics.API.Controllers.CityController.PostCity(Logistics.API.Models.CityModels.CityPostBody)">
             <summary>
             Create a new City
             </summary>
             <param name="city">Body of new city</param>
             <returns>Return new city with 201 status code</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.CityController.PutCity(System.Guid,Logistics.API.Models.CityPutBody)">
+        <member name="M:Logistics.API.Controllers.CityController.PutCity(System.Guid,Logistics.API.Models.CityModels.CityPutBody)">
             <summary>
             Update city
             </summary>
@@ -92,14 +92,14 @@
             <param name="distanceId">Id of DistancePrice</param>
             <returns>Distance with "distanceId"</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.DistancePriceController.PostDistancePrice(Logistics.API.Models.DistancePricePostBody)">
+        <member name="M:Logistics.API.Controllers.DistancePriceController.PostDistancePrice(Logistics.API.Models.DistancePriceModels.DistancePricePostBody)">
             <summary>
             Post DistancePrice
             </summary>
             <param name="distancePrice">New DistancePrice body</param>
             <returns>Created DistancePrice with 201</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.DistancePriceController.PutDistancePrice(System.Guid,Logistics.API.Models.DistancePricePutBody)">
+        <member name="M:Logistics.API.Controllers.DistancePriceController.PutDistancePrice(System.Guid,Logistics.API.Models.DistancePriceModels.DistancePricePutBody)">
             <summary>
             Update DistancePrice
             </summary>
@@ -127,14 +127,14 @@
             <param name="purchaseId">Id of Pruchase</param>
             <returns>Purchase with "purchaseId"</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.PurchaseController.PostPurchase(Logistics.API.Models.PurchasePostBody)">
+        <member name="M:Logistics.API.Controllers.PurchaseController.PostPurchase(Logistics.API.Models.PurchaseModels.PurchasePostBody)">
             <summary>
             Create new Purchase
             </summary>
             <param name="purchase">Body of new Purchase</param>
             <returns>New Purchase</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.PurchaseController.PutPurchase(System.Guid,Logistics.API.Models.PurchasePutBody)">
+        <member name="M:Logistics.API.Controllers.PurchaseController.PutPurchase(System.Guid,Logistics.API.Models.PurchaseModels.PurchasePutBody)">
             <summary>
             Update Purchase
             </summary>
@@ -162,14 +162,14 @@
             <param name="weightId">Id of WeightRange</param>
             <returns>WeightRange with "weightId"</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.WeightRangeController.PostWeightRange(Logistics.API.Models.WeightRangePostBody)">
+        <member name="M:Logistics.API.Controllers.WeightRangeController.PostWeightRange(Logistics.API.Models.WeightRangeModels.WeightRangePostBody)">
             <summary>
             Post new WeightRange
             </summary>
             <param name="weightRange">Body of new WeightRange</param>
             <returns>Created WeightRange with 201</returns>
         </member>
-        <member name="M:Logistics.API.Controllers.WeightRangeController.PutWeightRange(System.Guid,Logistics.API.Models.WeightRangePutBody)">
+        <member name="M:Logistics.API.Controllers.WeightRangeController.PutWeightRange(System.Guid,Logistics.API.Models.WeightRangeModels.WeightRangePutBody)">
             <summary>
             Update WeightRange
             </summary>
@@ -184,354 +184,594 @@
             <param name="weightId">Id of deleted WeightRange</param>
             <returns></returns>
         </member>
-        <member name="T:Logistics.API.Models.AddressPostBody">
+        <member name="T:Logistics.API.Models.AddressModels.AddressConfirmation">
             <summary>
-            Address model for post
+            Address confirmation model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressPostBody.Street">
+        <member name="P:Logistics.API.Models.AddressModels.AddressConfirmation.Id">
             <summary>
-            Street in address
+            Id of AddressConfirmation
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressPostBody.Number">
-            <summary>
-            Address number
-            </summary>
-        </member>
-        <member name="T:Logistics.API.Models.AddressPutBody">
-            <summary>
-            Address model for put
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.AddressPutBody.Street">
+        <member name="P:Logistics.API.Models.AddressModels.AddressConfirmation.Street">
             <summary>
             Street in address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressPutBody.Number">
+        <member name="P:Logistics.API.Models.AddressModels.AddressConfirmation.Number">
             <summary>
             Address number
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.AddressResponse">
+        <member name="P:Logistics.API.Models.AddressModels.AddressDetails.Id">
             <summary>
-            Address response model
+            Id of AddressDetails
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressResponse.Id">
-            <summary>
-            Id of AddressResponse
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.AddressResponse.Street">
+        <member name="P:Logistics.API.Models.AddressModels.AddressDetails.Street">
             <summary>
             Street in address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressResponse.Number">
+        <member name="P:Logistics.API.Models.AddressModels.AddressDetails.Number">
             <summary>
             Address number
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.AddressResponse.CityId">
+        <member name="P:Logistics.API.Models.AddressModels.AddressDetails.CityId">
             <summary>
             Id of Address City
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.CityPostBody">
+        <member name="P:Logistics.API.Models.AddressModels.AddressDetails.City">
+            <summary>
+            City Body
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.AddressModels.AddressOverview">
+            <summary>
+            Address overview model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressOverview.Id">
+            <summary>
+            Id of AddressOverview
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressOverview.Street">
+            <summary>
+            Street in address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressOverview.Number">
+            <summary>
+            Address number
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressOverview.CityId">
+            <summary>
+            Id of Address City
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.AddressModels.AddressPostBody">
+            <summary>
+            Address model for post
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressPostBody.Street">
+            <summary>
+            Street in address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressPostBody.Number">
+            <summary>
+            Address number
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.AddressModels.AddressPutBody">
+            <summary>
+            Address model for put
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressPutBody.Street">
+            <summary>
+            Street in address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.AddressModels.AddressPutBody.Number">
+            <summary>
+            Address number
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.CityModels.CityConfirmation">
+            <summary>
+            CityConfirmation model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityConfirmation.Id">
+            <summary>
+            City confirmation Id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityConfirmation.Name">
+            <summary>
+            City Name
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityConfirmation.PostalCode">
+            <summary>
+            City PostalCode
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityConfirmation.Latitude">
+            <summary>
+            City Latitude
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityConfirmation.Longitude">
+            <summary>
+            City Longitude
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityDetails.Id">
+            <summary>
+            City details Id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityDetails.Name">
+            <summary>
+            City Name
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityDetails.PostalCode">
+            <summary>
+            City PostalCode
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityDetails.Latitude">
+            <summary>
+            City Latitude
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityDetails.Longitude">
+            <summary>
+            City Longitude
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.CityModels.CityOverview">
+            <summary>
+            City overview model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityOverview.Id">
+            <summary>
+            City overview Id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityOverview.Name">
+            <summary>
+            City Name
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityOverview.PostalCode">
+            <summary>
+            City PostalCode
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityOverview.Latitude">
+            <summary>
+            City Latitude
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.CityModels.CityOverview.Longitude">
+            <summary>
+            City Longitude
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.CityModels.CityPostBody">
             <summary>
             City post model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPostBody.Name">
+        <member name="P:Logistics.API.Models.CityModels.CityPostBody.Name">
             <summary>
             City Name
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPostBody.PostalCode">
+        <member name="P:Logistics.API.Models.CityModels.CityPostBody.PostalCode">
             <summary>
             City PostalCode
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPostBody.Latitude">
+        <member name="P:Logistics.API.Models.CityModels.CityPostBody.Latitude">
             <summary>
             City Latitude
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPostBody.Longitude">
+        <member name="P:Logistics.API.Models.CityModels.CityPostBody.Longitude">
             <summary>
             City Longitude
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.CityPutBody">
+        <member name="T:Logistics.API.Models.CityModels.CityPutBody">
             <summary>
             City put model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPutBody.Name">
+        <member name="P:Logistics.API.Models.CityModels.CityPutBody.Name">
             <summary>
             City Name
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPutBody.PostalCode">
+        <member name="P:Logistics.API.Models.CityModels.CityPutBody.PostalCode">
             <summary>
             City PostalCode
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPutBody.Latitude">
+        <member name="P:Logistics.API.Models.CityModels.CityPutBody.Latitude">
             <summary>
             City Latitude
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityPutBody.Longitude">
+        <member name="P:Logistics.API.Models.CityModels.CityPutBody.Longitude">
             <summary>
             City Longitude
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.CityResponseBody">
+        <member name="T:Logistics.API.Models.DistancePriceModels.DistancePriceConfirmation">
             <summary>
-            City response model
+            DistancePriceConfirmation model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityResponseBody.Id">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceConfirmation.Id">
             <summary>
-            City response Id
+            DistancePrice confirmation model Id
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityResponseBody.Name">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceConfirmation.MinimalDistance">
             <summary>
-            City Name
+            MinimalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityResponseBody.PostalCode">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceConfirmation.MaximalDistance">
             <summary>
-            City PostalCode
+            MaximalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityResponseBody.Latitude">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceConfirmation.Price">
             <summary>
-            City Latitude
+            Distance price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.CityResponseBody.Longitude">
+        <member name="T:Logistics.API.Models.DistancePriceModels.DistancePriceDetails">
             <summary>
-            City Longitude
+            Distance price details model
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.DistancePricePostBody">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceDetails.Id">
+            <summary>
+            DistancePrice details model Id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceDetails.MinimalDistance">
+            <summary>
+            MinimalDistance for price
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceDetails.MaximalDistance">
+            <summary>
+            MaximalDistance for price
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceDetails.Price">
+            <summary>
+            Distance price
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.DistancePriceModels.DistancePriceOverview">
+            <summary>
+            DistancePrice overview model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceOverview.Id">
+            <summary>
+            DistancePrice overview model Id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceOverview.MinimalDistance">
+            <summary>
+            MinimalDistance for price
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceOverview.MaximalDistance">
+            <summary>
+            MaximalDistance for price
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePriceOverview.Price">
+            <summary>
+            Distance price
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.DistancePriceModels.DistancePricePostBody">
             <summary>
             DistancePrice post model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePostBody.MinimalDistance">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePostBody.MinimalDistance">
             <summary>
             MinimalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePostBody.MaximalDistance">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePostBody.MaximalDistance">
             <summary>
             MaximalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePostBody.Price">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePostBody.Price">
             <summary>
             Distance price
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.DistancePricePutBody">
+        <member name="T:Logistics.API.Models.DistancePriceModels.DistancePricePutBody">
             <summary>
             DistancePrice put model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePutBody.MinimalDistance">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePutBody.MinimalDistance">
             <summary>
             MinimalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePutBody.MaximalDistance">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePutBody.MaximalDistance">
             <summary>
             MaximalDistance for price
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePricePutBody.Price">
+        <member name="P:Logistics.API.Models.DistancePriceModels.DistancePricePutBody.Price">
             <summary>
             Distance price
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.DistancePriceResponse">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseConfirmation.ItemId">
             <summary>
-            DistancePrice response model
+            Id of overview item
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.DistancePriceResponse.Id">
-            <summary>
-            DistancePrice response model Id
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.DistancePriceResponse.MinimalDistance">
-            <summary>
-            MinimalDistance for price
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.DistancePriceResponse.MaximalDistance">
-            <summary>
-            MaximalDistance for price
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.DistancePriceResponse.Price">
-            <summary>
-            Distance price
-            </summary>
-        </member>
-        <member name="T:Logistics.API.Models.PurchasePostBody">
-            <summary>
-            Purchase post model
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePostBody.ItemId">
-            <summary>
-            Id of purchase item
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePostBody.Pieces">
-            <summary>
-            Number of item pieces
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePostBody.FromAddressId">
-            <summary>
-            Id of purchase from address
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePostBody.ToAddressId">
-            <summary>
-            Id of purchase to address
-            </summary>
-        </member>
-        <member name="T:Logistics.API.Models.PurchasePutBody">
-            <summary>
-            Purchase Put model
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePutBody.ItemId">
-            <summary>
-            Id of purchase item
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePutBody.Pieces">
-            <summary>
-            Number of item pieces
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePutBody.FromAddressId">
-            <summary>
-            Id of purchase from address
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchasePutBody.ToAddressId">
-            <summary>
-            Id of purchase to address
-            </summary>
-        </member>
-        <member name="T:Logistics.API.Models.PurchaseResponse">
-            <summary>
-            purchase response model
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.ItemId">
-            <summary>
-            Id of purchase item
-            </summary>
-        </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.WeightRangeId">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseConfirmation.WeightRangeId">
             <summary>
             Id of purchase Weight Range
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.FromAddressId">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseConfirmation.FromAddressId">
             <summary>
             Id of purchase from address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.ToAddressId">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseConfirmation.ToAddressId">
             <summary>
             Id of purchase to address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.Pieces">
+        <member name="T:Logistics.API.Models.PurchaseModels.PurchaseDetails">
+            <summary>
+            Purchase details model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.ItemId">
+            <summary>
+            Id of details item
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.WeightRangeId">
+            <summary>
+            Id of purchase Weight Range
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.FromAddressId">
+            <summary>
+            Id of purchase from address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.ToAddressId">
+            <summary>
+            Id of purchase to address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.Pieces">
             <summary>
             Number of item pieces
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.TotalWeight">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.TotalWeight">
             <summary>
             Purchase total weight
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.PurchaseResponse.TotalPriceWithWeightAndDistance">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseDetails.TotalPriceWithWeightAndDistance">
             <summary>
             purchase total price
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.WeightRangePostBody">
+        <member name="T:Logistics.API.Models.PurchaseModels.PurchaseOverview">
             <summary>
-            WeightRange post model
+            purchase overview model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePostBody.MinimalWeight">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseOverview.ItemId">
             <summary>
-            MinimalWeight for price coefficient
+            Id of overview item
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePostBody.MaximalWeight">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseOverview.WeightRangeId">
             <summary>
-            MaximalWeight for price coefficient
+            Id of purchase Weight Range
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePostBody.PriceCoefficient">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseOverview.FromAddressId">
             <summary>
-            coefficient for calculating price
+            Id of purchase from address
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.WeightRangePutBody">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchaseOverview.ToAddressId">
             <summary>
-            WeightRange put model
+            Id of purchase to address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePutBody.MinimalWeight">
+        <member name="T:Logistics.API.Models.PurchaseModels.PurchasePostBody">
             <summary>
-            MinimalWeight for price coefficient
+            Purchase post model
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePutBody.MaximalWeight">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePostBody.ItemId">
             <summary>
-            MaximalWeight for price coefficient
+            Id of purchase item
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangePutBody.PriceCoefficient">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePostBody.Pieces">
             <summary>
-            coefficient for calculating price
+            Number of item pieces
             </summary>
         </member>
-        <member name="T:Logistics.API.Models.WeightRangeResponse">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePostBody.FromAddressId">
             <summary>
-            WeightRange response model
+            Id of purchase from address
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangeResponse.Id">
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePostBody.ToAddressId">
+            <summary>
+            Id of purchase to address
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.PurchaseModels.PurchasePutBody">
+            <summary>
+            Purchase Put model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePutBody.ItemId">
+            <summary>
+            Id of purchase item
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePutBody.Pieces">
+            <summary>
+            Number of item pieces
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePutBody.FromAddressId">
+            <summary>
+            Id of purchase from address
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.PurchaseModels.PurchasePutBody.ToAddressId">
+            <summary>
+            Id of purchase to address
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.WeightRangeModels.WeightRangeConfirmation">
+            <summary>
+            WEightRange Confirmation model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeConfirmation.Id">
             <summary>
             weight range id
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangeResponse.MinimalWeight">
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeConfirmation.MinimalWeight">
             <summary>
             MinimalWeight for price coefficient
             </summary>
         </member>
-        <member name="P:Logistics.API.Models.WeightRangeResponse.MaximalWeight">
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeConfirmation.MaximalWeight">
             <summary>
             MaximalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.WeightRangeModels.WeightRangeDetails">
+            <summary>
+            weightrange details model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeDetails.Id">
+            <summary>
+            weight range id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeDetails.MinimalWeight">
+            <summary>
+            MinimalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeDetails.MaximalWeight">
+            <summary>
+            MaximalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeDetails.PriceCoefficient">
+            <summary>
+            Coefficient for calculating price
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.WeightRangeModels.WeightRangeOverview">
+            <summary>
+            WeightRange response model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeOverview.Id">
+            <summary>
+            weight range id
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeOverview.MinimalWeight">
+            <summary>
+            MinimalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangeOverview.MaximalWeight">
+            <summary>
+            MaximalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.WeightRangeModels.WeightRangePostBody">
+            <summary>
+            WeightRange post model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePostBody.MinimalWeight">
+            <summary>
+            MinimalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePostBody.MaximalWeight">
+            <summary>
+            MaximalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePostBody.PriceCoefficient">
+            <summary>
+            coefficient for calculating price
+            </summary>
+        </member>
+        <member name="T:Logistics.API.Models.WeightRangeModels.WeightRangePutBody">
+            <summary>
+            WeightRange put model
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePutBody.MinimalWeight">
+            <summary>
+            MinimalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePutBody.MaximalWeight">
+            <summary>
+            MaximalWeight for price coefficient
+            </summary>
+        </member>
+        <member name="P:Logistics.API.Models.WeightRangeModels.WeightRangePutBody.PriceCoefficient">
+            <summary>
+            coefficient for calculating price
             </summary>
         </member>
     </members>
