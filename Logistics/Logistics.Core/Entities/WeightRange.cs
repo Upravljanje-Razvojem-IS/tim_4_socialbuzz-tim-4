@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,17 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Id of WeightRange
         /// </summary>
+        [Key]
         public Guid Id { get; set; }
         /// <summary>
         /// MinimalWeight for coefficient
         /// </summary>
+        [Range(0, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
         public float MinimalWeight { get; set; }
         /// <summary>
         /// MaximalWeight for coefficient
         /// </summary>
+        [Range(0, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
         public float MaximalWeight { get; set; }
         /// <summary>
         /// Coefficient for calculating price

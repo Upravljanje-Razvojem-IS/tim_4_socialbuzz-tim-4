@@ -58,7 +58,7 @@ namespace Logistics.API.Services
             if (fromAddress == null || toAddress == null || item == null || purchase.Pieces == 0)
                 return null;
 
-            Purchase p = new()
+            Purchase newPurchase = new()
             {
                 Id = Guid.NewGuid(),
                 ItemId = item.Id,
@@ -68,17 +68,17 @@ namespace Logistics.API.Services
                 FromAddressId = purchase.FromAddressId,
                 ToAddressId = purchase.ToAddressId
             };
-            p.TotalWeight = item.WeightOfOne * p.Pieces;
-            p.WeightRangeId = p.WeightRange.Id;
-            p.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
-            p.DistancePriceId = p.DistancePrice.Id;
-            p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, p.DistancePrice.Price, p.WeightRange.PriceCoefficient);
+            newPurchase.TotalWeight = item.WeightOfOne * newPurchase.Pieces;
+            newPurchase.WeightRangeId = newPurchase.WeightRange.Id;
+            newPurchase.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
+            newPurchase.DistancePriceId = newPurchase.DistancePrice.Id;
+            newPurchase.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(newPurchase.Pieces, item.PriceOfOne, newPurchase.DistancePrice.Price, newPurchase.WeightRange.PriceCoefficient);
 
-            await _context.Purchases.AddAsync(p);
+            await _context.Purchases.AddAsync(newPurchase);
             await _context.SaveChangesAsync();
             _logger.Log("Purchase CreateAsync() executed!");
 
-            return await Task.FromResult(_mapper.Map<PurchaseConfirmation>(p));
+            return await Task.FromResult(_mapper.Map<PurchaseConfirmation>(newPurchase));
         }
 
         public async Task<PurchaseConfirmation> UpdateAsync(Guid id, PurchasePutBody purchase)

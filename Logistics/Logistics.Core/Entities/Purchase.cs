@@ -1,6 +1,8 @@
 ﻿using Logistics.Core.Mock;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Purchase Id
         /// </summary>
+        [Key]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -25,23 +28,31 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Item pieces
         /// </summary>
+        [Range(0, 100)]
+        [Required]
         public int Pieces { get; set; }
         /// <summary>
         /// Total weight of item
         /// </summary>
+        [Range(0, 40, ErrorMessage = "Total weight must be between 0 and 40 kilograms")]
+        [Required]
         public double TotalWeight { get; set; }
         /// <summary>
         /// Total price
         /// </summary>
+        [Required]
         public double TotalPriceWithWeightAndDistance { get; set; }
         /// <summary>
         /// Distance for delivery
         /// </summary>
+        [Required]
         public double Distance { get; set; }
 
         /// <summary>
         /// If of WeightRange
         /// </summary>
+        [Required]
+        [ForeignKey("WeightRange")]
         public Guid WeightRangeId { get; set; }
         /// <summary>
         /// WeightRange
@@ -51,6 +62,8 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Id of DistancePrice
         /// </summary>
+        [Required]
+        [ForeignKey("DistancePrice")]
         public Guid DistancePriceId { get; set; }
         /// <summary>
         /// DistancePrice
@@ -60,6 +73,8 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Id of FromAddress
         /// </summary>
+        [Required]
+        [ForeignKey("FromAddess")]
         public Guid FromAddressId { get; set; }
         /// <summary>
         /// FromAddress
@@ -69,6 +84,8 @@ namespace Logistics.Core.Entities
         /// <summary>
         /// Id of ToAddress
         /// </summary>
+        [Required]
+        [ForeignKey("ToAddress")]
         public Guid ToAddressId { get; set; }
         /// <summary>
         /// ToAddress
