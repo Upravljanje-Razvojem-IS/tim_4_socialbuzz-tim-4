@@ -16,10 +16,9 @@
             <returns></returns>
             <remarks>
             Primer zahteva Get all comments
-            GET 'https://localhost:44200/api/comments' \
+            GET 'http://localhost:44200/api/comments' \
                 --header 'Authorization: Bearer 123456'
             </remarks>
-            <param name="key">Authorization Header Bearer Key Value</param>
             <response code="200">Uspesno vracena lista svih komenatara.</response>
             <response code="401">Neuspesna autorizacija korisnika.</response>
             <response code="404">Nisu pronadjeni komementari ili ne postoji nijedan komentar.</response>
@@ -31,7 +30,7 @@
             <returns></returns>
             <remarks>
             Primer zahteva Get comments by post ID
-            GET 'https://localhost:44200/api/comments/postID' \
+            GET 'http://localhost:44200/api/comments/postID' \
              Primer zahteva koji prolazi \
                 --header 'Authorization: Bearer 123456' \
                 --param  'postID = 3' \
@@ -58,7 +57,7 @@
             <param name="userId">ID korisnika koji salje zahtev za kreiranjem komentara</param>
             <returns></returns>
             <remarks>
-            /// POST 'https://localhost:44200/api/comments/' \
+            POST 'http://localhost:44200/api/comments/' \
             Primer zahteva za dodavanje novog komentara koji je uspesan \
              --header 'Authorization: 123456' \
              --param 'userID = 1' \
@@ -86,7 +85,7 @@
             <param name="updatedComment">Model komentara koji se modifikuje</param>
             <returns></returns>
             <remarks>
-            PUT 'https://localhost:44200/api/comments' \
+            PUT 'http://localhost:44200/api/comments' \
             Primer zahteva za azuriranje postojeceg komentara    \
              --header 'Authorization: Bearer 123456'  \
              { \
@@ -108,7 +107,7 @@
             <returns></returns>
             <remarks>        
             Primer zahteva za brisanje komentara
-            DELETE 'https://localhost:44200/api/comments' \
+            DELETE 'http://localhost:44200/api/comments' \
                 --header 'Authorization: Bearer 123456' \
                 --param  'CommentID = 88cc4f42-f0e4-4795-d71f-08d9071b602e'
             </remarks>
@@ -126,7 +125,7 @@
             <returns></returns>
              <remarks>
             Primer zahteva za prikaz dostupnih HTTP metoda
-            GET 'https://localhost:44200/api/comments' \
+            OPTIONS 'http://localhost:44200/api/comments' \
             </remarks>
             <response code="200">Uspesno prikazane dostupne metode.</response>
         </member>

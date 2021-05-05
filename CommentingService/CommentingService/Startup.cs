@@ -7,6 +7,7 @@ namespace CommentingService
     using CommentingService.Data.FolllowingMock;
     using CommentingService.Data.PostMock;
     using CommentingService.LoggerHelper;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -14,9 +15,13 @@ namespace CommentingService
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Text;
 
     public class Startup
     {
@@ -47,7 +52,7 @@ namespace CommentingService
             services.AddDbContext<ContextDB>(o => o.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             services.AddSwaggerGen(setupAction =>
-            {
+            {            
                 setupAction.SwaggerDoc("CommentingApiSpecification",
                      new Microsoft.OpenApi.Models.OpenApiInfo() //definise kako se kreira swagger dokument
                      {
@@ -70,6 +75,29 @@ namespace CommentingService
 
                 setupAction.IncludeXmlComments(xmlCommentsPath); //da bi swagger mogao citati xml komenatare
 
+                /*setupAction.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme()
+                {
+                    Type = SecuritySchemeType.ApiKey,
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Description = "API KeyJWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Scheme = "ApiKeyScheme"
+                });
+                var key = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Authorization"
+                    },
+                    In = ParameterLocation.Header
+                };
+
+                var requirement = new OpenApiSecurityRequirement
+                {
+                    {key, new List<string>() }
+                };
+                setupAction.AddSecurityRequirement(requirement);*/
             });
 
         }

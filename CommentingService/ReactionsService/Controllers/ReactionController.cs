@@ -62,7 +62,7 @@ namespace ReactionsService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         [HttpHead]
-        public ActionResult<List<ReactionsDto>> GetAllReactions([FromHeader(Name = "Authorization")] string key)
+        public ActionResult<List<ReactionsDto>> GetAllReactions([FromHeader] string key)
         {
             if (!authorization.AuthorizeUser(key))
             {
@@ -106,7 +106,7 @@ namespace ReactionsService.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("{postID}")]
-        public ActionResult<List<ReactionsDto>> GetReactionsByPostID([FromHeader(Name = "Authorization")] string key, [FromQuery] int postID, [FromQuery] int userID)
+        public ActionResult<List<ReactionsDto>> GetReactionsByPostID([FromHeader] string key, [FromQuery] int postID, [FromQuery] int userID)
         {
             if (!authorization.AuthorizeUser(key))
             {
@@ -178,7 +178,7 @@ namespace ReactionsService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPost]
-        public ActionResult<ReactionCreationDto> CreateReaction([FromHeader(Name = "Authorization")] string key, [FromBody] ReactionCreationDto reaction, [FromQuery] int userId)
+        public ActionResult<ReactionCreationDto> CreateReaction([FromHeader] string key, [FromBody] ReactionCreationDto reaction, [FromQuery] int userId)
         {
 
             try
@@ -261,7 +261,7 @@ namespace ReactionsService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPut]
-        public IActionResult UpdateReaction([FromHeader(Name = "Authorization")] string key, [FromBody] ReactionModifyingDto updatedReaction)
+        public IActionResult UpdateReaction([FromHeader] string key, [FromBody] ReactionModifyingDto updatedReaction)
         {
             if (!authorization.AuthorizeUser(key))
             {
@@ -328,7 +328,7 @@ namespace ReactionsService.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete]
-        public IActionResult DeleteReaction([FromHeader(Name = "Authorization")] string key, [FromQuery] Guid reactionID)
+        public IActionResult DeleteReaction([FromHeader] string key, [FromQuery] Guid reactionID)
         {
             if (!authorization.AuthorizeUser(key))
             {

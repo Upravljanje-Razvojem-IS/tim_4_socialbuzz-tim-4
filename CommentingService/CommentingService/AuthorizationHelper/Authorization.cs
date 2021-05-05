@@ -17,12 +17,11 @@ namespace CommentingService.AuthorizationHelper
 
         public bool AuthorizeUser(string key)
         {
-
             if (!key.StartsWith("Bearer"))
             {
                 return false;
             }
-
+                        
             var keyOnly = key.Substring(key.IndexOf("Bearer") + 7);
             var storedKey = configuration.GetValue<string>("Authorization:Key");
 

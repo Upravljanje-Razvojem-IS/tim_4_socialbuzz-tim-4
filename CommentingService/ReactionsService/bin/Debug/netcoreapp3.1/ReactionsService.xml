@@ -30,7 +30,7 @@
             </summary>
             <returns></returns>
             <remarks>
-            /// GET 'http://localhost:44300/api/reactions/postID' \
+            GET 'http://localhost:44300/api/reactions/postID' \
             Primer zahteva koji je uspesan \
                 --header 'Authorization: Bearer 123456' \
                 --param  'PostID = 1' \
@@ -56,7 +56,7 @@
             <param name="userId">ID korisnika koji salje zahtev za kreiranjem reakcije na objavi</param>
             <returns></returns>
             <remarks>
-            /// POST 'http://localhost:44300/api/reactions/' \
+            POST 'http://localhost:44300/api/reactions/' \
             Primer zahteva za uspesno dodavanje nove reakcije \
              --header 'Authorization: Bearer 123456' \
              --param 'UserID = 1' \
@@ -132,7 +132,7 @@
             <returns></returns>
             <remarks>
             Primer zahteva za prikaz dostupnih HTTP metoda
-            GET 'https://localhost:44300/api/reactions' \
+            OPTIONS 'https://localhost:44300/api/reactions' \
             </remarks>
             <response code="200">Uspesno prikazane dostupne metode.</response>
         </member>
@@ -163,7 +163,7 @@
             <returns></returns>
             <remarks>
             Primer uspesnog zahteva Get Type Of Reaction By ID
-            GET 'https://localhost:44300/api/reactiontypes/typeOfReactionID' \
+            GET 'http://localhost:44300/api/reactiontypes/typeOfReactionID' \
                 --header 'Authorization: Bearer 123456'  \
                 --param  'typeOfReactionID = 1'  
             </remarks>
@@ -182,7 +182,7 @@
             <returns></returns>
             <remarks>
             Primer uspsnog zahteva za dodavanje novog tipa reakcije \
-            POST https://localhost:4430/api/reactiontypes/ \
+            POST 'http://localhost:44300/api/reactiontypes/' \
                  --header 'Authorization: Bearer 123456' \
             {   \
              "ReactionType": "Heart again", \
@@ -201,7 +201,7 @@
             <returns></returns>
             <remarks>
             Primer uspesnog zahteva za azuriranje tipa reakcije \
-            PUT  https://localhost:44300/api/reactiontypes \
+            PUT  'http://localhost:44300/api/reactiontypes' \
                --header 'Authorization: Bearer 123456' \
             { \
             "TypeOfReactionID": 1, \
@@ -220,7 +220,7 @@
             <returns></returns>
             <remarks>
             Primer zahteva za brisanje tipa reakcije
-            DELETE 'https://localhost:44300/api/reactiontypes/' \
+            DELETE 'http://localhost:44300/api/reactiontypes/' \
                 --header 'Authorization: Bearer 123456' \
                 --param  'TypeOfReactionID = 8'
             </remarks>
@@ -238,7 +238,7 @@
             <returns></returns>
             <remarks>
             Primer zahteva za prikaz dostupnih HTTP metoda
-            GET 'https://localhost:44300/api/reactiontypes' \
+            OPTIONS 'http://localhost:44300/api/reactiontypes' \
             </remarks>
             <response code="200">Uspesno prikazane dostupne metode.</response>
         </member>

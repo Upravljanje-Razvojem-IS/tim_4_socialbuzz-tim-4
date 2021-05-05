@@ -14,6 +14,7 @@
     using Microsoft.Extensions.Configuration;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Commenting Kontroler izvrsava CRUD operacije nad podacima />.
@@ -39,6 +40,7 @@
             this.mapper = mapper;
             this.authorization = authorization;
             this.logger = logger;
+
         }
 
         /// <summary>
@@ -59,9 +61,10 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         [HttpHead]
-        public ActionResult<List<CommentDto>> GetComments([FromHeader(Name = "Authorization")] string key)
+        public ActionResult<List<CommentDto>> GetComments([FromHeader] string key)
         {
-            if (!this.authorization.AuthorizeUser(key))
+
+            if (!authorization.AuthorizeUser(key))
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, "User authorization failed!");
             }
@@ -105,7 +108,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("{postID}")]
-        public ActionResult<List<CommentDto>> GetCommentsByPostID([FromHeader(Name = "Authorization")] string key, [FromQuery] int postID, [FromQuery] int userID)
+        public ActionResult<List<CommentDto>> GetCommentsByPostID([FromHeader] string key, [FromQuery] int postID, [FromQuery] int userID)
         {
             if (!this.authorization.AuthorizeUser(key))
             {
@@ -170,7 +173,7 @@
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPost]
-        public ActionResult<CommentCreationDto> CreateComment([FromHeader(Name = "Authorization")] string key, [FromBody] CommentCreationDto comment, [FromQuery] int userId)
+        public ActionResult<CommentCreationDto> CreateComment([FromHeader] string key, [FromBody] CommentCreationDto comment, [FromQuery] int userId)
         {
 
             try
@@ -244,7 +247,7 @@
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Consumes("application/json")]
         [HttpPut]
-        public IActionResult UpdateComment([FromHeader(Name = "Authorization")] string key, [FromBody] CommentModifyingDto updatedComment)
+        public IActionResult UpdateComment([FromHeader] string key, [FromBody] CommentModifyingDto updatedComment)
         {
             if(!authorization.AuthorizeUser(key))
             {
@@ -305,7 +308,7 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete]
-        public IActionResult DeleteComment([FromHeader(Name = "Authorization")] string key, [FromQuery] Guid commentID)
+        public IActionResult DeleteComment([FromHeader] string key, [FromQuery] Guid commentID)
         {
             if(!authorization.AuthorizeUser(key))
             {
