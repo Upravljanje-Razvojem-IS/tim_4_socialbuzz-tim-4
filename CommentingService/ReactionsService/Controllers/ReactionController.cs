@@ -204,7 +204,7 @@ namespace ReactionsService.Controllers
 
                 if (!reactionRepository.CheckDoIFollowUser(userId, userThatPostedId))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, String.Format("You are not following this user and you can not react to his posts."));
+                    return StatusCode(StatusCodes.Status400BadRequest, "You are not following this user and you can not react to his posts.");
                 }
 
                 if (reactionRepository.CheckDidIAlreadyReact(userId, reaction.PostID) != null)

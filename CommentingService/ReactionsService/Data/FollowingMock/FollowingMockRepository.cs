@@ -45,7 +45,7 @@ namespace ReactionsService.Data.FollowingMock
             return listOfFollowedUsers;
         }
 
-        public bool CheckDoIFollowUser(int userID, int followingId)
+        public bool CheckDoIFollowUser(int userId, int followingId)
         {
 
             var query = from l1 in FollowingUsers
@@ -53,7 +53,7 @@ namespace ReactionsService.Data.FollowingMock
 
             foreach (var v in query)
             {
-                if (v.FollowerID == userID && v.FollowedID == followingId)
+                if (v.FollowerID == userId && v.FollowedID == followingId)
                 {
                     return true;
                 }

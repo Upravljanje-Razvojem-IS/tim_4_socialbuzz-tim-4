@@ -53,14 +53,14 @@
             context.Remove(comment);
         }
 
-        public bool CheckDidIBlockUser(int userId, int blockedId)
+        public bool CheckDidIBlockUser(int userID, int blockedID)
         {
-            return blockingMockRepository.CheckDidIBlockUser(userId, blockedId);
+            return blockingMockRepository.CheckDidIBlockUser(userID, blockedID);
         }
 
-        public bool CheckDoIFollowUser(int userId, int followingId)
+        public bool CheckDoIFollowUser(int userID, int followingID)
         {
-            return followingMockRepository.CheckDoIFollowUser(userId, followingId);
+            return followingMockRepository.CheckDoIFollowUser(userID, followingID);
         }
 
         public bool SaveChanges()

@@ -25,6 +25,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Empty method - rucno sam unela inicijalne podatke u bazu...
         }
     }
 }

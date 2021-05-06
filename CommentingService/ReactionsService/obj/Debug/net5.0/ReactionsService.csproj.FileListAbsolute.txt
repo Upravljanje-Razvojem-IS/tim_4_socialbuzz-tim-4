@@ -61,3 +61,4 @@ C:\Users\Lenovo\Source\Repos\tim_4_socialbuzz\CommentingService\ReactionsService
 C:\Users\Lenovo\Source\Repos\tim_4_socialbuzz\CommentingService\ReactionsService\obj\Debug\net5.0\ref\ReactionsService.dll
 C:\Users\Lenovo\Source\Repos\tim_4_socialbuzz\CommentingService\ReactionsService\obj\Debug\net5.0\ReactionsService.pdb
 C:\Users\Lenovo\Source\Repos\tim_4_socialbuzz\CommentingService\ReactionsService\obj\Debug\net5.0\ReactionsService.genruntimeconfig.cache
+C:\Users\Lenovo\Source\Repos\tim_4_socialbuzz\CommentingService\ReactionsService\obj\Debug\net5.0\ReactionsService.csprojAssemblyReference.cache

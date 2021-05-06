@@ -194,7 +194,7 @@
 
                 if (!commentingRepository.CheckDoIFollowUser(userId, userThatPostedId))
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, String.Format("You are not following this user and you can not comment his posts."));
+                    return StatusCode(StatusCodes.Status400BadRequest, "You are not following this user and you can not comment his posts.");
                 }
 
                 commentEntity.UserID = userId;
