@@ -207,8 +207,6 @@
 
                 return Created(location, mapper.Map<CommentDto>(commentEntity));
 
-                //return StatusCode(StatusCodes.Status201Created, "Comment is successfully created!");
-
             }
             catch(Exception ex)
             {

@@ -221,8 +221,6 @@ namespace ReactionsService.Controllers
 
                 return Created(location, mapper.Map<ReactionsDto>(reactionEntity));
 
-                //return StatusCode(StatusCodes.Status201Created, "Reaction is successfully created!");
-
             }
             catch (Exception ex)
             {
