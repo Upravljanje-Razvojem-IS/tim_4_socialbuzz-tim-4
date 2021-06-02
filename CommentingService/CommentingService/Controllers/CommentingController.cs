@@ -156,7 +156,7 @@
         ///  "PostID": 3, \
         ///  "CommentText": "Testing insert" \
         /// } \
-        ///  Primer zahteva za dodavanje novog komentara koji ne neuspesan jer korisnik sa ID-jem 3 ne prati korisnika sa ID-jem 1, a koji je objavio objavu sa ID-jem 1
+        ///  Primer zahteva za dodavanje novog komentara koji je neuspesan jer korisnik sa ID-jem 3 ne prati korisnika sa ID-jem 1, a koji je objavio objavu sa ID-jem 1
         ///  --header 'Authorization: Bearer 123456' \
         ///  --param 'userID = 3' \
         /// {     \

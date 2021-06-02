@@ -160,7 +160,7 @@ namespace ReactionsService.Controllers
         ///  "PostID": 3, \
         ///  "TypeOfReactionID": 6 \
         /// }  \
-        ///  Primer zahteva za kneuspesno dodavanje reakcije jer je korisnik sa ID-jem 3 ne prati korisnika sa ID-jem 1, a koji je objavio objavu sa ID-ijem 1 \
+        ///  Primer zahteva za neuspesno dodavanje reakcije jer je korisnik sa ID-jem 3 ne prati korisnika sa ID-jem 1, a koji je objavio objavu sa ID-ijem 1 \
         ///  --header 'Authorization: Bearer 123456' \
         ///  --param 'UserID = 3' \
         /// {     \
@@ -242,7 +242,7 @@ namespace ReactionsService.Controllers
         /// PUT 'http://localhost:44300/api/reactions' \
         ///     --header 'Authorization: Bearer 123456'  \
         ///  { \
-        /// "ReactionID": "1c90ee97-ede4-4c39-b986-08d90802782c", \
+        /// "ReactionID": "8d3439c4-6637-40ff-b987-08d90802782c", \
         /// "PostID": 3, \
         /// "TypeOfReactionID": 2       \
         ///  }
