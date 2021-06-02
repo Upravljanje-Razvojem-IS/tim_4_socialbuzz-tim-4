@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Logistics.API.CustomException;
 using Logistics.API.Interfaces;
 using Logistics.API.MockLogger;
 using Logistics.API.Models.WeightRangeModels;
@@ -32,6 +33,7 @@ namespace Logistics.API.Services
                 .ProjectTo<WeightRangeOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             _logger.Log("WeightRange BrowseAsync() executed!");
+
             return await Task.FromResult(weights);
         }
         public async Task<WeightRangeDetails> FindAsync(Guid id)
@@ -40,6 +42,10 @@ namespace Logistics.API.Services
                 .ProjectTo<WeightRangeDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
             _logger.Log("WeightRange FindAsync() executed!");
+
+            if (weightById == null)
+                throw new LogisticException("WeightRange not found", 404);
+
             return await Task.FromResult(weightById);
         }
 
@@ -62,11 +68,10 @@ namespace Logistics.API.Services
         public async Task<WeightRangeConfirmation> UpdateAsync(Guid id, WeightRangePutBody weightRange)
         {
             var updateWeight = await _context.WeightRanges.FirstOrDefaultAsync(e => e.Id == id);
+
             if (updateWeight == null)
-            {
-                _logger.Log("WeightRange UpdateAsync() WeightRange with given Id doesn't exist");
-                return null;
-            }
+                throw new LogisticException("WeightRange doesnt exist", 400);
+            
             updateWeight.MinimalWeight = weightRange.MinimalWeight;
             updateWeight.MaximalWeight = weightRange.MaximalWeight;
             updateWeight.PriceCoefficient = weightRange.PriceCoefficient;
@@ -79,13 +84,14 @@ namespace Logistics.API.Services
         public async Task DeleteAsync(Guid id)
         {
             var deleteWeight = await _context.WeightRanges.FirstOrDefaultAsync(e => e.Id == id);
-            if (deleteWeight != null)
-            {
-                _context.WeightRanges.Remove(deleteWeight);
-                _logger.Log("WeightRange DeleteAsync() executed!");
-                await _context.SaveChangesAsync();
-            }
-            _logger.Log("WeightRange DeleteAsync() WeightRange with given Id doesn't exist");
+
+            if (deleteWeight == null)
+                throw new LogisticException("WeightRange doesnt exist", 400);
+
+            _context.WeightRanges.Remove(deleteWeight);
+            _logger.Log("WeightRange DeleteAsync() executed!");
+            await _context.SaveChangesAsync();
+            
         }
     }
 }

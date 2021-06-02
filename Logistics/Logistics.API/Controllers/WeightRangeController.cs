@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers
@@ -36,7 +34,10 @@ namespace Logistics.API.Controllers
             var weight = await _weight.BrowseAsync();
 
             if (weight.Count == 0)
+            {
                 return NoContent();
+            }
+
             return Ok(weight);
         }
 
@@ -55,8 +56,6 @@ namespace Logistics.API.Controllers
         {
             var weight = await _weight.FindAsync(weightId);
 
-            if (weight == null)
-                return NotFound();
             return Ok(weight);
         }
 
@@ -74,6 +73,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<WeightRangeConfirmation>> PostWeightRange([FromBody] WeightRangePostBody weightRange)
         {
             var newWeight = await _weight.CreateAsync(weightRange);
+
             return CreatedAtAction(nameof(GetWeightRangeById), new { weightId = newWeight.Id }, newWeight);
         }
 
@@ -92,8 +92,6 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<WeightRangeConfirmation>> PutWeightRange(Guid weightId, [FromBody] WeightRangePutBody weightRange)
         {
             var updatedWeight = await _weight.UpdateAsync(weightId, weightRange);
-            if (updatedWeight == null)
-                return BadRequest("WeightRange with that Id doesn't exist");
 
             return Ok(updatedWeight);
         }
@@ -111,6 +109,7 @@ namespace Logistics.API.Controllers
         public async Task<IActionResult> DeleteWeithRange(Guid weightId)
         {
             await _weight.DeleteAsync(weightId);
+
             return NoContent();
         }
     }

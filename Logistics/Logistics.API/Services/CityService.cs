@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Logistics.API.CustomException;
 using Logistics.API.Interfaces;
 using Logistics.API.MockLogger;
 using Logistics.API.Models.CityModels;
@@ -44,6 +45,9 @@ namespace Logistics.API.Services
                 .FirstOrDefaultAsync(e => e.Id == id);
             _logger.Log("City - FindAsync() executed");
 
+            if (cityById == null)
+                throw new LogisticException("Not found", 404);
+
             return await Task.FromResult(cityById);
         }
 
@@ -70,11 +74,8 @@ namespace Logistics.API.Services
             var cityToUpdate = await _context.Cities
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-            if(cityToUpdate == null)
-            {
-                _logger.Log("City - UpdateAsync() city with that Id doesn't exist");
-                return null;
-            }
+            if (cityToUpdate == null)
+                throw new LogisticException("City doesnt exist", 400);
 
             cityToUpdate.Name = city.Name;
             cityToUpdate.PostalCode = city.PostalCode;
@@ -91,13 +92,12 @@ namespace Logistics.API.Services
         {
             var cityToDelete = await _context.Cities.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (cityToDelete != null)
-            {
-                _context.Cities.Remove(cityToDelete);
-                _logger.Log("City - DeleteAsync() executed");
-                await _context.SaveChangesAsync();
-            }
-            _logger.Log("City - DeleteAsync() City with that id doesn't exist");
+            if (cityToDelete == null)
+                throw new LogisticException("city doesnt exist", 400);
+
+            _context.Cities.Remove(cityToDelete);
+            _logger.Log("City - DeleteAsync() executed");
+            await _context.SaveChangesAsync();
         }
     }
 }

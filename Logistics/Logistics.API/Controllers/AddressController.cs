@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers
@@ -37,7 +35,9 @@ namespace Logistics.API.Controllers
             var addresses = await _address.BrowseAsync(cityId);
 
             if (addresses.Count == 0)
+            {
                 return NoContent();
+            }
 
             return Ok(addresses);
         }
@@ -58,7 +58,9 @@ namespace Logistics.API.Controllers
             var address = await _address.FindAsync(cityId, addressId);
 
             if (address == null)
+            {
                 return NotFound();
+            }
             
             return Ok(address);
         }
@@ -76,6 +78,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<AddressConfirmation>> PostAddress(Guid cityId, [FromBody] AddressPostBody address)
         {
             var newAddress = await _address.CreateAsync(cityId, address);
+
             return CreatedAtAction(nameof(GetAddressById), new { cityId, addressId = newAddress.Id }, newAddress);
         }
 
@@ -96,7 +99,10 @@ namespace Logistics.API.Controllers
             var updatedAddress = await _address.UpdateAsync(cityId, addressId, address);
 
             if (updatedAddress == null)
+            {
                 return BadRequest("Address with that Id doesnt exist");
+            }
+
             return Ok(updatedAddress);
         }
 

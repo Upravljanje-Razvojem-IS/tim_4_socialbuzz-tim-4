@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers
@@ -34,8 +32,12 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<CityOverview>> GetCities()
         {
             var cities = await _city.BrowseAsync();
+
             if (cities.Count == 0)
+            {
                 return NoContent();
+            }
+
             return Ok(cities);
         }
 
@@ -53,8 +55,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<CityDetails>> GetCityById(Guid cityId)
         {
             var city = await _city.FindAsync(cityId);
-            if (city == null)
-                return NotFound();
+
             return Ok(city);
 
         }
@@ -72,6 +73,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<CityConfirmation>> PostCity([FromBody] CityPostBody city)
         {
             var newCity = await _city.CreateAsync(city);
+
             return CreatedAtAction(nameof(GetCityById), new { cityId = newCity.Id }, newCity);
         }
 
@@ -90,8 +92,6 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<CityConfirmation>> PutCity(Guid cityId, [FromBody] CityPutBody city)
         {
             var updatedCity = await _city.UpdateAsync(cityId, city);
-            if(updatedCity != null)
-                return Ok(updatedCity);
 
             return BadRequest("City with that ID doesn't exist");
         }
@@ -109,6 +109,7 @@ namespace Logistics.API.Controllers
         public async Task<IActionResult> DeleteCity(Guid cityId)
         {
             await _city.DeleteAsync(cityId);
+
             return NoContent();
         }
     }

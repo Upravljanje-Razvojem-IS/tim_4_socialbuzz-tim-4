@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Logistics.API.Models.WeightRangeModels
 {
@@ -15,19 +12,19 @@ namespace Logistics.API.Models.WeightRangeModels
         /// MinimalWeight for price coefficient
         /// </summary>
         [Required]
-        [Range(0, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
+        [Range(1, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
         public float MinimalWeight { get; set; }
         /// <summary>
         /// MaximalWeight for price coefficient
         /// </summary>
         [Required]
-        [Range(0, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
+        [Range(1, float.MaxValue, ErrorMessage = "Minimal Weight must be greater then 0")]
         public float MaximalWeight { get; set; }
         /// <summary>
         /// coefficient for calculating price
         /// </summary>
         [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Price Coefficient must be greater then 0")]
+        [Range(1, double.MaxValue, ErrorMessage = "Price Coefficient must be greater then 0")]
         public double PriceCoefficient { get; set; }
     }
 }

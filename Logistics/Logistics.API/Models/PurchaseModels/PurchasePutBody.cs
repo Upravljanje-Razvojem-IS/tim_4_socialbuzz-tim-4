@@ -1,9 +1,5 @@
-﻿using Logistics.Core.Mock;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Logistics.API.Models.PurchaseModels
 {
@@ -22,6 +18,7 @@ namespace Logistics.API.Models.PurchaseModels
         /// Number of item pieces
         /// </summary>
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Pieces value must be greater then 0")]
         public int Pieces { get; set; }
 
         /// <summary>

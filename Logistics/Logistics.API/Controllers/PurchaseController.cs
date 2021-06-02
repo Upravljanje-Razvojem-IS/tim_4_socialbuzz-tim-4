@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers
@@ -34,8 +32,12 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<PurchaseOverview>> GetPurchases()
         {
             var purchases = await _purchase.BrowseAsync();
+
             if (purchases.Count == 0)
+            {
                 return NoContent();
+            }
+
             return Ok(purchases);
         }
 
@@ -52,8 +54,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<PurchaseDetails>> GetPurchaseById(Guid purchaseId)
         {
             var purchase = await _purchase.FindAsync(purchaseId);
-            if (purchase == null)
-                return NotFound();
+
             return Ok(purchase);
         }
 
@@ -70,9 +71,9 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<PurchaseConfirmation>> PostPurchase(PurchasePostBody purchase)
         {
             var newPurchase = await _purchase.CreateAsync(purchase);
-            if(newPurchase!=null)
-                return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = newPurchase.Id }, newPurchase);
-            return BadRequest();
+
+            return CreatedAtAction(nameof(GetPurchaseById), new { purchaseId = newPurchase.Id }, newPurchase);
+            
         }
 
         /// <summary>
@@ -89,8 +90,7 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<PurchaseConfirmation>> PutPurchase(Guid purchaseId, PurchasePutBody purchase)
         {
             var updatedPurchase = await _purchase.UpdateAsync(purchaseId, purchase);
-            if (updatedPurchase == null)
-                return BadRequest();
+
             return Ok(updatedPurchase);
         }
 
@@ -106,6 +106,7 @@ namespace Logistics.API.Controllers
         public async Task<IActionResult> DeletePurchase(Guid purchaseId)
         {
             await _purchase.RemoveAsync(purchaseId);
+
             return NoContent();
         }
     }

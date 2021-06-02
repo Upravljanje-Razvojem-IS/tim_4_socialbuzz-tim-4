@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Logistics.API.CustomException;
 using Logistics.API.Interfaces;
 using Logistics.API.MockLogger;
 using Logistics.API.Models.DistancePriceModels;
@@ -8,7 +9,6 @@ using Logistics.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Services
@@ -32,6 +32,7 @@ namespace Logistics.API.Services
                 .ProjectTo<DistancePriceOverview>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             _logger.Log("DistancePrice BrowseAsync() executed!");
+
             return await Task.FromResult(distances);
         }
 
@@ -41,6 +42,10 @@ namespace Logistics.API.Services
                 .ProjectTo<DistancePriceDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
             _logger.Log("DistancePrice FindAsync() executed!");
+
+            if (distanceById == null)
+                throw new LogisticException("DistancePrice doesnt exists", 404);
+
             return await Task.FromResult(distanceById);
         }
 
@@ -63,11 +68,10 @@ namespace Logistics.API.Services
         public async Task<DistancePriceConfirmation> UpdateAsync(Guid id, DistancePricePutBody distancePrice)
         {
             var updateDistane = await _context.DistancePrices.FirstOrDefaultAsync(e => e.Id == id);
+
             if (updateDistane == null)
-            {
-                _logger.Log("DistancePrice UpdateAsync() DistancePrice doesn't exist with given Id");
-                return null;
-            }
+                throw new LogisticException("DistancePrice doesnt exist");
+            
             updateDistane.MinimalDistance = distancePrice.MinimalDistance;
             updateDistane.MaximalDistance = distancePrice.MaximalDistance;
             updateDistane.Price = distancePrice.Price;
@@ -81,12 +85,13 @@ namespace Logistics.API.Services
         {
             var deleteDistance = await _context.DistancePrices
                 .FirstOrDefaultAsync(e => e.Id == id);
-            if (deleteDistance != null)
-            {
-                _context.DistancePrices.Remove(deleteDistance);
-                await _context.SaveChangesAsync();
-                _logger.Log("DistancePrice DeleteAsync() executed!");
-            }
+
+            if (deleteDistance == null)
+                throw new LogisticException("DistancePrice doesnt exist", 400);
+
+            _context.DistancePrices.Remove(deleteDistance);
+            await _context.SaveChangesAsync();
+            _logger.Log("DistancePrice DeleteAsync() executed!");
             _logger.Log("DistancePrice with given Id doesn't exist");
         }
     }

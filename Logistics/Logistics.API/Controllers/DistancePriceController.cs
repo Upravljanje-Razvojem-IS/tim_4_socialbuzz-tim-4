@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers
@@ -34,8 +32,11 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<DistancePriceOverview>> GetDistancePrice()
         {
             var distances = await _distance.BrowseAsync();
+
             if (distances.Count == 0)
+            {
                 return NoContent();
+            }
 
             return Ok(distances);
         }
@@ -54,9 +55,6 @@ namespace Logistics.API.Controllers
         public async Task<ActionResult<DistancePriceDetails>> GetDistancePriceById(Guid distanceId)
         {
             var distance = await _distance.FindAsync(distanceId);
-
-            if (distance == null)
-                return NotFound();
 
             return Ok(distance);
         }
@@ -95,9 +93,6 @@ namespace Logistics.API.Controllers
         {
             var updatedDistancePrice = await _distance.UpdateAsync(distanceId, distancePrice);
 
-            if (updatedDistancePrice == null)
-                return BadRequest("DistancePrice with that id doesn't exits");
-
             return Ok(updatedDistancePrice);
         }
 
@@ -114,6 +109,7 @@ namespace Logistics.API.Controllers
         public async Task<IActionResult> DeleteDistancePrice(Guid distanceId)
         {
             await _distance.DeleteAsync(distanceId);
+
             return NoContent();
         }
     }

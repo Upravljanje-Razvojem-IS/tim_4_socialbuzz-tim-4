@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Logistics.API.CustomException;
 using Logistics.API.Interfaces;
 using Logistics.API.MockLogger;
 using Logistics.API.Models.AddressModels;
@@ -33,6 +34,7 @@ namespace Logistics.API.Services
                 .Where(e => e.CityId == cityId)
                 .ToListAsync();
             _logger.Log("Address - BrowseAsync() executed");
+
             return await Task.FromResult(addresses);
         }
 
@@ -42,17 +44,16 @@ namespace Logistics.API.Services
                 .ProjectTo<AddressDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == addressId);
             _logger.Log("Address - FindAsync() executed");
+
             return await Task.FromResult(addressById);
         }
 
         public async Task<AddressConfirmation> CreateAsync(Guid cityId, AddressPostBody address)
         {
             var city = await _context.Cities.FirstOrDefaultAsync(e => e.Id == cityId);
-            if(city == null)
-            {
-                _logger.Log("Address - CreateAsync() City with given Id doesn't exist");
-                return null;
-            }
+
+            if (city == null)
+                throw new LogisticException("City doesnt exist", 400);
 
             Address newAddress = new()
             {
@@ -71,18 +72,14 @@ namespace Logistics.API.Services
         public async Task<AddressConfirmation> UpdateAsync(Guid cityId, Guid addressId, AddressPutBody address)
         {
             var city = await _context.Cities.FirstOrDefaultAsync(e => e.Id == cityId);
+
             if (city == null)
-            {
-                _logger.Log("Address - UpdateAsync() City with given Id doesn't exist");
-                return null;
-            }
+                throw new LogisticException("City doesnt exist", 400);
 
             var updatedAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == addressId);
+
             if (updatedAddress == null)
-            {
-                _logger.Log("Address - UpdateAsync() Address with given Id doesn't exist");
-                return null;
-            }
+                throw new LogisticException("Address doesnt exist", 400);
 
             updatedAddress.Street = address.Street;
             updatedAddress.Number = address.Number;
@@ -95,6 +92,10 @@ namespace Logistics.API.Services
         public async Task DeleteAsync(Guid cityId, Guid addressId)
         {
             var addressToDelete = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == addressId);
+
+            if (addressToDelete == null)
+                throw new LogisticException("Address doesnt exists", 400);
+
             if (addressToDelete != null)
             {
                 _context.Remove(addressToDelete);

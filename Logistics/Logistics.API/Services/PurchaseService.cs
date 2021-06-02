@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Logistics.API.CustomException;
 using Logistics.API.Interfaces;
 using Logistics.API.MockLogger;
 using Logistics.API.Models.PurchaseModels;
@@ -43,6 +44,10 @@ namespace Logistics.API.Services
                 .ProjectTo<PurchaseDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == id);
             _logger.Log("Purchase BrowseAsync() executed!");
+
+            if (purchaseById == null)
+                throw new LogisticException("Purchase not found", 404);
+
             return await Task.FromResult(purchaseById);
         }
 
@@ -55,8 +60,6 @@ namespace Logistics.API.Services
 
             var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
 
-            if (fromAddress == null || toAddress == null || item == null || purchase.Pieces == 0)
-                return null;
 
             Purchase newPurchase = new()
             {
@@ -68,6 +71,7 @@ namespace Logistics.API.Services
                 FromAddressId = purchase.FromAddressId,
                 ToAddressId = purchase.ToAddressId
             };
+
             newPurchase.TotalWeight = item.WeightOfOne * newPurchase.Pieces;
             newPurchase.WeightRangeId = newPurchase.WeightRange.Id;
             newPurchase.Distance = CalculateDistance.Calculate(fromAddress.City, toAddress.City);
@@ -84,41 +88,34 @@ namespace Logistics.API.Services
         public async Task<PurchaseConfirmation> UpdateAsync(Guid id, PurchasePutBody purchase)
         {
             var p = await _context.Purchases.FirstOrDefaultAsync(e => e.Id == id);
-            if (p == null)
-                return null;
 
-            var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
-            if (item == null)
-                return null;
+            if (p == null)
+                throw new LogisticException("Purchase doesnt exist", 400);
+
             p.ItemId = purchase.ItemId;
 ;
             var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
-            if (fromAddress == null)
-                return null;
             p.FromAddess = fromAddress;
             p.FromAddressId = purchase.FromAddressId;
 
             var toAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.ToAddressId);
-            if (toAddress == null)
-                return null;
             p.ToAddress = toAddress;
             p.ToAddressId = purchase.ToAddressId;
-
-            var fromCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.FromAddess.CityId);
-            var toCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.ToAddress.CityId);
-
             p.Pieces = purchase.Pieces;
-            if (p.Pieces == 0)
-                return null;
 
+            if (p.Pieces == 0)
+                throw new LogisticException("Pieces cant be 0", 400);
+
+            var item = ItemMockService.ItemMocks.FirstOrDefault(e => e.Id == purchase.ItemId);
             p.TotalWeight = item.WeightOfOne * p.Pieces;
             var weightRange = await _context.WeightRanges.FirstOrDefaultAsync(e => e.MinimalWeight < p.TotalWeight && e.MaximalWeight >= p.TotalWeight);
             p.WeightRangeId = weightRange.Id;
 
+            var fromCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.FromAddess.CityId);
+            var toCity = await _context.Cities.FirstOrDefaultAsync(e => e.Id == p.ToAddress.CityId);
             p.Distance = CalculateDistance.Calculate(fromCity, toCity);
             var distancePrice = await _context.DistancePrices.FirstOrDefaultAsync(e => e.MinimalDistance <= p.Distance && e.MaximalDistance > p.Distance);
             p.DistancePriceId = distancePrice.Id;
-
             p.TotalPriceWithWeightAndDistance = CalculatePrice.Calculate(p.Pieces, item.PriceOfOne, distancePrice.Price, weightRange.PriceCoefficient);
 
             await _context.SaveChangesAsync();
@@ -130,13 +127,13 @@ namespace Logistics.API.Services
         public async Task RemoveAsync(Guid id)
         {
             var purchase = await _context.Purchases.FirstOrDefaultAsync(e => e.Id == id);
-            if (purchase != null)
-            {
-                _context.Purchases.Remove(purchase);
-                await _context.SaveChangesAsync();
-                _logger.Log("Purchase DeleteAsync() executed!");
-            }
-            _logger.Log("Purchase DeleteAsync() Purchase with given Id doesn't exist");
+
+            if (purchase == null)
+                throw new LogisticException("Purchase doesnt exist", 400);
+
+            _context.Purchases.Remove(purchase);
+            await _context.SaveChangesAsync();
+            _logger.Log("Purchase DeleteAsync() executed!");
 
         }
     }

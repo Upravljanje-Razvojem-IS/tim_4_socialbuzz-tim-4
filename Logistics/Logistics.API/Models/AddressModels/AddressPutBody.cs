@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Logistics.API.Models.AddressModels
 {
@@ -20,7 +17,7 @@ namespace Logistics.API.Models.AddressModels
         /// Address number
         /// </summary>
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "Address Number must be greater then 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Address Number must be greater then 0")]
         public int Number { get; set; }
     }
 }
