@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommentingService</name>
+    </assembly>
+    <members>
+        <member name="T:CommentingService.Controllers.CommentingController">
+            <summary>
+            Commenting Kontroler izvrsava CRUD operacije nad podacima />.
+            </summary>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.GetComments(System.String)">
+            <summary>
+            Vraca sve postojece komentare.
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva Get all comments
+            GET 'http://localhost:44200/api/comments' \
+                --header 'Authorization: Bearer 123456'
+            </remarks>
+            <response code="200">Uspesno vracena lista svih komenatara.</response>
+            <response code="401">Neuspesna autorizacija korisnika.</response>
+            <response code="404">Nisu pronadjeni komementari ili ne postoji nijedan komentar.</response>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.GetCommentsByPostID(System.String,System.Int32,System.Int32)">
+            <summary>
+            Vraca sve komentare na jednoj objavi.
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva Get comments by post ID
+            GET 'http://localhost:44200/api/comments/postID' \
+             Primer zahteva koji prolazi \
+                --header 'Authorization: Bearer 123456' \
+                --param  'postID = 3' \
+                --param  'userID = 1' \
+            Primer zahteva koji ne prolazi jer je korisnik sa ID-jem 1 blokirao korisnika sa ID-jem 2, a koji je objavio post sa ID-jem 2, pa usled toga, ne može da vidi njegove objave \
+                --header 'Authorization: 123456' \
+                --param  'postID = 2' \
+                --param  'userID = 1'
+            </remarks>
+            <param name="key">Authorization Header Bearer Key Value</param>
+            <param name="postID">ID objave</param>
+            <param name="userID">ID korisnika koji salje zahtev</param>
+            <response code="200">Uspesno vracena lista komentara na jednoj objavi.</response>
+            <response code="400">Lose kreiran zahtev, npr. korisnik je blokiran.</response>
+            <response code="401">Neuspesna autorizacija korisnika.</response>
+            <response code="404">Nije pronadjen nijedan komenar na objavi sa zadatim ID-jem.</response>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.CreateComment(System.String,CommentingService.Models.Dto.CommentCreationDto,System.Int32)">
+            <summary>
+            Kreira novi komentar.
+            </summary>
+            <param name="key">Authorization Header Bearer Key Value</param>
+            <param name="comment">Model komenara koji se kreira</param>
+            <param name="userId">ID korisnika koji salje zahtev za kreiranjem komentara</param>
+            <returns></returns>
+            <remarks>
+            POST 'http://localhost:44200/api/comments/' \
+            Primer zahteva za dodavanje novog komentara koji je uspesan \
+             --header 'Authorization: 123456' \
+             --param 'userID = 1' \
+            {     \
+             "PostID": 3, \
+             "CommentText": "Testing insert" \
+            } \
+             Primer zahteva za dodavanje novog komentara koji ne neuspesan jer korisnik sa ID-jem 3 ne prati korisnika sa ID-jem 1, a koji je objavio objavu sa ID-jem 1
+             --header 'Authorization: Bearer 123456' \
+             --param 'userID = 3' \
+            {     \
+             "PostID": 1, \
+             "CommentText": "Testing insert" \
+            }
+            </remarks>
+            <response code="201">Vraca kreiran komentar.</response>
+            <response code="400">Lose kreiran zahtev, npr. korisnik poksuava da doda komentar na nepostojecu objavu ili ne prati korisnika ciju objavu komentarise.</response>
+            <response code="500">Greska na serveru.</response>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.UpdateComment(System.String,CommentingService.Models.Dto.CommentModifyingDto)">
+            <summary>
+            Modifikacija postojeceg komentara.
+            </summary>
+            <param name="key">Authorization Header Bearer Key Value</param>
+            <param name="updatedComment">Model komentara koji se modifikuje</param>
+            <returns></returns>
+            <remarks>
+            PUT 'http://localhost:44200/api/comments' \
+            Primer zahteva za azuriranje postojeceg komentara    \
+             --header 'Authorization: Bearer 123456'  \
+             { \
+            "CommentID": "704dbb58-b673-4f20-4e97-08d9071b3c43", \
+            "PostID": 3, \
+             "CommentText": "Testing updating :)" \
+             } 
+            </remarks>
+            <response code="200">Vraća potvrdu da je uspesno izmenjen komentar.</response>
+            <response code="401" > Neuspesna autorizacija korisnika.</response>
+            <response code="404">Ne postoji komentar koji korisnik pokusava da modifikuje.</response>
+            <response code="400">Lose kreiran zahtev, npr. korisnik pokusava da modifikuje Post ID.</response>
+            <response code="500">Greska na serveru.</response>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.DeleteComment(System.String,System.Guid)">
+            <summary>
+            Vrši brisanje jednog komentara na osnovu ID-ja komentara
+            </summary>
+            <returns></returns>
+            <remarks>        
+            Primer zahteva za brisanje komentara
+            DELETE 'http://localhost:44200/api/comments' \
+                --header 'Authorization: Bearer 123456' \
+                --param  'CommentID = 88cc4f42-f0e4-4795-d71f-08d9071b602e'
+            </remarks>
+            <param name="key">Authorization Header Bearer Key Value</param>
+            <param name="commentID">ID komentara koji se brise</param>
+            <response code="204">Uspesno obrisan komenatar.</response>
+            <response code="401" > Neuspesna autorizacija korisnika.</response>
+            <response code="404">Korisnik pokusava da obrise nepostojeci komentar.</response>
+            <response code="500">Greska na serveru.</response>
+        </member>
+        <member name="M:CommentingService.Controllers.CommentingController.GetCommentsOpstions">
+            <summary>
+            Prikaz HTTP metoda koje korisnik moze da pozove.
+            </summary>
+            <returns></returns>
+             <remarks>
+            Primer zahteva za prikaz dostupnih HTTP metoda
+            OPTIONS 'http://localhost:44200/api/comments' \
+            </remarks>
+            <response code="200">Uspesno prikazane dostupne metode.</response>
+        </member>
+        <member name="M:CommentingService.Data.BlockingMock.IBlockingMockRepository.CheckDidIBlockUser(System.Int32,System.Int32)">
+            <summary>
+            Provera da li samm blokirala korisnika
+            </summary>
+            <param name="userId">Moj Id</param>
+            <param name="blockedId">Id korisnika za kog proveravam da li mi je blokiran</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommentingService.Data.FolllowingMock.IFollowingMockRepository.CheckDoIFollowUser(System.Int32,System.Int32)">
+            <summary>
+            Provera da li pratim korisnika
+            </summary>
+            <param name="userId">Moj Id</param>
+            <param name="followingId">Id korisnika za kog proveravam da li ga pratim</param>
+            <returns></returns>
+        </member>
+        <member name="T:CommentingService.Entities.Comment">
+            <summary>
+            Model komentara na objavu
+            </summary>
+        </member>
+        <member name="P:CommentingService.Entities.Comment.CommentID">
+            <summary>
+            ID komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Entities.Comment.PostID">
+            <summary>
+            ID objave na koju se dodaje komentar
+            </summary>
+        </member>
+        <member name="P:CommentingService.Entities.Comment.UserID">
+            <summary>
+            ID korisnika koji dodaje komentar
+            </summary>
+        </member>
+        <member name="P:CommentingService.Entities.Comment.CommentText">
+            <summary>
+            Text komenatara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Entities.Comment.CommentDate">
+            <summary>
+            Datum kada je kreiran komentar
+            </summary>
+        </member>
+        <member name="T:CommentingService.Migrations.InitialCreate">
+            <summary>
+            Defines the <see cref="T:CommentingService.Migrations.InitialCreate" />.
+            </summary>
+            <summary>
+            Defines the <see cref="T:CommentingService.Migrations.InitialCreate" />.
+            </summary>
+        </member>
+        <member name="M:CommentingService.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Up.
+            </summary>
+            <param name="migrationBuilder">The migrationBuilder<see cref="T:Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder"/>.</param>
+        </member>
+        <member name="M:CommentingService.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Down.
+            </summary>
+            <param name="migrationBuilder">The migrationBuilder<see cref="T:Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder"/>.</param>
+        </member>
+        <member name="M:CommentingService.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            The BuildTargetModel.
+            </summary>
+            <param name="modelBuilder">The modelBuilder<see cref="T:Microsoft.EntityFrameworkCore.ModelBuilder"/>.</param>
+        </member>
+        <member name="T:CommentingService.Models.Dto.CommentCreationDto">
+            <summary>
+            DTO za dodavanje novog komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.Dto.CommentCreationDto.PostID">
+            <summary>
+            ID objave na koju se dodaje komentar
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.Dto.CommentCreationDto.CommentText">
+            <summary>
+            Tekst komentara
+            </summary>
+        </member>
+        <member name="T:CommentingService.Models.Dto.CommentModifyingDto">
+            <summary>
+            DTO za modifikaciju komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.Dto.CommentModifyingDto.CommentID">
+            <summary>
+            ID komentara koji se modifikuje
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.Dto.CommentModifyingDto.PostID">
+            <summary>
+            ID objave na koju je dodat komentar koji se modifikuje
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.Dto.CommentModifyingDto.CommentText">
+            <summary>
+            Tekst komentara
+            </summary>
+        </member>
+        <member name="T:CommentingService.Models.CommentDto">
+            <summary>
+            DTO za model komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.CommentDto.CommentID">
+            <summary>
+            ID komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.CommentDto.PostID">
+            <summary>
+            ID objave na koju se dodaje komentar
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.CommentDto.UserID">
+            <summary>
+            ID korisnika koji dodaje komentar
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.CommentDto.CommentText">
+            <summary>
+            Tekst komentara
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.CommentDto.CommentDate">
+            <summary>
+            Datum kada je dodat komentar
+            </summary>
+        </member>
+        <member name="T:CommentingService.Models.BlockingDto">
+            <summary>
+            DTO za model blokiranja korisnika
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.BlockingDto.blockingID">
+            <summary>
+            ID blocka
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.BlockingDto.blockerID">
+            <summary>
+            ID korisnika koji blokira
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.BlockingDto.blockedID">
+            <summary>
+            ID korisnika koji se blokira
+            </summary>
+        </member>
+        <member name="T:CommentingService.Models.FollowingDto">
+            <summary>
+            DTO za model pracenja korisnika
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.FollowingDto.followingID">
+            <summary>
+            ID pracenja
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.FollowingDto.followerID">
+            <summary>
+            ID korisnika koji je zapratio nekog drugog korisnika
+            </summary>
+        </member>
+        <member name="F:CommentingService.Models.FollowingDto.followedID">
+            <summary>
+            ID korisnika koji je zapracen
+            </summary>
+        </member>
+        <member name="T:CommentingService.Models.PostDto">
+            <summary>
+            DTO za model objava korisnika
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.PostID">
+            <summary>
+            ID objave
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.ProductID">
+            <summary>
+            ID proizvoda koji korisnik prodaje putem svoje objave
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.ProductName">
+            <summary>
+            Naziv proizvoda koji korisnik prodaje putem svoje objave
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.UserID">
+            <summary>
+            ID korisnika koji je okacio objavu
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.Description">
+            <summary>
+            Opis proizvoda koji se prodaje
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.Price">
+            <summary>
+            Cena proizvoda
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.Quantity">
+            <summary>
+            Dostupna kolicina proizvoda 
+            </summary>
+        </member>
+        <member name="P:CommentingService.Models.PostDto.PostedOn">
+            <summary>
+            Datum kada je korisnik postavio objavu
+            </summary>
+        </member>
+    </members>
+</doc>
