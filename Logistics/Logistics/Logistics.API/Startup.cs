@@ -46,7 +46,7 @@ namespace Logistics.API
             });
             services.AddMvc(options =>
             {
-                options.Filters.Add(typeof(ValidateModelState));
+                options.Filters.Add(typeof(ValidateModelStateAttribute));
             });
 
             services.AddSwaggerGen(c =>

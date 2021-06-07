@@ -93,7 +93,7 @@ namespace Logistics.API.Services
                 throw new LogisticException("Purchase doesnt exist", 400);
 
             p.ItemId = purchase.ItemId;
-;
+
             var fromAddress = await _context.Addresses.FirstOrDefaultAsync(e => e.Id == purchase.FromAddressId);
             p.FromAddess = fromAddress;
             p.FromAddressId = purchase.FromAddressId;

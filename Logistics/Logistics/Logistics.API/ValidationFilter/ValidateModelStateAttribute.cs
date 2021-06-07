@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Logistics.API.ValidationFilter
 {
-    public class ValidateModelState : ActionFilterAttribute
+    public class ValidateModelStateAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

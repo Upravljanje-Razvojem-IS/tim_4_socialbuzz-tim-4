@@ -96,13 +96,9 @@ namespace Logistics.API.Services
             if (addressToDelete == null)
                 throw new LogisticException("Address doesnt exists", 400);
 
-            if (addressToDelete != null)
-            {
-                _context.Remove(addressToDelete);
-                await _context.SaveChangesAsync();
-                _logger.Log("Address - DeleteAsync() executed");
-            }
-            _logger.Log("Address - DeleteAsync() address with given Id doesn't exist");
+            _context.Remove(addressToDelete);
+            await _context.SaveChangesAsync();
+            _logger.Log("Address - DeleteAsync() executed");
         }
 
 

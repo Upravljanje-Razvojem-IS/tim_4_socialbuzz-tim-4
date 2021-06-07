@@ -5,7 +5,7 @@ namespace Logistics.Core.Mock
 {
     public static class ItemMockService
     {
-        public static IList<ItemMock> ItemMocks = new List<ItemMock>
+        public static readonly IList<ItemMock> ItemMocks = new List<ItemMock>
         {
             new ItemMock
             {

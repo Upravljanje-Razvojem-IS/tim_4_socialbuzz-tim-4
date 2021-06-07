@@ -93,7 +93,7 @@ namespace Logistics.API.Controllers
         {
             var updatedCity = await _city.UpdateAsync(cityId, city);
 
-            return BadRequest("City with that ID doesn't exist");
+            return Ok(updatedCity);
         }
 
         /// <summary>
