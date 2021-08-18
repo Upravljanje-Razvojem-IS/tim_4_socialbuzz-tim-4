@@ -5,7 +5,7 @@ namespace QualityRanking.Mock
 {
     public static class MockUser
     {
-        public static List<User> Users = new List<User>()
+        public readonly static List<User> Users = new List<User>()
         {
             new User()
             {

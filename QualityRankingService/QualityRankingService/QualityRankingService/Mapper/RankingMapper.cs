@@ -8,8 +8,8 @@ namespace QualityRanking.Mapper
     {
         public RankingMapper()
         {
-            CreateMap<Ranking, RankingGetDTO>();
-            CreateMap<Ranking, RankingConfirmDTO>();
+            CreateMap<Ranking, RankingGetDto>();
+            CreateMap<Ranking, RankingConfirmDto>();
         }
     }
 }

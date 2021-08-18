@@ -6,10 +6,10 @@ namespace QualityRanking.Interfaces
 {
     public interface IRankingRepository
     {
-        List<RankingGetDTO> Get();
-        RankingGetDTO Get(Guid id);
-        RankingConfirmDTO Create(RankingPostDTO dto);
-        RankingConfirmDTO Update(Guid id, RankingPostDTO dto);
+        List<RankingGetDto> Get();
+        RankingGetDto Get(Guid id);
+        RankingConfirmDto Create(RankingPostDto dto);
+        RankingConfirmDto Update(Guid id, RankingPostDto dto);
         void Delete(Guid id);
     }
 }

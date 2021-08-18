@@ -23,7 +23,7 @@ namespace QualityRanking.Repository
             _logger = logger;
         }
 
-        public RankingConfirmDTO Create(RankingPostDTO dto)
+        public RankingConfirmDto Create(RankingPostDto dto)
         {
             User user = MockUser.Users.FirstOrDefault(e => e.Id == dto.UserId);
 
@@ -43,30 +43,30 @@ namespace QualityRanking.Repository
 
             _logger.Log("New ranking has been created");
 
-            return _mapper.Map<RankingConfirmDTO>(newRanking);
+            return _mapper.Map<RankingConfirmDto>(newRanking);
         }
 
-        public List<RankingGetDTO> Get()
+        public List<RankingGetDto> Get()
         {
             var list = _context.Rankings.ToList();
 
 
             _logger.Log("Fethc list of all rankings");
 
-            return _mapper.Map<List<RankingGetDTO>>(list);
+            return _mapper.Map<List<RankingGetDto>>(list);
         }
 
-        public RankingGetDTO Get(Guid id)
+        public RankingGetDto Get(Guid id)
         {
             var rank = _context.Rankings.FirstOrDefault(e => e.Id == id);
 
 
             _logger.Log("Fetch ranking by given Id");
 
-            return _mapper.Map<RankingGetDTO>(rank);
+            return _mapper.Map<RankingGetDto>(rank);
         }
 
-        public RankingConfirmDTO Update(Guid id, RankingPostDTO dto)
+        public RankingConfirmDto Update(Guid id, RankingPostDto dto)
         {
             var rank = _context.Rankings.FirstOrDefault(e => e.Id == id);
 
@@ -86,7 +86,7 @@ namespace QualityRanking.Repository
 
             _logger.Log("Ranking has been updated");
 
-            return _mapper.Map<RankingConfirmDTO>(rank);
+            return _mapper.Map<RankingConfirmDto>(rank);
         }
 
         public void Delete(Guid id)

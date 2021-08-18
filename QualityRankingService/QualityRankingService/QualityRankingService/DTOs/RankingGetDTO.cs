@@ -2,7 +2,7 @@
 
 namespace QualityRanking.DTOs
 {
-    public class RankingGetDTO
+    public class RankingGetDto
     {
         public Guid Id { get; set; }
         public int Rate { get; set; }

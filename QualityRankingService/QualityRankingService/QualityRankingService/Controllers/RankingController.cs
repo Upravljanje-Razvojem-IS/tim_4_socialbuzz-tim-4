@@ -65,7 +65,7 @@ namespace QualityRanking.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]
-        public ActionResult PostRank([FromBody] RankingPostDTO dto)
+        public ActionResult PostRank([FromBody] RankingPostDto dto)
         {
             var entity = _repository.Create(dto);
 
@@ -85,7 +85,7 @@ namespace QualityRanking.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("{id}")]
-        public ActionResult PutRank(Guid id, RankingPostDTO dto)
+        public ActionResult PutRank(Guid id, RankingPostDto dto)
         {
             var entity = _repository.Update(id, dto);
 

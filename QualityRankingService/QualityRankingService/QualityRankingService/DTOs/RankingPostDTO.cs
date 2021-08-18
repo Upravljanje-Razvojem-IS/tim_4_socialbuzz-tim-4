@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace QualityRanking.DTOs
 {
-    public class RankingPostDTO
+    public class RankingPostDto
     {
         [Range(1, 10)]
         public int Rate { get; set; }
