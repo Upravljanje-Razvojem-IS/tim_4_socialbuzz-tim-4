@@ -1,7 +1,14 @@
+using BlockUsersService.AuthHelper;
+using BlockUsersService.Data.Blocking;
+using BlockUsersService.Data.FollowingMock;
+using BlockUsersService.Data.UserMock;
+using BlockUsersService.Entities;
+using BlockUsersService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +33,17 @@ namespace BlockUsersService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BlockUserDBContext>(options =>
+            {
+                //options.UseLazyLoadingProxies();
+                options.UseSqlServer(Configuration.GetConnectionString("BlockUserDBContextConnectonString"));
+            });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IBlockingRepository, BlockingRepository>();
+            services.AddScoped<IBlockingService, BlockingService>();
+            services.AddScoped<IUserMockRepository, UserMockRepository>();
+            services.AddScoped<IAuthHelper, AuthHelperr>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

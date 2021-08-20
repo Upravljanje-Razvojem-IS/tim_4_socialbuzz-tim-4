@@ -6010,23 +6010,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\Mina\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Source\\Repos\\tim_4_socialbuzz\\CommentingService\\ReactionsService\\ReactionsService.csproj",
+      "projectUniqueName": "F:\\Mina\\IV GODINA\\Mandic\\Projekat\\tim_4_socialbuzz-tim-4\\CommentingService\\ReactionsService\\ReactionsService.csproj",
       "projectName": "ReactionsService",
-      "projectPath": "C:\\Users\\Lenovo\\Source\\Repos\\tim_4_socialbuzz\\CommentingService\\ReactionsService\\ReactionsService.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Source\\Repos\\tim_4_socialbuzz\\CommentingService\\ReactionsService\\obj\\",
+      "projectPath": "F:\\Mina\\IV GODINA\\Mandic\\Projekat\\tim_4_socialbuzz-tim-4\\CommentingService\\ReactionsService\\ReactionsService.csproj",
+      "packagesPath": "C:\\Users\\Mina\\.nuget\\packages\\",
+      "outputPath": "F:\\Mina\\IV GODINA\\Mandic\\Projekat\\tim_4_socialbuzz-tim-4\\CommentingService\\ReactionsService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
