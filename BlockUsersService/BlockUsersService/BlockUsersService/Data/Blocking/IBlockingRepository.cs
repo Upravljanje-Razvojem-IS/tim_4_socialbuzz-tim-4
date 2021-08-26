@@ -17,5 +17,14 @@ namespace BlockUsersService.Data.Blocking
         Block Modify(Block block);
 
         void Unblock_User(int blockerID, int blockedID);
+
+        bool AlreadyBlock_User(int userID, int blockedID);
+
+        bool AlreadyUnblock_User(int userID, int blockedID);
+
+        List<Block> GetBlockerList(int userID);
+        List<Block> GetBlockedList(int userID);
+
+
     }
 }

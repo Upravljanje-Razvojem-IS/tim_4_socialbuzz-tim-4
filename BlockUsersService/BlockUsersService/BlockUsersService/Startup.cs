@@ -44,6 +44,7 @@ namespace BlockUsersService
             services.AddScoped<IBlockingService, BlockingService>();
             services.AddScoped<IUserMockRepository, UserMockRepository>();
             services.AddScoped<IAuthHelper, AuthHelperr>();
+            services.AddScoped<IFollowingMockRepository, FollowingMockRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,7 +8,7 @@ namespace BlockUsersService.Models.Dto
     public class BlockModifyDto
     {
         public Guid Id { get; set; }
-        public int? BlockerId { get; set; }
-        public int? BlockedId { get; set; }
+        public int BlockerId { get; set; }
+        public int BlockedId { get; set; }
     }
 }

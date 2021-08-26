@@ -7,5 +7,7 @@ namespace BlockUsersService.Data.FollowingMock
 {
     public interface IFollowingMockRepository
     {
+        public bool FollowingUser(int userID, int followingID);
+
     }
 }
