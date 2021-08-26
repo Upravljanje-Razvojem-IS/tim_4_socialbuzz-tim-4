@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockUsersService.Models.Dto
 {
+    
     public class BlockCreationDto
     {
         [Required(ErrorMessage = "Blocker ID is required, please write it!")]

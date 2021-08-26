@@ -19,5 +19,9 @@ namespace BlockUsersService.Services
 
         void Unblock_User(UnblockDto unblock);
 
+        List<BlockDto> GetBlockerList(int userID);
+
+        List<BlockDto> GetBlockedList(int userID);
+
     }
 }
