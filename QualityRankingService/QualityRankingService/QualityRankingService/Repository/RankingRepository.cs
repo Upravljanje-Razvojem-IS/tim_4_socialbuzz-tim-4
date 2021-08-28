@@ -25,9 +25,14 @@ namespace QualityRanking.Repository
 
         public RankingConfirmDto Create(RankingPostDto dto)
         {
-            User user = MockUser.Users.FirstOrDefault(e => e.Id == dto.UserId);
+            User rater = MockUser.Users.FirstOrDefault(e => e.Id == dto.RaterId);
 
-            if (user == null)
+            if (rater == null)
+                return null;
+
+            User ratee = MockUser.Users.FirstOrDefault(e => e.Id == dto.RateeId);
+
+            if (ratee == null)
                 return null;
 
             Ranking newRanking = new Ranking()
@@ -35,7 +40,8 @@ namespace QualityRanking.Repository
                 Id = Guid.NewGuid(),
                 Rate = dto.Rate,
                 Description = dto.Description,
-                UserId = dto.UserId
+                RaterId = dto.RaterId,
+                RateeId = dto.RateeId
             };
 
             _context.Rankings.Add(newRanking);
@@ -51,7 +57,7 @@ namespace QualityRanking.Repository
             var list = _context.Rankings.ToList();
 
 
-            _logger.Log("Fethc list of all rankings");
+            _logger.Log("Fetch list of all rankings");
 
             return _mapper.Map<List<RankingGetDto>>(list);
         }
@@ -73,14 +79,20 @@ namespace QualityRanking.Repository
             if (rank == null)
                 return null;
 
-            User user = MockUser.Users.FirstOrDefault(e => e.Id == dto.UserId);
+            User rater = MockUser.Users.FirstOrDefault(e => e.Id == dto.RaterId);
 
-            if (user == null)
+            if (rater == null)
+                return null;
+
+            User ratee = MockUser.Users.FirstOrDefault(e => e.Id == dto.RateeId);
+
+            if (ratee == null)
                 return null;
 
             rank.Rate = dto.Rate;
             rank.Description = dto.Description;
-            rank.UserId = dto.UserId;
+            rank.RaterId = dto.RaterId;
+            rank.RateeId = dto.RateeId;
 
             _context.SaveChanges();
 

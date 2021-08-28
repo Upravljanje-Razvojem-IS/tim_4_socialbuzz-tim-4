@@ -24,6 +24,8 @@ namespace QualityRanking.Entities
         /// ID of rated user
         /// </summary>
         [Required]
-        public Guid UserId { get; set; }
+        public Guid RaterId { get; set; }
+        [Required]
+        public Guid RateeId { get; set; }
     }
 }
