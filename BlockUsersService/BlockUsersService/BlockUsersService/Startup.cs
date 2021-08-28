@@ -15,7 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BlockUsersService
@@ -45,6 +47,32 @@ namespace BlockUsersService
             services.AddScoped<IUserMockRepository, UserMockRepository>();
             services.AddScoped<IAuthHelper, AuthHelperr>();
             services.AddScoped<IFollowingMockRepository, FollowingMockRepository>();
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("BlockUsersApiSpecification",
+                     new Microsoft.OpenApi.Models.OpenApiInfo()
+                     {
+                         Title = "Blocking users API",
+                         Version = "1",
+                         Description = "API koji omogucava pregled blokiranja korisnika, nova blokiranja, izmenu i brisanje postojecih blokiranja.",
+                         Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                         {
+                             Name = "Mina Topalovic",
+                             Email = "minatopalovic98@gmail.com"
+                         },
+                         License = new Microsoft.OpenApi.Models.OpenApiLicense
+                         {
+                             Name = "FTN licenca"
+                         }
+                     });
+
+                //var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml"; 
+                //var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments); 
+
+                //setupAction.IncludeXmlComments(xmlCommentsPath); 
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +84,13 @@ namespace BlockUsersService
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/BlockUsersApiSpecification/swagger.json", "Blocking users API");
+                setupAction.RoutePrefix = "";
+            });
 
             app.UseRouting();
 

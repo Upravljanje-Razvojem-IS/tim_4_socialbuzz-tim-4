@@ -68,3 +68,8 @@ F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\Block
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\obj\Debug\netcoreapp3.1\BlockUsersService.dll
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\obj\Debug\netcoreapp3.1\BlockUsersService.pdb
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\obj\Debug\netcoreapp3.1\BlockUsersService.genruntimeconfig.cache
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\BlockUsersService\BlockUsersService\BlockUsersService\obj\Debug\netcoreapp3.1\BlockUsersService.MvcApplicationPartsAssemblyInfo.cs

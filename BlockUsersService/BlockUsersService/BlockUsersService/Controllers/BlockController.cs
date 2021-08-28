@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BlockUsersService.Controllers
 {
-    [Route("api/blockUser")]
+    [Route("api/blockingService")]
     [ApiController]
     public class BlockController : Controller
     {
@@ -70,7 +70,7 @@ namespace BlockUsersService.Controllers
         }
 
         
-        [HttpPost]
+        [HttpPost("block")]
         public IActionResult Block_User([FromHeader] string key, BlockCreationDto blockCreation)
         {
             if (!authHelper1.AuthUser(key))
@@ -114,7 +114,7 @@ namespace BlockUsersService.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("unblock")]
         public IActionResult Unblock_User([FromHeader] string key, UnblockDto unblock)
         {
             if (!authHelper1.AuthUser(key))

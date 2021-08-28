@@ -18,9 +18,9 @@ namespace BlockUsersService.AuthHelper
             if (!secretKey.StartsWith("Bearer")) 
                 return false;
 
-            var lenght = "Bearer ".Length;
+            //var lenght = "Bearer ".Length;
 
-            var key = secretKey.Substring(lenght);
+            var key = secretKey.Substring(secretKey.IndexOf("Bearer") + 7);
             var storedKey = configuration1.GetValue<string>("Authorization:Key");
 
             if (storedKey != key) return false;
