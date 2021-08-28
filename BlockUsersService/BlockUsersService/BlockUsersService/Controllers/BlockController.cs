@@ -2,7 +2,6 @@
 using BlockUsersService.AuthHelper;
 using BlockUsersService.Data.FollowingMock;
 using BlockUsersService.Entities;
-using BlockUsersService.ErrorHandler;
 using BlockUsersService.Models.Dto;
 using BlockUsersService.Services;
 using Microsoft.AspNetCore.Http;
@@ -25,15 +24,15 @@ namespace BlockUsersService.Controllers
     {
         private readonly IBlockingService blockingService1;
         private readonly IAuthHelper authHelper1;
-        private readonly IMapper mapper1;
         private readonly IFollowingMockRepository followingMockRepository1;
+        private readonly IMapper mapper;
 
-        public BlockController(IBlockingService blockingService, IAuthHelper authHelper, IMapper mapper, IFollowingMockRepository followingMockRepository)
+        public BlockController(IBlockingService blockingService, IAuthHelper authHelper, IFollowingMockRepository followingMockRepository, IMapper mapper)
         {
             this.blockingService1 = blockingService;
             this.authHelper1 = authHelper;
-            this.mapper1 = mapper;
             this.followingMockRepository1 = followingMockRepository;
+            this.mapper = mapper;
         }
 
 
@@ -61,7 +60,7 @@ namespace BlockUsersService.Controllers
             if (!authHelper1.AuthUser(key)) 
                 return Unauthorized();
 
-            var blocks = blockingService1.GetBlocks();
+            List<BlockDto> blocks = blockingService1.GetBlocks();
 
             if (blocks == null || blocks.Count == 0)
                 return NotFound();
@@ -98,7 +97,7 @@ namespace BlockUsersService.Controllers
                 return Unauthorized();
             try
             {
-                var one = blockingService1.GetBlockById(ID);
+                 BlockDto one = blockingService1.GetBlockById(ID);
                 if (one == null)
                     return NotFound();
 
@@ -141,14 +140,13 @@ namespace BlockUsersService.Controllers
         [Consumes("application/json")]
         [Produces("application/json")]
         [HttpPost("block")]
-        public IActionResult Block_User([FromHeader] string key, BlockCreationDto blockCreation)
+        public ActionResult<BlockDto> Block_User([FromHeader] string key, BlockCreationDto blockCreation)
         {
             if (!authHelper1.AuthUser(key))
                 return Unauthorized();
 
             if (!followingMockRepository1.FollowingUser(blockCreation.blockerID, blockCreation.blockedID))
                 return StatusCode(StatusCodes.Status400BadRequest, $"You don't follow user with id = {blockCreation.blockedID}, so you can't block him!");
-                //throw new UserException($"You don't follow user with id = {blockCreation.blockedID}, so you can't block him!");
 
             try
             {
@@ -191,7 +189,7 @@ namespace BlockUsersService.Controllers
         [Consumes("application/json")]
         [Produces("application/json")]
         [HttpPut]
-        public IActionResult Modify_Block([FromHeader] string key, BlockModifyDto blockModify)
+        public ActionResult<BlockDto> Modify_Block([FromHeader] string key, BlockModifyDto blockModify)
         {
             if (!authHelper1.AuthUser(key))
                 return Unauthorized();
@@ -202,7 +200,8 @@ namespace BlockUsersService.Controllers
             try
             {
                 Block old = blockingService1.ModifyBlock(blockModify);
-                return Ok(old);
+
+                return Ok(mapper.Map<BlockDto>(old));
             }
             catch (Exception e)
             {

@@ -37,7 +37,6 @@ namespace BlockUsersService
             services.AddControllers();
             services.AddDbContext<BlockUserDBContext>(options =>
             {
-                //options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration.GetConnectionString("BlockUserDBContextConnectonString"));
             });
 
