@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,11 +26,14 @@ namespace LoggerService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<LogDto> Insert([FromForm] Log oneLog) {
+        public ActionResult<LogDto> Insert(Log oneLog) {
 
             try
             {
                 Log inserted = repository.Insert(oneLog);
+                Console.WriteLine($"Log level: {oneLog.LogLevel}, ID: {oneLog.Id} Microservice: {oneLog.Microservice}, " +
+                    $"Message: {oneLog.Message}, Time: {oneLog.TimeOfAction}" );
+
                 return Created("", mapper.Map<LogDto>(oneLog));
             }
             catch (Exception ex)

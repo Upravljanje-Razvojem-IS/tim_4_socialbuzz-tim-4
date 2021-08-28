@@ -65,3 +65,5 @@ F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerSer
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\obj\Debug\netcoreapp3.1\LoggerService.dll
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\obj\Debug\netcoreapp3.1\LoggerService.pdb
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\obj\Debug\netcoreapp3.1\LoggerService.genruntimeconfig.cache
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\AutoMapper.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

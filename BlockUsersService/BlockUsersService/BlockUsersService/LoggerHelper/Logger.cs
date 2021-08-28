@@ -34,26 +34,21 @@ namespace BlockUsersService.LoggerHelper
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual void Log(LogLevel logLevel, string requestId, string message, Exception exception)
-        {
+            EventId e = eventId;
+            TState t = state;
+            Func<TState, Exception, string> form = formatter;
             LogModel model = new LogModel();
             model.Id = Guid.NewGuid();
             model.LogLevel = logLevel.ToString();
-            model.RequestId = requestId;
             model.Microservice = "Blocking Service";
-            model.Message = message;
-            model.ExceptionType = "";
-            model.ExceptionMessage = exception.Message;
+            model.Message = state.ToString();
             model.TimeOfAction = DateTime.Now.ToString();
 
             string json = JsonConvert.SerializeObject(model);
 
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
             var response = _httpClient.PostAsync("https://localhost:5010/api/log", stringContent);
-
         }
+
     }
 }

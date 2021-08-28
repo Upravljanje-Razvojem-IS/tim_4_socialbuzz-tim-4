@@ -3,6 +3,7 @@ using BlockUsersService.Data.Blocking;
 using BlockUsersService.Data.FollowingMock;
 using BlockUsersService.Data.UserMock;
 using BlockUsersService.Entities;
+using BlockUsersService.LoggerHelper;
 using BlockUsersService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace BlockUsersService
             services.AddScoped<IUserMockRepository, UserMockRepository>();
             services.AddScoped<IAuthHelper, AuthHelperr>();
             services.AddScoped<IFollowingMockRepository, FollowingMockRepository>();
+            services.AddSingleton<ILogger, Logger>();
 
             services.AddSwaggerGen(setupAction =>
             {

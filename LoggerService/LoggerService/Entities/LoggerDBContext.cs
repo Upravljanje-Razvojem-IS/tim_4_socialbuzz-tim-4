@@ -19,7 +19,6 @@ namespace LoggerService.Entities
 
         public virtual DbSet<Log> Logs { get; set; }
 
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,10 +32,6 @@ namespace LoggerService.Entities
                     .ValueGeneratedNever()
                     .HasColumnName("ID");
 
-                entity.Property(e => e.ExceptionMessage).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionType).IsUnicode(false);
-
                 entity.Property(e => e.LogLevel).IsUnicode(false);
 
                 entity.Property(e => e.Message)
@@ -44,10 +39,6 @@ namespace LoggerService.Entities
                     .HasColumnName("Message_");
 
                 entity.Property(e => e.Microservice).IsUnicode(false);
-
-                entity.Property(e => e.RequestId)
-                    .IsUnicode(false)
-                    .HasColumnName("RequestID");
 
                 entity.Property(e => e.TimeOfAction).IsUnicode(false);
             });

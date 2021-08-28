@@ -1,8 +1,10 @@
 using LoggerService.Data;
+using LoggerService.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,12 @@ namespace LoggerService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<LoggerDBContext>(options =>
+            {
+
+                options.UseSqlServer(Configuration.GetConnectionString("LoggerDBContextConnectonString"));
+
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ILogRepository, LogRepository>();
         }

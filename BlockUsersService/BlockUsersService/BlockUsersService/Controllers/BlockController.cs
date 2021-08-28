@@ -6,6 +6,7 @@ using BlockUsersService.Models.Dto;
 using BlockUsersService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,15 @@ namespace BlockUsersService.Controllers
         private readonly IAuthHelper authHelper1;
         private readonly IFollowingMockRepository followingMockRepository1;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public BlockController(IBlockingService blockingService, IAuthHelper authHelper, IFollowingMockRepository followingMockRepository, IMapper mapper)
+        public BlockController(IBlockingService blockingService, IAuthHelper authHelper, IFollowingMockRepository followingMockRepository, IMapper mapper, ILogger logger)
         {
             this.blockingService1 = blockingService;
             this.authHelper1 = authHelper;
             this.followingMockRepository1 = followingMockRepository;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
 
@@ -57,14 +60,21 @@ namespace BlockUsersService.Controllers
         [HttpGet]
         public ActionResult<BlockDto> GetBlocks([FromHeader]string key) {
 
-            if (!authHelper1.AuthUser(key)) 
+            if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             List<BlockDto> blocks = blockingService1.GetBlocks();
 
             if (blocks == null || blocks.Count == 0)
+            {
+                logger.LogWarning("Ne postoji nijedno blokiranje korisnika");
                 return NotFound();
-
+            }
+          
+            logger.LogInformation("Uspesno vracena lista svih blokiranja korisnika");
             return Ok(blocks);
         }
 
@@ -94,18 +104,25 @@ namespace BlockUsersService.Controllers
         public ActionResult<BlockDto> GetBlockById([FromHeader] string key, Guid ID) {
 
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
             try
             {
                  BlockDto one = blockingService1.GetBlockById(ID);
                 if (one == null)
+                {
+                    logger.LogWarning("Ne postoji nijedno blokiranje korisnika");
                     return NotFound();
+                }
 
+                logger.LogInformation("Uspesno vracen blokiranje sa prosledjenim ID-em");
                 return Ok(one);
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
             }
 
@@ -143,19 +160,26 @@ namespace BlockUsersService.Controllers
         public ActionResult<BlockDto> Block_User([FromHeader] string key, BlockCreationDto blockCreation)
         {
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             if (!followingMockRepository1.FollowingUser(blockCreation.blockerID, blockCreation.blockedID))
+            {
+                logger.LogWarning("Korisnik ne moze da blokira korisnika kojeg ne prati");
                 return StatusCode(StatusCodes.Status400BadRequest, $"You don't follow user with id = {blockCreation.blockedID}, so you can't block him!");
+            }
 
             try
             {
                 var c = blockingService1.Block_User(blockCreation);
+                logger.LogInformation("Korisnik je blokiran uspesno");
                 return Created("aaaaa", c);
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
@@ -192,20 +216,27 @@ namespace BlockUsersService.Controllers
         public ActionResult<BlockDto> Modify_Block([FromHeader] string key, BlockModifyDto blockModify)
         {
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             if (!followingMockRepository1.FollowingUser(blockModify.BlockerId, blockModify.BlockedId))
+            {
+                logger.LogWarning("Korisnik ne moze da blokira korisnika kojeg ne prati");
                 return StatusCode(StatusCodes.Status400BadRequest, $"You don't follow user with id = {blockModify.BlockedId}, so you can't block him!");
+            }
 
             try
             {
                 Block old = blockingService1.ModifyBlock(blockModify);
 
+                logger.LogInformation("Blok je uspesno modifikovan");
                 return Ok(mapper.Map<BlockDto>(old));
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
@@ -241,19 +272,27 @@ namespace BlockUsersService.Controllers
         public IActionResult Unblock_User([FromHeader] string key, UnblockDto unblock)
         {
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             if (!followingMockRepository1.FollowingUser(unblock.blockerID, unblock.blockedID))
+            {
+                logger.LogWarning("Korisnik ne moze da blokira korisnika kojeg ne prati");
                 return StatusCode(StatusCodes.Status400BadRequest, $"You don't follow user with id = {unblock.blockedID}, so you can't unblock him!");
+            }
 
             try
             {
                 blockingService1.Unblock_User(unblock);
+
+                logger.LogInformation("Korisnik je odblokiran uspesno");
                 return Ok($"You have unblock user with id = {unblock.blockedID} succesfully!");
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
@@ -282,18 +321,26 @@ namespace BlockUsersService.Controllers
         public ActionResult<List<BlockDto>> GetBlockerList([FromHeader] string key, int userID)
         {
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             try
             {
                 var list = blockingService1.GetBlockerList(userID);
-                if (list == null)
+                if (list == null || list.Count == 0)
+                {
+                    logger.LogWarning("Nije pronadjen nijedan blok za korisnika");
                     return NotFound();
+                }
+
+                logger.LogInformation("Uspesno vracena lista blokova za korisnika na osnovu ID-a");
                 return Ok(list);
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
@@ -321,18 +368,26 @@ namespace BlockUsersService.Controllers
         public ActionResult<List<BlockDto>> GetBlockedList([FromHeader] string key, int userID)
         {
             if (!authHelper1.AuthUser(key))
+            {
+                logger.LogWarning("Autorizacija korisnika neuspesna");
                 return Unauthorized();
+            }
 
             try
             {
                 var list = blockingService1.GetBlockedList(userID);
                 if (list == null || list.Count == 0)
+                {
+                    logger.LogWarning("Nije pronadjen nijedan blok za korisnika");
                     return NotFound();
+                }
+
+                logger.LogInformation("Uspesno vracena lista blokova blokiranog korisnika");
                 return Ok(list);
             }
             catch (Exception e)
             {
-
+                logger.LogError(e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
