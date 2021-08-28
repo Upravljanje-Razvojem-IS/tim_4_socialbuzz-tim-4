@@ -55,7 +55,8 @@ namespace BlockUsersService
                      {
                          Title = "Blocking users API",
                          Version = "1",
-                         Description = "API koji omogucava pregled blokiranja korisnika, nova blokiranja, izmenu i brisanje postojecih blokiranja.",
+                         Description = "Servis koji omogucava pregled i pretragu blokiranja korisnika, nova blokiranja, izmenu, " +
+                         "brisanje postojecih blokiranja i prikaz liste blokiranih korisnika i korisnika koji blokiraju.",
                          Contact = new Microsoft.OpenApi.Models.OpenApiContact
                          {
                              Name = "Mina Topalovic",
@@ -67,10 +68,10 @@ namespace BlockUsersService
                          }
                      });
 
-                //var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml"; 
-                //var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments); 
+                var xmlComments = $"{Assembly.GetExecutingAssembly().GetName().Name }.xml"; 
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments); 
 
-                //setupAction.IncludeXmlComments(xmlCommentsPath); 
+                setupAction.IncludeXmlComments(xmlCommentsPath); 
 
             });
         }

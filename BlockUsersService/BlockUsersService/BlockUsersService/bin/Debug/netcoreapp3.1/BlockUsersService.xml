@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlockUsersService</name>
+    </assembly>
+    <members>
+        <member name="T:BlockUsersService.Controllers.BlockController">
+            <summary>
+            Kontroler Block servisa uz pomoc kojeg mozete blokirati i odblokirati nekog korisnika, 
+            mozete videti listu blokiranih korisnika koje je odredjeni korisnik blokirao, 
+            takodje i sve blokove koji trenutno postoje.
+            </summary>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.GetBlocks(System.String)">
+            <summary>
+            Vraca sva trenutna blokiranja iz baze koja su korisnici napravili.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Get Blocks\
+               GET 'http://localhost:5003/api/blockingService' \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123' 
+            </remarks>
+            <response code="200">Uspesno vracena lista svih blokiranja korisnika.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="404">Ne postoji nijedno blokiranje korisnika.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.GetBlockById(System.String,System.Guid)">
+            <summary>
+            Pretrazivanje po prosledjenom ID-u u listi blokiranja.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="ID">Id blokiranja</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Get Block By Id\
+            
+               GET 'http://localhost:5003/api/blockingService/{id}' \
+               {id}: 'id -> ECCC721F-5D96-4457-9A2F-1EFB548CE695' \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123'
+            </remarks>
+            <response code="200">Uspesno vracen blokiranje sa prosledjenim ID-em.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="404">Ne postoji nijedno blokiranje korisnika.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.Block_User(System.String,BlockUsersService.Models.Dto.BlockCreationDto)">
+            <summary>
+            Kreiranje novog bloka (Korisnik blokira drugog korisnika).
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="blockCreation">Model uz pomoc kojeg se kreira blok u bazi</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Block_User\
+            
+               POST 'http://localhost:5003/api/blockingService/block' \
+               Body: 
+                    {
+                        "blockerID": 2,
+                        "blockedID": 3
+                    } \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123'
+            </remarks>
+            <response code="201">Korisnik je blokiran uspesno.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="400">Korisnik ne moze da blokira korisnika kojeg ne prati.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.Modify_Block(System.String,BlockUsersService.Models.Dto.BlockModifyDto)">
+            <summary>
+            Modifikovanje postojeceg bloka.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="blockModify">Model uz pomoc kojeg mozemo izmeniti odnosno modifikovati blok</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Modify_Block\
+            
+               PUT 'http://localhost:5003/api/blockingService' \
+               Body: 
+                    {
+                        "id": "890843a8-106a-4d73-91d0-8df43864cf45",
+                        "blockerID": 2,
+                        "blockedID": 5
+                    } \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123'
+            </remarks>
+            <response code="200">Blok je uspesno modifikovan.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="400">Korisnik ne moze da blokira korisnika kojeg ne prati.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.Unblock_User(System.String,BlockUsersService.Models.Dto.UnblockDto)">
+            <summary>
+            Brisanje bloka (Korisnik je odblokirao drugog korisnika).
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="unblock">Model uz pomoc kojeg brisemo blok u bazi</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Unblock_User\
+            
+               DELETE 'http://localhost:5003/api/blockingService/unblock' \
+               Body: 
+                    {
+                        "blockerID": 2,
+                        "blockedID": 3
+                    } \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123'
+            </remarks>
+            <response code="200">Korisnik je odblokiran uspesno.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="400">Korisnik ne moze da blokira korisnika kojeg ne prati.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.GetBlockerList(System.String,System.Int32)">
+            <summary>
+            Vraca sve one blokirane korisnike koje je korisnik sa prosledjenim ID-em blokirao.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="userID">ID korisnika koji blokira</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Get Blocker List\
+               GET 'http://localhost:5003/api/blockingService/blockerList/{userID}' \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123' 
+            </remarks>
+            <response code="200">Uspesno vracena lista blokova za korisnika na osnovu ID-a.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="404">Nije pronadjen nijedan blok za korisnika.</response>
+        </member>
+        <member name="M:BlockUsersService.Controllers.BlockController.GetBlockedList(System.String,System.Int32)">
+            <summary>
+            Vraca sve korisnike koji su blokirali korisnika sa prosledjenim ID-em.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima</param>
+            <param name="userID">ID blokiranog korisnika</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog zahteva \
+            - Get Blocked List\
+               GET 'http://localhost:5003/api/blockingService/blockedList/{userID}' \
+               Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123' 
+            </remarks>
+            <response code="200">Uspesno vracena lista blokova blokiranog korisnika.</response>
+            <response code="401">Autorizacija korisnika neuspesna.</response>
+            <response code="404">Nije pronadjen nijedan blok za korisnika.</response>
+        </member>
+        <member name="T:BlockUsersService.Entities.Block">
+            <summary>
+            Model tabele u bazi blokiranja korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Entities.Block.Id">
+            <summary>
+            Id blokiranja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Entities.Block.BlockerId">
+            <summary>
+            Korisnik koji blokira drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Entities.Block.BlockedId">
+            <summary>
+            Blokirani korisnik
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Entities.Block.BlockDate">
+            <summary>
+            Vreme trenutka blokiranja
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.Dto.BlockCreationDto">
+            <summary>
+            Dto model za kreiranje bloka
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockCreationDto.blockerID">
+            <summary>
+            Korisnik koji blokira drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockCreationDto.blockedID">
+            <summary>
+            Korisnik koji je blokiran
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.Dto.BlockDto">
+            <summary>
+            Dto model blokiranja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockDto.Id">
+            <summary>
+            Id blokiranja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockDto.BlockerId">
+            <summary>
+            Korisnik koji blokira drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockDto.BlockedId">
+            <summary>
+            Korisnik koji je blokiran
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockDto.BlockDate">
+            <summary>
+            Vreme blokiranja
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.Dto.BlockModifyDto">
+            <summary>
+            Dto model za modifkaciju blokiranja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockModifyDto.Id">
+            <summary>
+            Id blokiranja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockModifyDto.BlockerId">
+            <summary>
+            Korisnik koji blokira drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.BlockModifyDto.BlockedId">
+            <summary>
+            Korisnik koji je blokiran
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.Dto.UnblockDto">
+            <summary>
+            Dto model za odblokiranje
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.UnblockDto.blockerID">
+            <summary>
+            Korisnik koji blokira drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.Dto.UnblockDto.blockedID">
+            <summary>
+            Korisnik koji je blokiran
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.MocksDto.FollowingDto">
+            <summary>
+            Mock-ovani dto model pracenja korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.FollowingDto.ID">
+            <summary>
+            Id pracenja
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.FollowingDto.FollowerID">
+            <summary>
+            Korisnik koji prati drugog korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.FollowingDto.FollowedID">
+            <summary>
+            Korisnik koji je zapracen
+            </summary>
+        </member>
+        <member name="T:BlockUsersService.Models.MocksDto.UserDto">
+            <summary>
+            Mock-ovani dto model korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.ID">
+            <summary>
+            Id korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.FirstName">
+            <summary>
+            Ime korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.LastName">
+            <summary>
+            Prezime korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.Username">
+            <summary>
+            Username korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.Email">
+            <summary>
+            Email korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.PhoneNumber">
+            <summary>
+            Broj telefona korisnika
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.City">
+            <summary>
+            Grad odakle je korisnik
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.Role">
+            <summary>
+            Uloga korisnika (admin, user)
+            </summary>
+        </member>
+        <member name="P:BlockUsersService.Models.MocksDto.UserDto.IsActive">
+            <summary>
+            Da li je trenutno aktivan korisnik na mrezi
+            </summary>
+        </member>
+    </members>
+</doc>
