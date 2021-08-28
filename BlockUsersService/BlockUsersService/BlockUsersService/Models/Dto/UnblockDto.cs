@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 
 namespace BlockUsersService.Models.Dto
 {
+    /// <summary>
+    /// Dto model za odblokiranje
+    /// </summary>
     public class UnblockDto
     {
+        /// <summary>
+        /// Korisnik koji blokira drugog korisnika
+        /// </summary>
         [Required(ErrorMessage = "Blocker ID is required, please write it!")]
         public int blockerID { get; set; }
 
+
+        /// <summary>
+        /// Korisnik koji je blokiran
+        /// </summary>
         [Required(ErrorMessage = "Blocked ID is required, please write it!")]
         public int blockedID { get; set; }
     }
