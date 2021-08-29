@@ -10,6 +10,7 @@ namespace LoggerService.Data
     {
         public Log Insert(Log log);
 
+        public List<Log>GetLogs();
 
     }
 }

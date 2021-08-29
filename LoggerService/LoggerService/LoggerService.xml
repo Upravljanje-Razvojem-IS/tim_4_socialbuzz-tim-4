@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoggerService</name>
+    </assembly>
+    <members>
+        <member name="M:LoggerService.Controllers.LoggerController.Insert(LoggerService.Entities.Log)">
+            <summary>
+            Unos logova u bazu.
+            </summary>
+            <param name="oneLog">Model na osnovu koga se objekat upisuje u bazu.</param>
+            <returns></returns>
+            <remarks>
+            Primer unosa uspesnog novog loga \
+            POST 'https://localhost:5010/api/log/' \
+                --data-urlencode 'Id="9af923b3-029d-4c13-87d0-98e238bbdb51"' \
+                --data-urlencode 'LogLevel=Information' \
+                --data-urlencode 'Microservice=testingMicroservice'\
+                --data-urlencode 'Message=Testiram samo post za logove' \
+                --data-urlencode 'TimeOfAction=01/01/2021 5:28:29 PM' \
+            </remarks>
+            <response code="201">Vraca kreirani log.</response>
+            <response code="400">Greska prilikom upisa u bazu.</response>
+            <response code="500">Greska pri unosa vrednosti u bazu.</response>
+        </member>
+        <member name="M:LoggerService.Controllers.LoggerController.GetLogs(System.String)">
+            <summary>
+            Vraca sve trenutne logove iz baze.
+            </summary>
+            <param name="key">Sifra uz pomoc koje korisnik ima pristup podacima.</param>
+            <returns></returns>
+            <remarks>
+            Primer uspesnog vracanja logova 
+             -  GET 'https://localhost:5010/api/log/' \
+                Header: 'Authorization(API Key): Key -> Key, Value -> Bearer sifra123'
+            </remarks>
+            <response code="200">Vraca listu logova sa gore navedenim parametrima.</response>
+            <response code="401">Greska pri autentifikaciji.</response>
+            <response code="404">Ne postoji nijedno log.</response>
+        </member>
+        <member name="T:LoggerService.Entities.Log">
+            <summary>
+            Model loga koji prikazuje informacije o dogadjaju neke akcije
+            </summary>
+        </member>
+        <member name="P:LoggerService.Entities.Log.Id">
+            <summary>
+            Id loga
+            </summary>
+        </member>
+        <member name="P:LoggerService.Entities.Log.LogLevel">
+            <summary>
+            LogLevel (Information, Warning, Error)
+            </summary>
+        </member>
+        <member name="P:LoggerService.Entities.Log.Microservice">
+            <summary>
+            Naizv mikroservisa koji je izvrsio neku akciju
+            </summary>
+        </member>
+        <member name="P:LoggerService.Entities.Log.Message">
+            <summary>
+            Poruka sta se desilo
+            </summary>
+        </member>
+        <member name="P:LoggerService.Entities.Log.TimeOfAction">
+            <summary>
+            Vreme desavanja akcije
+            </summary>
+        </member>
+        <member name="T:LoggerService.Models.LogDto">
+            <summary>
+            Dto model loga koji prikazuje informacije o dogadjaju neke akcije
+            </summary>
+        </member>
+        <member name="P:LoggerService.Models.LogDto.Id">
+            <summary>
+            Id loga
+            </summary>
+        </member>
+        <member name="P:LoggerService.Models.LogDto.LogLevel">
+            <summary>
+            LogLevel (Information, Warning, Error)
+            </summary>
+        </member>
+        <member name="P:LoggerService.Models.LogDto.Microservice">
+            <summary>
+            Naizv mikroservisa koji je izvrsio neku akciju
+            </summary>
+        </member>
+        <member name="P:LoggerService.Models.LogDto.Message">
+            <summary>
+            Poruka sta se desilo
+            </summary>
+        </member>
+        <member name="P:LoggerService.Models.LogDto.TimeOfAction">
+            <summary>
+            Vreme desavanja akcije
+            </summary>
+        </member>
+    </members>
+</doc>

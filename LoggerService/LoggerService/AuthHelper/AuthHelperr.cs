@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockUsersService.AuthHelper
+namespace LoggerService.AuthHelper
 {
-    public class AuthHelperr : IAuthHelper
+    public class AuthHelperr : IAuthHelperr
     {
         private readonly IConfiguration configuration1;
         public AuthHelperr(IConfiguration configuration)
@@ -15,7 +15,7 @@ namespace BlockUsersService.AuthHelper
         }
         public bool AuthUser(string secretKey)
         {
-            if (!secretKey.StartsWith("Bearer")) 
+            if (!secretKey.StartsWith("Bearer"))
                 return false;
 
 

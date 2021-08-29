@@ -34,9 +34,6 @@ namespace BlockUsersService.LoggerHelper
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            EventId e = eventId;
-            TState t = state;
-            Func<TState, Exception, string> form = formatter;
             LogModel model = new LogModel();
             model.Id = Guid.NewGuid();
             model.LogLevel = logLevel.ToString();
@@ -47,7 +44,7 @@ namespace BlockUsersService.LoggerHelper
             string json = JsonConvert.SerializeObject(model);
 
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
-            var response = _httpClient.PostAsync("https://localhost:5010/api/log", stringContent);
+            var response = _httpClient.PostAsync(configuration.GetValue<string>("URI:url"), stringContent);
         }
 
     }

@@ -54,7 +54,7 @@ namespace BlockUsersService.Data.FollowingMock
             var list = from l in FollowingUsersList
                        select l;
 
-            foreach (var item in FollowingUsersList)
+            foreach (var item in list)
             {
                 if (item.FollowerID == userID && item.FollowedID == followingID)
                 {
@@ -66,18 +66,6 @@ namespace BlockUsersService.Data.FollowingMock
             return false;
         }
 
-        //public List<int> GetFollowedUsers(int userID)
-        //{
-        //    List<int> list = new List<int>();
-
-        //    foreach (var item in FollowingUsersList)
-        //    {
-        //        if (item.FollowerID == userID) {
-
-        //            list.Add(item.FollowedID);
-        //        }
-        //    }
-        //    return list;
-        //}
+        
     }
 }

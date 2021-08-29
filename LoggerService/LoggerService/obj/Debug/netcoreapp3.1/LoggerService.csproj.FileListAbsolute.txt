@@ -67,3 +67,9 @@ F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerSer
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\obj\Debug\netcoreapp3.1\LoggerService.genruntimeconfig.cache
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\AutoMapper.dll
 F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\LoggerService.xml
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\Mina\IV GODINA\Mandic\Projekat\tim_4_socialbuzz-tim-4\LoggerService\LoggerService\obj\Debug\netcoreapp3.1\LoggerService.MvcApplicationPartsAssemblyInfo.cs
