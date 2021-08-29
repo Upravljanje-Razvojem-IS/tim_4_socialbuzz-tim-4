@@ -109,7 +109,7 @@ namespace ChatService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet]
+        [HttpGet("reciver-sender")]
         public ActionResult GetByReciverAndSender([FromBody] SenderAndReciver model)
         {
             var entities = _repository.GetByReciverAndSender(model);
@@ -127,7 +127,7 @@ namespace ChatService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet]
+        [HttpGet("search")]
         public ActionResult SearchMessagesByContent([FromBody] string content)
         {
             var entities = _repository.SearchMessagesByContent(content);
