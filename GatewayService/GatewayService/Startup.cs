@@ -39,14 +39,15 @@ namespace GatewayService
 
             app.Use(async (context, next) =>
             {
-                //Console.WriteLine(context.Request.Headers.ContainsKey("key"));
+                
 
                 if (context.Request.Headers.ContainsKey("Key") && context.Request.Headers["Key"] == config.GetValue<string>("Authorization:Key"))
                     await next.Invoke();
                 else
                 {
                     context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Unauthorized");
+                    await context.Response.WriteAsync("Unauthorized. You have to put secret key in header to use my service. " +
+                        "My suggestion is to use Postman, it is more amusing and interesting :D");
 
                 }
 

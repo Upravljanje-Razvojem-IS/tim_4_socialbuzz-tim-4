@@ -113,7 +113,7 @@ namespace BlockUsersService.Data.Blocking
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new BlockException(e.Message);
 
             }
         }

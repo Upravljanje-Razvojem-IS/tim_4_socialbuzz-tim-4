@@ -14,6 +14,12 @@ namespace LoggerService.Data
         {
             this.context = context;
         }
+
+        public List<Log> GetLogs()
+        {
+            return context.Logs.ToList();
+        }
+
         public Log Insert(Log log)
         {
             context.Add(log);
