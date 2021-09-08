@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PASMicroservice.Models;
+using PASMicroservice.Entities;
 
 namespace PASMicroservice.Repositories
 {
-    interface IProductsAndServicesRepository
+    public interface IProductsAndServicesRepository
     {
-        IEnumerable<ProductsAndServices> GetPAS();
+        List<ProductsAndServices> GetPAS();
         ProductsAndServices GetPASById(Guid id);
-        void InsertPAS(ProductsAndServices PAS);
-        void UpdatePAS(ProductsAndServices PAS);
+        ProductsAndServicesConfirmation CreatePAS(ProductsAndServices pas);
+        ProductsAndServicesConfirmation UpdatePAS(ProductsAndServices pas);
         void DeletePAS(Guid id);
         void Save();
     }

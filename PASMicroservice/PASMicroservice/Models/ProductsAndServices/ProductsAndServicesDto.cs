@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PASMicroservice.Models
+namespace PASMicroservice.Models.ProductsAndServices
 {
-    public class ProductsAndServices
+    public class ProductsAndServicesDto
     {
         // Properties
         public Guid Id { get; set; }
