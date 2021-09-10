@@ -35,7 +35,6 @@ namespace PASMicroservice.Repositories
             {
                 Id = pasConfirmation.Id,
                 Name = pasConfirmation.Name,
-                TypeId = pasConfirmation.TypeId,
                 CategoryId = pasConfirmation.CategoryId,
                 UserId = pasConfirmation.UserId
             };
@@ -52,7 +51,6 @@ namespace PASMicroservice.Repositories
                 existing.Price = pas.Price;
                 existing.PriceContact = pas.PriceContact;
                 existing.PriceDeal = pas.PriceDeal;
-                existing.TypeId = pas.TypeId;
                 existing.CategoryId = pas.CategoryId;
                 existing.UserId = pas.UserId;
 
@@ -65,7 +63,6 @@ namespace PASMicroservice.Repositories
                 {
                     Id = pasConfirmation.Id,
                     Name = pasConfirmation.Name,
-                    TypeId = pasConfirmation.TypeId,
                     CategoryId = pasConfirmation.CategoryId,
                     UserId = pasConfirmation.UserId
                 };
@@ -74,7 +71,6 @@ namespace PASMicroservice.Repositories
             {
                 throw new Exception(e.Message);
             }
-            
         }
         public void DeletePAS(Guid id)
         {

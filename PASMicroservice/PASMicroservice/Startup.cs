@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PASMicroservice.DBContexts;
+using PASMicroservice.Mocks;
 using PASMicroservice.Repositories;
 
 namespace PASMicroservice
@@ -34,7 +35,12 @@ namespace PASMicroservice
             }).AddXmlDataContractSerializerFormatters();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<PASContext>(o => o.UseSqlServer(Configuration.GetConnectionString("ProductsAndServicesDB")));
+
             services.AddTransient<IProductsAndServicesRepository, ProductsAndServicesRepository>();
+            services.AddTransient<IPASTypeRepository, PASTypeRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+            services.AddTransient<IUserMockRepository, UserMockRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

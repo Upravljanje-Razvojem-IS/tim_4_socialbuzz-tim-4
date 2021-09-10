@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using PASMicroservice.Entities;
+using PASMicroservice.Mocks;
 using PASMicroservice.Models.ProductsAndServices;
 using PASMicroservice.Repositories;
 
@@ -20,11 +21,14 @@ namespace PASMicroservice.Controllers
         private readonly IProductsAndServicesRepository pasRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-        public ProductsAndServicesController(IProductsAndServicesRepository pasRepository, LinkGenerator linkGenerator, IMapper mapper)
+        private readonly IUserMockRepository userMockRepository;
+
+        public ProductsAndServicesController(IProductsAndServicesRepository pasRepository, LinkGenerator linkGenerator, IMapper mapper, IUserMockRepository userMockRepository)
         {
             this.pasRepository = pasRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+            this.userMockRepository = userMockRepository;
         }
 
         // GET: api/pas
@@ -53,6 +57,9 @@ namespace PASMicroservice.Controllers
         {
             try
             {
+                if (this.userMockRepository.GetUserById(pas.UserId) == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, "User doesn't exist.");
+
                 var pasEntity = mapper.Map<ProductsAndServices>(pas);
                 var confirmation = this.pasRepository.CreatePAS(pasEntity);
 
@@ -73,16 +80,15 @@ namespace PASMicroservice.Controllers
             try
             {
                 if (this.pasRepository.GetPASById(pas.Id) == null)
-                {
                     return NotFound();
-                }
+
                 ProductsAndServices pasEntity = mapper.Map<ProductsAndServices>(pas);
                 ProductsAndServicesConfirmation confirmation = this.pasRepository.UpdatePAS(pasEntity);
                 return Ok(mapper.Map<ProductsAndServicesConfirmationDto>(confirmation));                    
             } 
-            catch(Exception e)
+            catch(Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Update error" + e.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
             }
         }
 

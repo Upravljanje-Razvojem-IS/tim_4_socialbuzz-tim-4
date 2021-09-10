@@ -22,8 +22,6 @@ namespace PASMicroservice.Models.ProductsAndServices
         public bool PriceDeal { get; set; }
 
         // Foreign keys
-        [Required(ErrorMessage = "TypeId is required.")]
-        public int TypeId { get; set; }
 
         [Required(ErrorMessage = "CategoryId is required.")]
         public Guid CategoryId { get; set; }
@@ -37,11 +35,6 @@ namespace PASMicroservice.Models.ProductsAndServices
             if (Price <= 0 && PriceContact == false && PriceDeal == false)
                 yield return new ValidationResult(
                     "You have to set the price of product or service, or choose the option to contact or make a deal.",
-                    new[] { "ProductsAndServicesUpdateDto" });
-
-            if (TypeId < 1)
-                yield return new ValidationResult(
-                    "TypeId is invalid.",
                     new[] { "ProductsAndServicesUpdateDto" });
 
             if (CategoryId == new Guid())

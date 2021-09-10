@@ -16,8 +16,8 @@ namespace PASMicroservice.Entities
         public bool? PriceDeal { get; set; }
 
         // Foreign keys
-        public int TypeId { get; set; }
         public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
 
         // Mock properties/foreign keys
         public int UserId { get; set; }

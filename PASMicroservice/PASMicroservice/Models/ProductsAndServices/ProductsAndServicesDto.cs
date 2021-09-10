@@ -15,8 +15,7 @@ namespace PASMicroservice.Models.ProductsAndServices
         public bool PriceContact { get; set; }
         public bool PriceDeal { get; set; }
 
-        // Foreign keys
-        public int TypeId { get; set; }
+        // Foreign key
         public Guid CategoryId { get; set; }
 
         // Mock properties/foreign keys

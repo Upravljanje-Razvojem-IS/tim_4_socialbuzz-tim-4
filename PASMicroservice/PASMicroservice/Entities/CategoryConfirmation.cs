@@ -5,15 +5,14 @@ using System.Threading.Tasks;
 
 namespace PASMicroservice.Entities
 {
-    public class ProductsAndServicesConfirmation
+    public class CategoryConfirmation
     {
         // Properties
         public Guid Id { get; set; }
         public string Name { get; set; }
-        // Foreign keys
-        public Guid CategoryId { get; set; }
+        public Guid? ParentId { get; set; }
 
-        // Mock properties/foreign keys
-        public int UserId { get; set; }
+        // Foreign keys
+        public int TypeId { get; set; }
     }
 }

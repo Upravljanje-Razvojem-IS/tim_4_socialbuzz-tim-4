@@ -12,6 +12,9 @@ namespace PASMicroservice.DBContexts
         public DbSet<PASType> PASTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PASType>().HasMany(t => t.Categories).WithOne(c => c.Type);
+            modelBuilder.Entity<Category>().HasMany(c => c.PAS).WithOne(pas => pas.Category);
+
             // Types
             modelBuilder.Entity<PASType>().HasData(
                 new PASType
@@ -68,7 +71,6 @@ namespace PASMicroservice.DBContexts
                     Price = 150.00,
                     PriceContact = false,
                     PriceDeal = false,
-                    TypeId = 1,
                     CategoryId = new Guid("dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa"),
                     UserId = 1337
                 },
@@ -80,7 +82,6 @@ namespace PASMicroservice.DBContexts
                     Price = 2499.95,
                     PriceContact = false,
                     PriceDeal = false,
-                    TypeId = 1,
                     CategoryId = new Guid("dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa"),
                     UserId = 1338
                 },
@@ -89,7 +90,6 @@ namespace PASMicroservice.DBContexts
                     Id = new Guid("ae63dcce-07d0-468e-9940-e840ee895aac"),
                     Name = "Cooler Master CPU Hladnjak",
                     PriceDeal = true,
-                    TypeId = 1,
                     CategoryId = new Guid("329f5f35-9ae7-4bd7-89ff-480cfa938804"),
                     UserId = 1339
                 },
@@ -100,7 +100,6 @@ namespace PASMicroservice.DBContexts
                     Price = 150.00,
                     PriceDeal = false,
                     PriceContact = false,
-                    TypeId = 2,
                     CategoryId = new Guid("4c65f2f6-34f0-4440-8a7f-18a617459b7e"),
                     UserId = 1337
                 },
@@ -110,7 +109,6 @@ namespace PASMicroservice.DBContexts
                     Name = "SEO optimizacija",
                     Description = "Za vise informacija, kontaktirati",
                     PriceContact = true,
-                    TypeId = 2,
                     CategoryId = new Guid("c1df5575-00ce-4ca8-88c0-750c9fab1772"),
                     UserId = 1337
                 }

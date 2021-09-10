@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PASMicroservice.Entities
+namespace PASMicroservice.Models.PASType
 {
-    public class PASType
+    public class PASTypeConfirmationDto
     {
+        // Properties
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public List<Category> Categories { get; set; }
     }
 }

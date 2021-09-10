@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PASMicroservice.Entities
+namespace PASMicroservice.Models.Category
 {
-    public class Category
+    public class CategoryConfirmationDto
     {
         // Properties
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public List<ProductsAndServices> PAS { get; set; }
+        public Guid? ParentId { get; set; }
 
         // Foreign keys
-        public Guid? ParentId { get; set; }
-        public Category Parent { get; set; }
         public int TypeId { get; set; }
-        public PASType Type { get; set; }
     }
 }

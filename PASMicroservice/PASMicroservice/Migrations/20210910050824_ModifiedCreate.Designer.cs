@@ -10,15 +10,15 @@ using PASMicroservice.DBContexts;
 namespace PASMicroservice.Migrations
 {
     [DbContext(typeof(PASContext))]
-    [Migration("20210908030417_ModifiedCreate")]
+    [Migration("20210910050824_ModifiedCreate")]
     partial class ModifiedCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PASMicroservice.Entities.Category", b =>
@@ -37,6 +37,10 @@ namespace PASMicroservice.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Categories");
 
@@ -126,13 +130,12 @@ namespace PASMicroservice.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("PAS");
 
@@ -146,7 +149,6 @@ namespace PASMicroservice.Migrations
                             Price = 150.0,
                             PriceContact = false,
                             PriceDeal = false,
-                            TypeId = 1,
                             UserId = 1337
                         },
                         new
@@ -158,7 +160,6 @@ namespace PASMicroservice.Migrations
                             Price = 2499.9499999999998,
                             PriceContact = false,
                             PriceDeal = false,
-                            TypeId = 1,
                             UserId = 1338
                         },
                         new
@@ -167,7 +168,6 @@ namespace PASMicroservice.Migrations
                             CategoryId = new Guid("329f5f35-9ae7-4bd7-89ff-480cfa938804"),
                             Name = "Cooler Master CPU Hladnjak",
                             PriceDeal = true,
-                            TypeId = 1,
                             UserId = 1339
                         },
                         new
@@ -178,7 +178,6 @@ namespace PASMicroservice.Migrations
                             Price = 150.0,
                             PriceContact = false,
                             PriceDeal = false,
-                            TypeId = 2,
                             UserId = 1337
                         },
                         new
@@ -188,9 +187,46 @@ namespace PASMicroservice.Migrations
                             Description = "Za vise informacija, kontaktirati",
                             Name = "SEO optimizacija",
                             PriceContact = true,
-                            TypeId = 2,
                             UserId = 1337
                         });
+                });
+
+            modelBuilder.Entity("PASMicroservice.Entities.Category", b =>
+                {
+                    b.HasOne("PASMicroservice.Entities.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.HasOne("PASMicroservice.Entities.PASType", "Type")
+                        .WithMany("Categories")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("PASMicroservice.Entities.ProductsAndServices", b =>
+                {
+                    b.HasOne("PASMicroservice.Entities.Category", "Category")
+                        .WithMany("PAS")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("PASMicroservice.Entities.Category", b =>
+                {
+                    b.Navigation("PAS");
+                });
+
+            modelBuilder.Entity("PASMicroservice.Entities.PASType", b =>
+                {
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }
