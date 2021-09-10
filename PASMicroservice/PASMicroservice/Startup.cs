@@ -41,6 +41,7 @@ namespace PASMicroservice
             services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             services.AddTransient<IUserMockRepository, UserMockRepository>();
+            services.AddSingleton(typeof(ILoggerMockRepository<>), typeof(LoggerMockRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

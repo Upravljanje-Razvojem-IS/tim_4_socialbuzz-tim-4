@@ -21,14 +21,19 @@ namespace PASMicroservice.Controllers
         private readonly IProductsAndServicesRepository pasRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-        private readonly IUserMockRepository userMockRepository;
 
-        public ProductsAndServicesController(IProductsAndServicesRepository pasRepository, LinkGenerator linkGenerator, IMapper mapper, IUserMockRepository userMockRepository)
+        private readonly IUserMockRepository userMockRepository;
+        private readonly ILoggerMockRepository<ProductsAndServicesController> logger;
+
+        public ProductsAndServicesController(IProductsAndServicesRepository pasRepository, LinkGenerator linkGenerator, IMapper mapper, 
+            IUserMockRepository userMockRepository, ILoggerMockRepository<ProductsAndServicesController> logger)
         {
             this.pasRepository = pasRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+
             this.userMockRepository = userMockRepository;
+            this.logger = logger;
         }
 
         // GET: api/pas
@@ -38,8 +43,12 @@ namespace PASMicroservice.Controllers
             var pas = this.pasRepository.GetPAS();
 
             if (pas == null || pas.Count() == 0)
+            {
+                logger.LogInformation("GET ProductsAndServices no content.");
                 return NoContent();
+            }
 
+            logger.LogInformation("GET ProductsAndServices successful.");
             return Ok(mapper.Map<List<ProductsAndServicesDto>>(pas));
         }
 
@@ -48,6 +57,8 @@ namespace PASMicroservice.Controllers
         public ActionResult<ProductsAndServicesDto> GetById(Guid id)
         {
             var pas = this.pasRepository.GetPASById(id);
+
+            logger.LogInformation("GET ProductsAndServices successful.");
             return Ok(mapper.Map<ProductsAndServicesDto>(pas));
         }
 
@@ -58,17 +69,21 @@ namespace PASMicroservice.Controllers
             try
             {
                 if (this.userMockRepository.GetUserById(pas.UserId) == null)
+                {
+                    logger.LogInformation("POST ProductsAndServices failed.");
                     return StatusCode(StatusCodes.Status400BadRequest, "User doesn't exist.");
-
+                }
                 var pasEntity = mapper.Map<ProductsAndServices>(pas);
                 var confirmation = this.pasRepository.CreatePAS(pasEntity);
 
                 string location = linkGenerator.GetPathByAction("GetById", "ProductsAndServices", new { Id = confirmation.Id });
 
+                logger.LogInformation("POST ProductsAndServices successful.");
                 return Created(location, mapper.Map<ProductsAndServicesConfirmationDto>(confirmation));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.LogError(e, "Error creating new ProductsAndServices: " + e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create error");
             }
         }
@@ -80,14 +95,19 @@ namespace PASMicroservice.Controllers
             try
             {
                 if (this.pasRepository.GetPASById(pas.Id) == null)
+                {
+                    logger.LogInformation("PUT ProductsAndServices not found.");
                     return NotFound();
-
+                }
                 ProductsAndServices pasEntity = mapper.Map<ProductsAndServices>(pas);
                 ProductsAndServicesConfirmation confirmation = this.pasRepository.UpdatePAS(pasEntity);
+
+                logger.LogInformation("PUT ProductsAndServices successful.");
                 return Ok(mapper.Map<ProductsAndServicesConfirmationDto>(confirmation));                    
             } 
-            catch(Exception)
+            catch(Exception e)
             {
+                logger.LogError(e, "Error updating existing ProductsAndServices: " + e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
             }
         }
@@ -101,13 +121,18 @@ namespace PASMicroservice.Controllers
                 var pas = this.pasRepository.GetPASById(id);
 
                 if (pas == null)
+                {
+                    logger.LogInformation("DELETE ProductsAndServices not found.");
                     return NotFound();
-
+                }
                 this.pasRepository.DeletePAS(id);
+
+                logger.LogInformation("DELETE ProductsAndServices successful.");
                 return NoContent();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.LogError(e, "Error deleting ProductsAndServices: ", e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete error");
             }
         }

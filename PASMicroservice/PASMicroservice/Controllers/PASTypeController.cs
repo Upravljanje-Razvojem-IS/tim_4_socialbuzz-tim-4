@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using PASMicroservice.Entities;
+using PASMicroservice.Mocks;
 using PASMicroservice.Models.PASType;
 using PASMicroservice.Repositories;
 
@@ -21,11 +22,18 @@ namespace PASMicroservice.Controllers
         private readonly IPASTypeRepository typeRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-        public PASTypeController(IPASTypeRepository typeRepository, LinkGenerator linkGenerator, IMapper mapper)
+
+        private readonly IUserMockRepository userMockRepository;
+        private readonly ILoggerMockRepository<PASTypeController> logger;
+        public PASTypeController(IPASTypeRepository typeRepository, LinkGenerator linkGenerator, IMapper mapper,
+            IUserMockRepository userMockRepository, ILoggerMockRepository<PASTypeController> logger)
         {
             this.typeRepository = typeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+
+            this.userMockRepository = userMockRepository;
+            this.logger = logger;
         }
 
         // GET: api/types
@@ -35,8 +43,12 @@ namespace PASMicroservice.Controllers
             var types = this.typeRepository.GetTypes();
 
             if (types == null || types.Count() == 0)
+            {
+                logger.LogInformation("GET Type no content.");
                 return NoContent();
+            }
 
+            logger.LogInformation("GET Type successful.");
             return Ok(mapper.Map<List<PASTypeDto>>(types));
         }
 
@@ -45,6 +57,7 @@ namespace PASMicroservice.Controllers
         public ActionResult<PASTypeDto> GetById(int id)
         {
             var type = this.typeRepository.GetTypeById(id);
+            logger.LogInformation("GET Type successful.");
             return Ok(mapper.Map<PASTypeDto>(type));
         }
 
@@ -59,10 +72,12 @@ namespace PASMicroservice.Controllers
 
                 string location = linkGenerator.GetPathByAction("GetById", "PASType", new { Id = confirmation.Id });
 
+                logger.LogInformation("POST Type successful.");
                 return Created(location, mapper.Map<PASTypeConfirmationDto>(confirmation));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.LogError(e, "Error creating new type: ", e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create error");
             }
         }
@@ -74,14 +89,19 @@ namespace PASMicroservice.Controllers
             try
             {
                 if (this.typeRepository.GetTypeById(type.Id) == null)
+                {
+                    logger.LogInformation("PUT Type not found.");
                     return NotFound();
-
+                }
                 PASType typeEntity = mapper.Map<PASType>(type);
                 PASTypeConfirmation confirmation = this.typeRepository.UpdateType(typeEntity);
+
+                logger.LogInformation("PUT Type successful.");
                 return Ok(mapper.Map<PASTypeConfirmationDto>(confirmation));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.LogError(e, "Error updating existing type: ", e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
             }
         }
@@ -95,13 +115,18 @@ namespace PASMicroservice.Controllers
                 var type = this.typeRepository.GetTypeById(id);
 
                 if (type == null)
+                {
+                    logger.LogInformation("DELETE Type not found.");
                     return NotFound();
-
+                }
                 this.typeRepository.DeleteType(id);
+
+                logger.LogInformation("DELETE Type successful.");
                 return NoContent();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.LogError(e, "Error deleting type: ", e.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete error");
             }
         }
