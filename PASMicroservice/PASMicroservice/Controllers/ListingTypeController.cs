@@ -17,52 +17,68 @@ namespace PASMicroservice.Controllers
 {
     [Route("api/listingTypes")]
     [ApiController]
+    [Produces("application/json", "application/xml")]
     public class ListingTypeController : ControllerBase
     {
         private readonly IListingTypeRepository listingTypeRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
 
-        private readonly IUserMockRepository userMockRepository;
         private readonly ILoggerMockRepository<ListingTypeController> logger;
         public ListingTypeController(IListingTypeRepository listingTypeRepository, LinkGenerator linkGenerator, IMapper mapper,
-            IUserMockRepository userMockRepository, ILoggerMockRepository<ListingTypeController> logger)
+            ILoggerMockRepository<ListingTypeController> logger)
         {
             this.listingTypeRepository = listingTypeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
 
-            this.userMockRepository = userMockRepository;
             this.logger = logger;
         }
 
         // GET: api/listingTypes
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public ActionResult<List<ListingTypeDto>> Get()
         {
             var listingTypes = this.listingTypeRepository.GetTypes();
 
             if (listingTypes == null || listingTypes.Count() == 0)
             {
-                logger.LogInformation("GET Type no content.");
+                logger.LogInformation("GET ListingType no content.");
                 return NoContent();
             }
 
-            logger.LogInformation("GET Type successful.");
+            logger.LogInformation("GET ListingType successful.");
             return Ok(mapper.Map<List<ListingTypeDto>>(listingTypes));
         }
 
         // GET api/listingTypes/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeDto> GetById(int id)
         {
             var listingType = this.listingTypeRepository.GetTypeById(id);
-            logger.LogInformation("GET Type successful.");
+
+            if (listingType == null)
+            {
+                logger.LogInformation("GET ListingType not found.");
+                return NotFound();
+            }
+
+            logger.LogInformation("GET ListingType successful.");
             return Ok(mapper.Map<ListingTypeDto>(listingType));
         }
 
         // POST api/listingTypes
         [HttpPost]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeConfirmationDto> Post([FromBody] ListingTypeCreationDto listingType)
         {
             try
@@ -83,7 +99,12 @@ namespace PASMicroservice.Controllers
         }
 
         // PUT api/listingTypes
-        [HttpPut()]
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeConfirmationDto> Put([FromBody] ListingTypeUpdateDto listingType)
         {
             try
@@ -108,6 +129,10 @@ namespace PASMicroservice.Controllers
 
         // DELETE api/listingTypes/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public IActionResult Delete(int id)
         {
             try

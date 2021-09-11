@@ -14,6 +14,9 @@ using PASMicroservice.Repositories;
 
 namespace PASMicroservice.Controllers
 {
+    /// <summary>
+    /// ListingController izvršava CRUD operacije nad podacima o listinzima.
+    /// </summary>
     [Route("api/listings")]
     [ApiController]
     [Produces("application/json", "application/xml")]
@@ -38,13 +41,18 @@ namespace PASMicroservice.Controllers
         }
 
         /// <summary>
-        /// Vraća sve listinge (proizvode i usluge)
+        /// Vraća sve listinge
         /// </summary>
-        /// <returns>Lista listinga (proizvoda i usluga)</returns>
+        /// <returns>Lista listinga</returns>
         /// <remarks>
+        /// Primer zahteva za vraćanje svih listinga \
         /// GET /api/listings
         /// </remarks>
+        /// <response code="200">Uspešno su vraćeni svi listinzi.</response>
+        /// <response code="204">Ne postoji nijedan listing i vraća se prazan odgovor.</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult<List<ListingDto>> Get()
         {
             var listing = this.listingRepository.GetListings();
@@ -59,15 +67,20 @@ namespace PASMicroservice.Controllers
             return Ok(mapper.Map<List<ListingDto>>(listing));
         }
 
-        // GET api/listings/5
         /// <summary>
         /// Vraća jedan listing
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">id listinga</param>
+        /// <returns>Jedan listing</returns>
+        /// <remarks>
+        /// Primer zahteva za vraćanje listinga sa traženim id-jem \
+        /// GET /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+        /// </remarks>
+        /// <response code="200">Uspešno je vraćen listing.</response>
+        /// <response code="404">Ne postoji listing sa traženim id-jem.</response>
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpGet("{id}")]
         public ActionResult<ListingDto> GetById(Guid id)
         {
             var listing = this.listingRepository.GetListingById(id);
@@ -83,10 +96,9 @@ namespace PASMicroservice.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Kreiranje novog listinga
         /// </summary>
-        /// <param name="listing"></param>
-        /// <returns></returns>
+        /// <returns>Kreiran listing</returns>
         /// <remarks>
         /// Primer zahteva za kreiranje novog listinga \
         /// POST /api/listings \
@@ -97,11 +109,18 @@ namespace PASMicroservice.Controllers
         ///     "PriceContact": false, \
         ///     "PriceDeal": false, \
         ///     "CategoryId": "8d47fd86-745d-4158-6d4a-08d9741e2107", \
-        ///     "UserId": 1340 \
+        ///     "ListingTypeId": 1, \
+        ///     "UserId": 1337 \
         /// }
         /// </remarks>
-        [Consumes("application/json")]
+        /// <response code="201">Uspešno je kreiran listing.</response>
+        /// <response code="400">Ne postoji User sa datim UserId i nije moguće kreiranje.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public ActionResult<ListingConfirmationDto> Post([FromBody] ListingCreationDto listing)
         {
             try
@@ -126,8 +145,35 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // PUT api/listings
+        /// <summary>
+        /// Izmena postojećeg listinga
+        /// </summary>
+        /// <returns>Izmenjen listing</returns>
+        /// <remarks>
+        /// Primer zahteva za izmenu listinga \
+        /// PUT /api/listings
+        /// { \
+        ///     "ListingId": "7a466dbc-c6fd-4309-bb9b-08d974eac29a", \
+        ///     "Name": "Lenovo laptop 110-15ISK", \
+        ///     "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
+        ///     "Price": 500, \
+        ///     "PriceContact": false, \
+        ///     "PriceDeal": false, \
+        ///     "CategoryId": "8d47fd86-745d-4158-6d4a-08d9741e2107", \
+        ///     "ListingTypeId": 1, \
+        ///     "UserId": 1337 \
+        /// }
+        /// </remarks>
+        /// <response code="200">Uspešno je izmenjen listing.</response>
+        /// <response code="400">Ne postoji User sa datim UserId i nije moguće izmeniti listing.</response>
+        /// <response code="404">Ne postoji listing sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public ActionResult<ListingConfirmationDto> Put([FromBody] ListingUpdateDto listing)
         {
             try
@@ -136,6 +182,11 @@ namespace PASMicroservice.Controllers
                 {
                     logger.LogInformation("PUT Listing not found.");
                     return NotFound();
+                }
+                if (this.userMockRepository.GetUserById(listing.UserId) == null)
+                {
+                    logger.LogInformation("POST Listing failed.");
+                    return StatusCode(StatusCodes.Status400BadRequest, "User doesn't exist.");
                 }
                 Listing listingEntity = mapper.Map<Listing>(listing);
                 ListingConfirmation confirmation = this.listingRepository.UpdateListing(listingEntity);
@@ -150,8 +201,22 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // DELETE api/listings/5
+        /// <summary>
+        /// Brisanje jednog listinga
+        /// </summary>
+        /// <param name="id">id listinga za brisanje</param>
+        /// <returns>Ništa</returns>
+        /// <remarks>
+        /// Primer zahteva za brisanje listinga \
+        /// DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+        /// </remarks>
+        /// <response code="204">Uspešno je obrisan listing i vraća odgovor bez sadržaja.</response>
+        /// <response code="404">Ne postoji listing sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult Delete(Guid id)
         {
             try
@@ -175,8 +240,17 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // OPTIONS
+        /// <summary>
+        /// Vraća dozvoljene HTTP metode na endpoint-u
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za pregled dostupnih metoda \
+        /// OPTIONS /api/listings
+        /// </remarks>
+        /// <response code="200">Uspešno vraćene metode.</response>
         [HttpOptions]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Options()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

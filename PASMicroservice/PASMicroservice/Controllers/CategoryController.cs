@@ -17,28 +17,33 @@ namespace PASMicroservice.Controllers
 {
     [Route("api/categories")]
     [ApiController]
+    [Produces("application/json", "application/xml")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
 
-        private readonly IUserMockRepository userMockRepository;
         private readonly ILoggerMockRepository<CategoryController> logger;
 
         public CategoryController(ICategoryRepository categoryRepository, LinkGenerator linkGenerator, IMapper mapper,
-            IUserMockRepository userMockRepository, ILoggerMockRepository<CategoryController> logger)
+            ILoggerMockRepository<CategoryController> logger)
         {
             this.categoryRepository = categoryRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
 
-            this.userMockRepository = userMockRepository;
             this.logger = logger;
         }
 
-        // GET: api/categories
+        /// <summary>
+        /// Vraća sve kategorije listinga
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
         public ActionResult<List<CategoryDto>> Get()
         {
             var categories = this.categoryRepository.GetCategories();
@@ -55,15 +60,29 @@ namespace PASMicroservice.Controllers
 
         // GET api/categories
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public ActionResult<CategoryDto> GetById(Guid id)
         {
             var category = this.categoryRepository.GetCategoryById(id);
+
+            if (category == null)
+            {
+                logger.LogInformation("GET Category not found");
+                return NotFound();
+            }
+
             logger.LogInformation("GET Category successful.");
             return Ok(mapper.Map<CategoryDto>(category));
         }
 
         // POST api/categories
         [HttpPost]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public ActionResult<CategoryConfirmationDto> Post([FromBody] CategoryCreationDto category)
         {
             try
@@ -84,7 +103,12 @@ namespace PASMicroservice.Controllers
         }
 
         // PUT api/categories
-        [HttpPut()]
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public ActionResult<CategoryConfirmationDto> Put([FromBody] CategoryUpdateDto category)
         {
             try
@@ -109,6 +133,11 @@ namespace PASMicroservice.Controllers
 
         // DELETE api/categories/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
         public IActionResult Delete(Guid id)
         {
             try

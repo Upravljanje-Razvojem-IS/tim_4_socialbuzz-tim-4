@@ -53,8 +53,8 @@ namespace PASMicroservice.Repositories
                 var listingTypeConfirmation = GetTypeById(listingType.ListingTypeId);
                 return new ListingTypeConfirmation
                 {
-                    ListingTypeId = listingType.ListingTypeId,
-                    Name = listingType.Name
+                    ListingTypeId = listingTypeConfirmation.ListingTypeId,
+                    Name = listingTypeConfirmation.Name
                 };
             } 
             catch (Exception e)

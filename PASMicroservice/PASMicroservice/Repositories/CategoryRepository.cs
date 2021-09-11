@@ -34,9 +34,9 @@ namespace PASMicroservice.Repositories
 
             return new CategoryConfirmation
             {
-                CategoryId = category.CategoryId,
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
+                CategoryId = categoryConfirmation.CategoryId,
+                Name = categoryConfirmation.Name,
+                ParentCategoryId = categoryConfirmation.ParentCategoryId
             };
         }
 

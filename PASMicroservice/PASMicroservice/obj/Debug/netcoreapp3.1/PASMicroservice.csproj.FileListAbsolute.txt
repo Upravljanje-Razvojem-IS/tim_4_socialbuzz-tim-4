@@ -69,3 +69,4 @@ D:\Development\URIS\tim_4_socialbuzz-tim-4\PASMicroservice\PASMicroservice\obj\D
 D:\Development\URIS\tim_4_socialbuzz-tim-4\PASMicroservice\PASMicroservice\obj\Debug\netcoreapp3.1\PASMicroservice.dll
 D:\Development\URIS\tim_4_socialbuzz-tim-4\PASMicroservice\PASMicroservice\obj\Debug\netcoreapp3.1\PASMicroservice.pdb
 D:\Development\URIS\tim_4_socialbuzz-tim-4\PASMicroservice\PASMicroservice\obj\Debug\netcoreapp3.1\PASMicroservice.genruntimeconfig.cache
+D:\Development\URIS\tim_4_socialbuzz-tim-4\PASMicroservice\PASMicroservice\obj\Debug\netcoreapp3.1\PASMicroservice.csproj.AssemblyReference.cache
