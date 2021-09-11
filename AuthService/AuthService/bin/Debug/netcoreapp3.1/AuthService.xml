@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuthService</name>
+    </assembly>
+    <members>
+        <member name="T:AuthService.Controllers.AuthController">
+            <summary>
+            Kontroler sa endpoint-ima za autentifikaciju korisnika
+            </summary>
+        </member>
+        <member name="M:AuthService.Controllers.AuthController.Login(AuthService.Models.Principal)">
+            <summary>
+            Prijava korisnika
+            </summary>
+            <returns>Token, ukoliko je autentifikacija uspešna</returns>
+            <response code="200">Token</response>
+            <response code="400">Pogrešna lozinka ili email adresa</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:AuthService.Controllers.AuthController.Logout(AuthService.Models.Requests.LogoutRequest)">
+            <summary>
+            Odjavljivanje korisnika
+            </summary>
+            <returns></returns>
+            <response code="200">Korisnik je odjavljen</response>
+            <response code="400">Pogrešne vrednosti u zahtevu</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="P:AuthService.Models.Principal.Email">
+            <summary>
+            Imejl korisnika
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.Principal.Password">
+            <summary>
+            Lozinka korisnika
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.Requests.LogoutRequest.Token">
+            <summary>
+            Token korisnika koji želi da se odjavi
+            </summary>
+        </member>
+    </members>
+</doc>
