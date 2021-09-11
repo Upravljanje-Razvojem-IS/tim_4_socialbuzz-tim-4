@@ -63,11 +63,11 @@ namespace AuthService
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Key)),
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuer = jwtSettings.Issuer,
                     ValidateAudience = false,
                     RequireExpirationTime = false,
-                    ValidateLifetime = true,
+                    ValidateLifetime = false,
                     ClockSkew = TimeSpan.FromMinutes(jwtSettings.MinutesToExpiration)
                 };
             });
