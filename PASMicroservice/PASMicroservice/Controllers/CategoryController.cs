@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -28,15 +29,17 @@ namespace PASMicroservice.Controllers
         private readonly IMapper mapper;
 
         private readonly ILoggerMockRepository<CategoryController> logger;
+        private readonly IAuthenticationMock authenticationMock;
 
         public CategoryController(ICategoryRepository categoryRepository, LinkGenerator linkGenerator, IMapper mapper,
-            ILoggerMockRepository<CategoryController> logger)
+            ILoggerMockRepository<CategoryController> logger, IAuthenticationMock authenticationMock)
         {
             this.categoryRepository = categoryRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
 
             this.logger = logger;
+            this.authenticationMock = authenticationMock;
         }
 
         /// <summary>
@@ -101,11 +104,13 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje nove kategorije \
         /// POST /api/categories \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "Name": "Kompjuterske komponente", \
         /// } \
         /// Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
         /// POST /api/categories \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "Name": "Grafičke kartice", \
         ///     "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
@@ -114,6 +119,7 @@ namespace PASMicroservice.Controllers
         /// <response code="201">Uspešno je kreirana kategorija.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -143,12 +149,14 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu kategorije \
         /// PUT /api/listings \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
         ///     "Name": "Računarske komponente i delovi", \
         /// } \
         /// Primer zahteva za izmenu kategorije sa opcionim obeležjima \
         /// PUT /api/listings \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
         ///     "Name": "Grafičke kartice", \
@@ -159,6 +167,7 @@ namespace PASMicroservice.Controllers
         /// <response code="404">Ne postoji kategorija sa datim id-jem.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -193,6 +202,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje kategorije \
         /// DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// </remarks>
         /// <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji kategorija sa datim id-jem.</response>

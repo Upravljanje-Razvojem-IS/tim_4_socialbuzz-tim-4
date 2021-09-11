@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -28,9 +29,10 @@ namespace PASMicroservice.Controllers
 
         private readonly IUserMockRepository userMockRepository;
         private readonly ILoggerMockRepository<ListingController> logger;
+        private readonly IAuthenticationMock authenticationMock;
 
         public ListingController(IListingRepository listingRepository, LinkGenerator linkGenerator, IMapper mapper, 
-            IUserMockRepository userMockRepository, ILoggerMockRepository<ListingController> logger)
+            IUserMockRepository userMockRepository, ILoggerMockRepository<ListingController> logger, IAuthenticationMock authenticationMock)
         {
             this.listingRepository = listingRepository;
             this.linkGenerator = linkGenerator;
@@ -38,6 +40,29 @@ namespace PASMicroservice.Controllers
 
             this.userMockRepository = userMockRepository;
             this.logger = logger;
+            this.authenticationMock = authenticationMock;
+        }
+
+        /// <summary>
+        /// Sluzi za autentifikaciju korisnika
+        /// </summary>
+        /// <param name="user">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+        /// <returns></returns>
+        [HttpPost("auth")]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult Authenticate(UserDto user)
+        {
+            //Pokušaj autentifikacije
+            if (authenticationMock.AuthenticateUser(user))
+            {
+                var tokenString = authenticationMock.GenerateJwt(user);
+                return Ok(new { token = tokenString });
+            }
+
+            //Ukoliko autentifikacija nije uspela vraća se status 401
+            return Unauthorized();
         }
 
         /// <summary>
@@ -109,6 +134,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje novog listinga \
         /// POST /api/listings \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "Name": "Lenovo laptop 110-15ISK", \
         ///     "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
@@ -124,6 +150,7 @@ namespace PASMicroservice.Controllers
         /// <response code="400">Ne postoji User sa datim UserId i nije moguće kreiranje.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -159,6 +186,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu listinga \
         /// PUT /api/listings
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "ListingId": "7a466dbc-c6fd-4309-bb9b-08d974eac29a", \
         ///     "Name": "Lenovo laptop 110-15ISK", \
@@ -176,6 +204,7 @@ namespace PASMicroservice.Controllers
         /// <response code="404">Ne postoji listing sa datim id-jem.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -216,11 +245,13 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje listinga \
         /// DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// </remarks>
         /// <response code="204">Uspešno je obrisan listing i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji listing sa datim id-jem.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]

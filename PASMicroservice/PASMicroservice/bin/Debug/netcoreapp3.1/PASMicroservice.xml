@@ -109,6 +109,13 @@
             ListingController izvršava CRUD operacije nad podacima o listinzima.
             </summary>
         </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Authenticate(PASMicroservice.Mocks.UserDto)">
+            <summary>
+            Sluzi za autentifikaciju korisnika
+            </summary>
+            <param name="user">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
         <member name="M:PASMicroservice.Controllers.ListingController.Get(System.String,System.String,System.String)">
             <summary>
             Vraća sve listinge uz upotrebu opcionih parametara name, categoryId i listingTypeId

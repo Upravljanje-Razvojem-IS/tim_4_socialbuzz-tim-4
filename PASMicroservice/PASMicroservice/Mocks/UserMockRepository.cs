@@ -24,7 +24,8 @@ namespace PASMicroservice.Mocks
                     Username = "katicstefan",
                     FirstName = "Stefan",
                     LastName = "Katic",
-                    Contact = "067123456"
+                    Contact = "067123456",
+                    Admin = true
                 },
                 new UserDto
                 {
@@ -32,7 +33,8 @@ namespace PASMicroservice.Mocks
                     Username = "ppetrovic21",
                     FirstName = "Petar",
                     LastName = "Petrovic",
-                    Contact = "068123456"
+                    Contact = "068123456",
+                    Admin = true
                 },
                 new UserDto
                 {
@@ -40,7 +42,8 @@ namespace PASMicroservice.Mocks
                     Username = "jovanj19",
                     FirstName = "Jovan",
                     LastName = "Jovanovic",
-                    Contact = "068123456"
+                    Contact = "068123456",
+                    Admin = false
                 },
                 new UserDto
                 {
@@ -48,7 +51,8 @@ namespace PASMicroservice.Mocks
                     Username = "tester",
                     FirstName = "Test",
                     LastName = "Testington",
-                    Contact = "060123456"
+                    Contact = "060123456",
+                    Admin = false
                 }
             });
         }
@@ -56,6 +60,12 @@ namespace PASMicroservice.Mocks
         public UserDto GetUserById(int userId)
         {
             return Users.FirstOrDefault(e => e.Id == userId);
+        }
+
+        public bool IsAdmin(int userId)
+        {
+            UserDto user = GetUserById(userId);
+            return user.Admin;
         }
     }
 }

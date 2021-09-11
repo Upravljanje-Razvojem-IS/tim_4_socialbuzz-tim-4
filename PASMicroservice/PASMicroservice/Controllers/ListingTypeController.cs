@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -28,14 +29,16 @@ namespace PASMicroservice.Controllers
         private readonly IMapper mapper;
 
         private readonly ILoggerMockRepository<ListingTypeController> logger;
+        private readonly IAuthenticationMock authenticationMock;
         public ListingTypeController(IListingTypeRepository listingTypeRepository, LinkGenerator linkGenerator, IMapper mapper,
-            ILoggerMockRepository<ListingTypeController> logger)
+            ILoggerMockRepository<ListingTypeController> logger, IAuthenticationMock authenticationMock)
         {
             this.listingTypeRepository = listingTypeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
 
             this.logger = logger;
+            this.authenticationMock = authenticationMock;
         }
 
         /// <summary>
@@ -100,6 +103,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje novog listinga \
         /// POST /api/listingTypes \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "Name": "jobs", \
         /// } \
@@ -107,6 +111,7 @@ namespace PASMicroservice.Controllers
         /// <response code="201">Uspešno je kreiran tip listinga.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -136,6 +141,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu tipa listinga \
         /// PUT /api/listingTypes
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// { \
         ///     "ListingTypeId": 3, \
         ///     "Name": "poslovi", \
@@ -145,6 +151,7 @@ namespace PASMicroservice.Controllers
         /// <response code="404">Ne postoji tip listinga sa datim id-jem.</response>
         /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
+        [Authorize]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -179,6 +186,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje tipa listinga \
         /// DELETE /api/listingTypes/3 \
+        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
         /// </remarks>
         /// <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji tip listing sa datim id-jem.</response>
