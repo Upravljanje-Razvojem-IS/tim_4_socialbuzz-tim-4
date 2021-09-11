@@ -301,6 +301,146 @@
             </remarks>
             <response code="200">Uspešno vraćene metode.</response>
         </member>
+        <member name="T:PASMicroservice.Entities.Category">
+            <summary>
+            Model entiteta kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.Listings">
+            <summary>
+            Lista listinga koji vuku ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.ParentCategory">
+            <summary>
+            Entitet roditelj kategorije odakle vuče ključ
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.CategoryConfirmation">
+            <summary>
+            Model entiteta potvrde kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.Listing">
+            <summary>
+            Model entiteta listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Category">
+            <summary>
+            Kategorija odakle vuče ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingType">
+            <summary>
+            Tip listinga odakle vuče ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.ListingConfirmation">
+            <summary>
+            Model entiteta potvrde listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
         <member name="T:PASMicroservice.Entities.ListingType">
             <summary>
             Model entiteta tipa listinga
@@ -336,6 +476,31 @@
             Naziv tipa listinga
             </summary>
         </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryConfirmationDto">
+            <summary>
+            DTO model potvrde kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryCreationDto">
+            <summary>
+            DTO model kreiranja kategorije
+            </summary>
+        </member>
         <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.Name">
             <summary>
             Naziv kategorije
@@ -343,12 +508,12 @@
         </member>
         <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.ParentCategoryId">
             <summary>
-            Strani ključ ID roditelj kategorije
+            ID roditelj kategorije
             </summary>
         </member>
         <member name="T:PASMicroservice.Models.Category.CategoryDto">
             <summary>
-            Predstavlja model kategorije
+            DTO model kategorije
             </summary>
         </member>
         <member name="P:PASMicroservice.Models.Category.CategoryDto.CategoryId">
@@ -363,8 +528,37 @@
         </member>
         <member name="P:PASMicroservice.Models.Category.CategoryDto.ParentCategoryId">
             <summary>
-            Strani ključ ID roditelj kategorije
+            ID roditelj kategorije
             </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryUpdateDto">
+            <summary>
+            DTO model za izmenu kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Category.CategoryUpdateDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je id roditelj kategorije isti kao id kategorije daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
         </member>
         <member name="T:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto">
             <summary>
@@ -420,6 +614,93 @@
             <summary>
             Naziv tipa listinga
             </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingConfirmationDto">
+            <summary>
+            DTO model potvrde tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingCreationDto">
+            <summary>
+            DTO model kreiranja listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Listing.ListingCreationDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je cena manja od 0 ili nije zadata i bit za kontakt je false i bit za dogovor je false daje grešku u validaciji
+            Ako je ID kategorije prazan ili nov Guid daje grešku u validaciji
+            Ako je ID tipa listinga manji od 1 daje grešku u validaciji
+            Ako je ID korisnika manji od 1 daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
         </member>
         <member name="T:PASMicroservice.Models.Listing.ListingDto">
             <summary>
@@ -510,6 +791,28 @@
             <summary>
             ID kategorije
             </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Listing.ListingUpdateDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je cena manja od 0 ili nije zadata i bit za kontakt je false i bit za dogovor je false daje grešku u validaciji
+            Ako je ID kategorije prazan ili nov Guid daje grešku u validaciji
+            Ako je ID tipa listinga manji od 1 daje grešku u validaciji
+            Ako je ID korisnika manji od 1 daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
         </member>
     </members>
 </doc>

@@ -66,6 +66,8 @@ namespace PASMicroservice.Entities
         /// </summary>
         public ListingType ListingType { get; set; }
 
+        #endregion
+
         #region Mock properties/foreign keys
 
         /// <summary>
