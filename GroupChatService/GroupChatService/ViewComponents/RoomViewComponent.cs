@@ -1,4 +1,5 @@
 ﻿using GroupChatService.Database;
+using GroupChatService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,8 @@ namespace GroupChatService.ViewComponents
             
             var chats = _ctx.ChatUsers
                 .Include(x=>x.Chat)
-                .Where(x=>x.UserId == userId)
+                .Where(x=>x.UserId == userId 
+                    && x.Chat.Type == ChatType.Room)
                 .Select(x=>x.Chat)
                 .ToList();
             
