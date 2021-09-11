@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace PASMicroservice.Mocks
 {
-    public interface IUserMockRepository
+    public interface IAuthenticationMock
     {
-        UserDto GetUserById(int userId);
-        bool IsAdmin(int userId);
+        public bool AuthenticateUser(UserDto user);
+        public string GenerateJwt(UserDto user);
     }
 }

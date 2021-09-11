@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "3rpmgjyIitKmaiJSc/8Uh73XVHMpYvySwDdyg9eyGJYi8vjvX9hV41rDxbR/vZBRjLm+UDh8nDnC5QxIS58wjw==",
+  "dgSpecHash": "fFiV/IgYeiOyEfy/kbdep4Vl0jAj6IRH5CsfG2b3NZOUfs2UTQmDnsBDeecbhAxQvrf1CaX6r0rvRy+6mjSyig==",
   "success": true,
   "projectFilePath": "D:\\Development\\URIS\\tim_4_socialbuzz-tim-4\\PASMicroservice\\PASMicroservice\\PASMicroservice.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stefa\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\stefa\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\stefa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\stefa\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.18\\microsoft.aspnetcore.authentication.jwtbearer.3.1.18.nupkg.sha512",
     "C:\\Users\\stefa\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\stefa\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\stefa\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
