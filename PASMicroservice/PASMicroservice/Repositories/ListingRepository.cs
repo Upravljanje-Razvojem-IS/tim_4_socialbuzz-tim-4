@@ -14,10 +14,14 @@ namespace PASMicroservice.Repositories
         {
             this.dbContext = dbContext;
         }
-
-        public List<Listing> GetListings()
+        public List<Listing> GetListings(string name = null, string categoryId = null, string listingTypeId = null)
         {
-            return this.dbContext.Listings.ToList();
+            //return this.dbContext.Listings.ToList();
+            return this.dbContext.Listings.Where(e =>
+                (name == null || e.Name.Contains(name)) &&
+                (categoryId == null || e.CategoryId == Guid.Parse(categoryId)) &&
+                (listingTypeId == null || e.ListingTypeId == Convert.ToInt32(listingTypeId)))
+            .ToList();
         }
 
         public Listing GetListingById(Guid id)

@@ -8,7 +8,7 @@ namespace PASMicroservice.Repositories
 {
     public interface IListingRepository
     {
-        List<Listing> GetListings();
+        List<Listing> GetListings(string name = null, string categoryId = null, string listingTypeId = null);
         Listing GetListingById(Guid id);
         ListingConfirmation CreateListing(Listing listing);
         ListingConfirmation UpdateListing(Listing listing);

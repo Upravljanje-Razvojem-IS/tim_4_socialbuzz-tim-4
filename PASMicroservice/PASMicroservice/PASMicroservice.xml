@@ -4,26 +4,127 @@
         <name>PASMicroservice</name>
     </assembly>
     <members>
+        <member name="T:PASMicroservice.Controllers.CategoryController">
+            <summary>
+            CategoryController izvršava CRUD operacije nad podacima o kategorijama.
+            </summary>
+        </member>
         <member name="M:PASMicroservice.Controllers.CategoryController.Get">
             <summary>
             Vraća sve kategorije listinga
             </summary>
+            <returns>Lista kategorija</returns>
+            <remarks>
+            Primer zahteva za vraćanje svih kategorija \
+            GET /api/categories
+            </remarks>
+            <response code="200">Uspešno su vraćene sve kategorije.</response>
+            <response code="204">Ne postoji nijedna kategorija i vraća se prazan odgovor.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.GetById(System.Guid)">
+            <summary>
+            Vraća jednu kategoriju
+            </summary>
+            <param name="id">id kategorije</param>
+            <returns>Jedna kategorija</returns>
+            <remarks>
+            Primer zahteva za vraćanje kategorije sa traženim id-jem \
+            GET /api/categories/329f5f35-9ae7-4bd7-89ff-480cfa938804
+            </remarks>
+            <response code="200">Uspešno je vraćena kategorija.</response>
+            <response code="404">Ne postoji kategorija sa traženim id-jem.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Post(PASMicroservice.Models.Category.CategoryCreationDto)">
+            <summary>
+            Kreiranje nove kategorije
+            </summary>
+            <returns>Kreirana kategorija</returns>
+            <remarks>
+            Primer zahteva za kreiranje nove kategorije \
+            POST /api/categories \
+            { \
+                "Name": "Kompjuterske komponente", \
+            } \
+            Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
+            POST /api/categories \
+            { \
+                "Name": "Grafičke kartice", \
+                "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
+            } \
+            </remarks>
+            <response code="201">Uspešno je kreirana kategorija.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Put(PASMicroservice.Models.Category.CategoryUpdateDto)">
+            <summary>
+            Izmena postojeće kategorije
+            </summary>
+            <returns>Izmenjena kategorija</returns>
+            <remarks>
+            Primer zahteva za izmenu kategorije \
+            PUT /api/listings \
+            { \
+                "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+                "Name": "Računarske komponente i delovi", \
+            } \
+            Primer zahteva za izmenu kategorije sa opcionim obeležjima \
+            PUT /api/listings \
+            { \
+                "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
+                "Name": "Grafičke kartice", \
+                "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+            } \
+            </remarks>
+            <response code="200">Uspešno je izmenjena kategorija.</response>
+            <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Delete(System.Guid)">
+            <summary>
+            Brisanje jedne kategorije
+            </summary>
+            <param name="id">id kategorije za brisanje</param>
             <returns></returns>
+            <remarks>
+            Primer zahteva za brisanje kategorije \
+            DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
+            </remarks>
+            <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
+            <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Options">
+            <summary>
+            Vraća dozvoljene HTTP metode na endpoint-u
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za pregled dostupnih metoda \
+            OPTIONS /api/categories
+            </remarks>
+            <response code="200">Uspešno vraćene metode.</response>
         </member>
         <member name="T:PASMicroservice.Controllers.ListingController">
             <summary>
             ListingController izvršava CRUD operacije nad podacima o listinzima.
             </summary>
         </member>
-        <member name="M:PASMicroservice.Controllers.ListingController.Get">
+        <member name="M:PASMicroservice.Controllers.ListingController.Get(System.String,System.String,System.String)">
             <summary>
-            Vraća sve listinge
+            Vraća sve listinge uz upotrebu opcionih parametara name, categoryId i listingTypeId
             </summary>
             <returns>Lista listinga</returns>
             <remarks>
-            Primer zahteva za vraćanje svih listinga \
-            GET /api/listings
+            Primer zahteva za vraćanje svih listinga i uz upotrebu parametara \
+            GET /api/listings \
+            GET /api/listings?name=RTX \
+            GET /api/listings?categoryId=dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa \
+            GET /api/listings?listingTypeId=1 \
+            GET /api/listings?name=SEO&amp;categoryId=c1df5575-00ce-4ca8-88c0-750c9fab1772&amp;listingTypeId=2 \
             </remarks>
+            <param name="name">Naziv (naslov) listinga, ne mora da sadrži pun naziv već deo stringa u naslovu.</param>
+            <param name="categoryId">Id kategorije listinga.</param>
+            <param name="listingTypeId">Id tipa listinga. (1 = products, 2 = services)</param>
             <response code="200">Uspešno su vraćeni svi listinzi.</response>
             <response code="204">Ne postoji nijedan listing i vraća se prazan odgovor.</response>
         </member>
@@ -93,7 +194,7 @@
             Brisanje jednog listinga
             </summary>
             <param name="id">id listinga za brisanje</param>
-            <returns>Ništa</returns>
+            <returns></returns>
             <remarks>
             Primer zahteva za brisanje listinga \
             DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
@@ -110,6 +211,93 @@
             <remarks>
             Primer zahteva za pregled dostupnih metoda \
             OPTIONS /api/listings
+            </remarks>
+            <response code="200">Uspešno vraćene metode.</response>
+        </member>
+        <member name="T:PASMicroservice.Controllers.ListingTypeController">
+            <summary>
+            ListingTypeController izvršava CRUD operacije nad podacima o tipovima listinga.
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Get">
+            <summary>
+            Vraća sve tipove listinga
+            </summary>
+            <returns>Lista tipova listinga</returns>
+            <remarks>
+            Primer zahteva za vraćanje svih tipova listinga \
+            GET /api/listingTypes
+            </remarks>
+            <response code="200">Uspešno su vraćeni svi tipovi listinga.</response>
+            <response code="204">Ne postoji nijedan tip listinga i vraća se prazan odgovor.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.GetById(System.Int32)">
+            <summary>
+            Vraća jedan tip listinga
+            </summary>
+            <param name="id">id tipa listinga</param>
+            <returns>Jedan tip listinga</returns>
+            <remarks>
+            Primer zahteva za vraćanje tipa listinga sa traženim id-jem \
+            GET /api/listingTypes/1
+            </remarks>
+            <response code="200">Uspešno je vraćen tip listinga.</response>
+            <response code="404">Ne postoji tip listinga sa traženim id-jem.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Post(PASMicroservice.Models.ListingType.ListingTypeCreationDto)">
+            <summary>
+            Kreiranje novog listinga
+            </summary>
+            <returns>Kreiran listing</returns>
+            <remarks>
+            Primer zahteva za kreiranje novog listinga \
+            POST /api/listingTypes \
+            { \
+                "Name": "jobs", \
+            } \
+            </remarks>
+            <response code="201">Uspešno je kreiran tip listinga.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Put(PASMicroservice.Models.ListingType.ListingTypeUpdateDto)">
+            <summary>
+            Izmena postojećeg tipa listinga
+            </summary>
+            <returns>Izmenjen tip listinga</returns>
+            <remarks>
+            Primer zahteva za izmenu tipa listinga \
+            PUT /api/listingTypes
+            { \
+                "ListingTypeId": 3, \
+                "Name": "poslovi", \
+            } \
+            </remarks>
+            <response code="200">Uspešno je izmenjen tip listinga.</response>
+            <response code="404">Ne postoji tip listinga sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Delete(System.Int32)">
+            <summary>
+            Brisanje jednog tipa listinga
+            </summary>
+            <param name="id">id tipa listinga za brisanje</param>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za brisanje tipa listinga \
+            DELETE /api/listingTypes/3 \
+            </remarks>
+            <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
+            <response code="404">Ne postoji tip listing sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Options">
+            <summary>
+            Vraća dozvoljene HTTP metode na endpoint-u
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za pregled dostupnih metoda \
+            OPTIONS /api/listingTypes
             </remarks>
             <response code="200">Uspešno vraćene metode.</response>
         </member>

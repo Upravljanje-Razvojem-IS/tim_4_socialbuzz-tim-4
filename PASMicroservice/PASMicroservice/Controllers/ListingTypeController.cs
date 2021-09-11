@@ -15,6 +15,9 @@ using PASMicroservice.Repositories;
 
 namespace PASMicroservice.Controllers
 {
+    /// <summary>
+    /// ListingTypeController izvršava CRUD operacije nad podacima o tipovima listinga.
+    /// </summary>
     [Route("api/listingTypes")]
     [ApiController]
     [Produces("application/json", "application/xml")]
@@ -35,11 +38,19 @@ namespace PASMicroservice.Controllers
             this.logger = logger;
         }
 
-        // GET: api/listingTypes
+        /// <summary>
+        /// Vraća sve tipove listinga
+        /// </summary>
+        /// <returns>Lista tipova listinga</returns>
+        /// <remarks>
+        /// Primer zahteva za vraćanje svih tipova listinga \
+        /// GET /api/listingTypes
+        /// </remarks>
+        /// <response code="200">Uspešno su vraćeni svi tipovi listinga.</response>
+        /// <response code="204">Ne postoji nijedan tip listinga i vraća se prazan odgovor.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesDefaultResponseType]
         public ActionResult<List<ListingTypeDto>> Get()
         {
             var listingTypes = this.listingTypeRepository.GetTypes();
@@ -54,11 +65,20 @@ namespace PASMicroservice.Controllers
             return Ok(mapper.Map<List<ListingTypeDto>>(listingTypes));
         }
 
-        // GET api/listingTypes/5
+        /// <summary>
+        /// Vraća jedan tip listinga
+        /// </summary>
+        /// <param name="id">id tipa listinga</param>
+        /// <returns>Jedan tip listinga</returns>
+        /// <remarks>
+        /// Primer zahteva za vraćanje tipa listinga sa traženim id-jem \
+        /// GET /api/listingTypes/1
+        /// </remarks>
+        /// <response code="200">Uspešno je vraćen tip listinga.</response>
+        /// <response code="404">Ne postoji tip listinga sa traženim id-jem.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeDto> GetById(int id)
         {
             var listingType = this.listingTypeRepository.GetTypeById(id);
@@ -73,12 +93,23 @@ namespace PASMicroservice.Controllers
             return Ok(mapper.Map<ListingTypeDto>(listingType));
         }
 
-        // POST api/listingTypes
+        /// <summary>
+        /// Kreiranje novog listinga
+        /// </summary>
+        /// <returns>Kreiran listing</returns>
+        /// <remarks>
+        /// Primer zahteva za kreiranje novog listinga \
+        /// POST /api/listingTypes \
+        /// { \
+        ///     "Name": "jobs", \
+        /// } \
+        /// </remarks>
+        /// <response code="201">Uspešno je kreiran tip listinga.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeConfirmationDto> Post([FromBody] ListingTypeCreationDto listingType)
         {
             try
@@ -98,13 +129,26 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // PUT api/listingTypes
+        /// <summary>
+        /// Izmena postojećeg tipa listinga
+        /// </summary>
+        /// <returns>Izmenjen tip listinga</returns>
+        /// <remarks>
+        /// Primer zahteva za izmenu tipa listinga \
+        /// PUT /api/listingTypes
+        /// { \
+        ///     "ListingTypeId": 3, \
+        ///     "Name": "poslovi", \
+        /// } \
+        /// </remarks>
+        /// <response code="200">Uspešno je izmenjen tip listinga.</response>
+        /// <response code="404">Ne postoji tip listinga sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public ActionResult<ListingTypeConfirmationDto> Put([FromBody] ListingTypeUpdateDto listingType)
         {
             try
@@ -127,12 +171,22 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // DELETE api/listingTypes/5
+        /// <summary>
+        /// Brisanje jednog tipa listinga
+        /// </summary>
+        /// <param name="id">id tipa listinga za brisanje</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za brisanje tipa listinga \
+        /// DELETE /api/listingTypes/3 \
+        /// </remarks>
+        /// <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
+        /// <response code="404">Ne postoji tip listing sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public IActionResult Delete(int id)
         {
             try
@@ -156,7 +210,15 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // OPTIONS
+        /// <summary>
+        /// Vraća dozvoljene HTTP metode na endpoint-u
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za pregled dostupnih metoda \
+        /// OPTIONS /api/listingTypes
+        /// </remarks>
+        /// <response code="200">Uspešno vraćene metode.</response>
         [HttpOptions]
         public IActionResult Options()
         {

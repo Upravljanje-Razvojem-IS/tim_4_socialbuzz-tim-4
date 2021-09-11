@@ -15,6 +15,9 @@ using PASMicroservice.Repositories;
 
 namespace PASMicroservice.Controllers
 {
+    /// <summary>
+     /// CategoryController izvršava CRUD operacije nad podacima o kategorijama.
+     /// </summary>
     [Route("api/categories")]
     [ApiController]
     [Produces("application/json", "application/xml")]
@@ -39,11 +42,16 @@ namespace PASMicroservice.Controllers
         /// <summary>
         /// Vraća sve kategorije listinga
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Lista kategorija</returns>
+        /// <remarks>
+        /// Primer zahteva za vraćanje svih kategorija \
+        /// GET /api/categories
+        /// </remarks>
+        /// <response code="200">Uspešno su vraćene sve kategorije.</response>
+        /// <response code="204">Ne postoji nijedna kategorija i vraća se prazan odgovor.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesDefaultResponseType]
         public ActionResult<List<CategoryDto>> Get()
         {
             var categories = this.categoryRepository.GetCategories();
@@ -58,11 +66,20 @@ namespace PASMicroservice.Controllers
             return Ok(mapper.Map<List<CategoryDto>>(categories));
         }
 
-        // GET api/categories
+        /// <summary>
+        /// Vraća jednu kategoriju
+        /// </summary>
+        /// <param name="id">id kategorije</param>
+        /// <returns>Jedna kategorija</returns>
+        /// <remarks>
+        /// Primer zahteva za vraćanje kategorije sa traženim id-jem \
+        /// GET /api/categories/329f5f35-9ae7-4bd7-89ff-480cfa938804
+        /// </remarks>
+        /// <response code="200">Uspešno je vraćena kategorija.</response>
+        /// <response code="404">Ne postoji kategorija sa traženim id-jem.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public ActionResult<CategoryDto> GetById(Guid id)
         {
             var category = this.categoryRepository.GetCategoryById(id);
@@ -77,12 +94,29 @@ namespace PASMicroservice.Controllers
             return Ok(mapper.Map<CategoryDto>(category));
         }
 
-        // POST api/categories
+        /// <summary>
+        /// Kreiranje nove kategorije
+        /// </summary>
+        /// <returns>Kreirana kategorija</returns>
+        /// <remarks>
+        /// Primer zahteva za kreiranje nove kategorije \
+        /// POST /api/categories \
+        /// { \
+        ///     "Name": "Kompjuterske komponente", \
+        /// } \
+        /// Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
+        /// POST /api/categories \
+        /// { \
+        ///     "Name": "Grafičke kartice", \
+        ///     "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
+        /// } \
+        /// </remarks>
+        /// <response code="201">Uspešno je kreirana kategorija.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public ActionResult<CategoryConfirmationDto> Post([FromBody] CategoryCreationDto category)
         {
             try
@@ -102,13 +136,33 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // PUT api/categories
+        /// <summary>
+        /// Izmena postojeće kategorije
+        /// </summary>
+        /// <returns>Izmenjena kategorija</returns>
+        /// <remarks>
+        /// Primer zahteva za izmenu kategorije \
+        /// PUT /api/listings \
+        /// { \
+        ///     "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+        ///     "Name": "Računarske komponente i delovi", \
+        /// } \
+        /// Primer zahteva za izmenu kategorije sa opcionim obeležjima \
+        /// PUT /api/listings \
+        /// { \
+        ///     "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
+        ///     "Name": "Grafičke kartice", \
+        ///     "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+        /// } \
+        /// </remarks>
+        /// <response code="200">Uspešno je izmenjena kategorija.</response>
+        /// <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public ActionResult<CategoryConfirmationDto> Put([FromBody] CategoryUpdateDto category)
         {
             try
@@ -131,13 +185,23 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // DELETE api/categories/5
+        /// <summary>
+        /// Brisanje jedne kategorije
+        /// </summary>
+        /// <param name="id">id kategorije za brisanje</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za brisanje kategorije \
+        /// DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
+        /// </remarks>
+        /// <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
+        /// <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+        /// <response code="500">Greška na backend-u.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [ProducesDefaultResponseType]
         public IActionResult Delete(Guid id)
         {
             try
@@ -161,7 +225,15 @@ namespace PASMicroservice.Controllers
             }
         }
 
-        // OPTIONS
+        /// <summary>
+        /// Vraća dozvoljene HTTP metode na endpoint-u
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Primer zahteva za pregled dostupnih metoda \
+        /// OPTIONS /api/categories
+        /// </remarks>
+        /// <response code="200">Uspešno vraćene metode.</response>
         [HttpOptions]
         public IActionResult Options()
         {

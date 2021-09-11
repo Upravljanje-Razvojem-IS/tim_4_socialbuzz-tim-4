@@ -41,21 +41,28 @@ namespace PASMicroservice.Controllers
         }
 
         /// <summary>
-        /// Vraća sve listinge
+        /// Vraća sve listinge uz upotrebu opcionih parametara name, categoryId i listingTypeId
         /// </summary>
         /// <returns>Lista listinga</returns>
         /// <remarks>
-        /// Primer zahteva za vraćanje svih listinga \
-        /// GET /api/listings
+        /// Primer zahteva za vraćanje svih listinga i uz upotrebu parametara \
+        /// GET /api/listings \
+        /// GET /api/listings?name=RTX \
+        /// GET /api/listings?categoryId=dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa \
+        /// GET /api/listings?listingTypeId=1 \
+        /// GET /api/listings?name=SEO&amp;categoryId=c1df5575-00ce-4ca8-88c0-750c9fab1772&amp;listingTypeId=2 \
         /// </remarks>
+        /// <param name="name">Naziv (naslov) listinga, ne mora da sadrži pun naziv već deo stringa u naslovu.</param>
+        /// <param name="categoryId">Id kategorije listinga.</param>
+        /// <param name="listingTypeId">Id tipa listinga. (1 = products, 2 = services)</param>
         /// <response code="200">Uspešno su vraćeni svi listinzi.</response>
         /// <response code="204">Ne postoji nijedan listing i vraća se prazan odgovor.</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<List<ListingDto>> Get()
+        public ActionResult<List<ListingDto>> Get(string name, string categoryId, string listingTypeId)
         {
-            var listing = this.listingRepository.GetListings();
+            var listing = this.listingRepository.GetListings(name, categoryId, listingTypeId);
 
             if (listing == null || listing.Count() == 0)
             {
@@ -205,7 +212,7 @@ namespace PASMicroservice.Controllers
         /// Brisanje jednog listinga
         /// </summary>
         /// <param name="id">id listinga za brisanje</param>
-        /// <returns>Ništa</returns>
+        /// <returns></returns>
         /// <remarks>
         /// Primer zahteva za brisanje listinga \
         /// DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
