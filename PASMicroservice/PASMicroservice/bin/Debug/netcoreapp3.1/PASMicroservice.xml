@@ -301,6 +301,41 @@
             </remarks>
             <response code="200">Uspešno vraćene metode.</response>
         </member>
+        <member name="T:PASMicroservice.Entities.ListingType">
+            <summary>
+            Model entiteta tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.Listings">
+            <summary>
+            Lista listinga koji vuku ključ
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.ListingTypeConfirmation">
+            <summary>
+            Model entiteta potvrde tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingTypeConfirmation.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingTypeConfirmation.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
         <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.Name">
             <summary>
             Naziv kategorije
@@ -329,6 +364,151 @@
         <member name="P:PASMicroservice.Models.Category.CategoryDto.ParentCategoryId">
             <summary>
             Strani ključ ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto">
+            <summary>
+            DTO model za potvrdu o tipu listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeCreationDto">
+            <summary>
+            DTO model za kreiranje tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeCreationDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeDto">
+            <summary>
+            DTO model za tip listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeUpdateDto">
+            <summary>
+            DTO model za izmenu tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeUpdateDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeUpdateDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingDto">
+            <summary>
+            DTO model listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingUpdateDto">
+            <summary>
+            DTO model izmene listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.CategoryId">
+            <summary>
+            ID kategorije
             </summary>
         </member>
     </members>

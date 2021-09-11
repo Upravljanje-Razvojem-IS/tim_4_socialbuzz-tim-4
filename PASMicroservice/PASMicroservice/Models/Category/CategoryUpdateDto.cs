@@ -7,18 +7,43 @@ using System.Threading.Tasks;
 
 namespace PASMicroservice.Models.Category
 {
+    /// <summary>
+    /// DTO model za izmenu kategorije
+    /// </summary>
     public class CategoryUpdateDto : IValidatableObject
     {
-        // Properties
+        #region Properties
+
+        /// <summary>
+        /// ID kategorije
+        /// </summary>
         [Required(ErrorMessage = "Id is required.")]
         public Guid CategoryId { get; set; }
 
+        /// <summary>
+        /// Naziv kategorije
+        /// </summary>
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
-        
-        // Foreign keys
+
+        #endregion
+
+        #region Foreign keys
+
+        /// <summary>
+        /// ID roditelj kategorije
+        /// </summary>
         public Guid? ParentCategoryId { get; set; }
 
+        #endregion
+
+        /// <summary>
+        /// Validacija unetih vrednosti
+        /// </summary>
+        /// <remarks>
+        /// Ako je id roditelj kategorije isti kao id kategorije daje grešku u validaciji
+        /// </remarks>
+        /// <returns>Rezultat validacije</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (CategoryId == ParentCategoryId)

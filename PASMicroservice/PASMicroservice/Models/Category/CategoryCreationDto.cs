@@ -6,19 +6,28 @@ using System.Threading.Tasks;
 
 namespace PASMicroservice.Models.Category
 {
+    /// <summary>
+    /// DTO model kreiranja kategorije
+    /// </summary>
     public class CategoryCreationDto
     {
-        // Properties
+        #region Properties
+
         /// <summary>
         /// Naziv kategorije
         /// </summary>
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
 
-        // Foreign keys
+        #endregion
+
+        #region Foreign keys
+
         /// <summary>
-        /// Strani ključ ID roditelj kategorije
+        /// ID roditelj kategorije
         /// </summary>
         public Guid? ParentCategoryId { get; set; }
+
+        #endregion
     }
 }

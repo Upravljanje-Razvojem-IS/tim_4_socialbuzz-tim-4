@@ -4,28 +4,78 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PASMicroservice.Models.Listing
 {
+    /// <summary>
+    /// DTO model kreiranja listinga
+    /// </summary>
     public class ListingCreationDto : IValidatableObject
     {
-        // Properties
+        #region Properties
+
+        /// <summary>
+        /// Naziv listinga
+        /// </summary>
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Opis listinga
+        /// </summary>
         [Required(ErrorMessage = "Description is required.")]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Cena u listingu
+        /// </summary>
         public double Price { get; set; }
+
+        /// <summary>
+        /// Kontaktirati za cenu bit
+        /// </summary>
         public bool PriceContact { get; set; }
+
+        /// <summary>
+        /// Dogovor za cenu bit
+        /// </summary>
         public bool PriceDeal { get; set; }
 
-        // Foreign keys
+        #endregion
+
+        #region Foreign keys
+
+        /// <summary>
+        /// ID kategorije
+        /// </summary>
         [Required(ErrorMessage = "CategoryId is required.")]
         public Guid CategoryId { get; set; }
 
+        /// <summary>
+        /// ID tipa listinga
+        /// </summary>
         [Required(ErrorMessage = "ListingTypeId is required.")]
         public int ListingTypeId { get; set; }
 
-        // Mock properties/foreign keys
+        #endregion
+
+        #region Mock properties/foreign keys
+
+        /// <summary>
+        /// ID korisnika
+        /// </summary>
         [Required(ErrorMessage = "UserId is required.")]
         public int UserId { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Validacija unetih vrednosti
+        /// </summary>
+        /// <remarks>
+        /// Ako je cena manja od 0 ili nije zadata i bit za kontakt je false i bit za dogovor je false daje grešku u validaciji
+        /// Ako je ID kategorije prazan ili nov Guid daje grešku u validaciji
+        /// Ako je ID tipa listinga manji od 1 daje grešku u validaciji
+        /// Ako je ID korisnika manji od 1 daje grešku u validaciji
+        /// </remarks>
+        /// <returns>Rezultat validacije</returns>
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
