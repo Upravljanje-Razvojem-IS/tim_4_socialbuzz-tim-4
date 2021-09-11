@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UserService</name>
+    </assembly>
+    <members>
+        <member name="M:UserService.Controllers.UserController.#ctor(Microsoft.AspNetCore.Identity.UserManager{UserService.Models.Entities.User},AutoMapper.IMapper,UserService.Services.Users.IUsersService)">
+            <summary>
+            Kontroler sa endpoint-ima za podatke o korisniku
+            </summary>
+        </member>
+        <member name="M:UserService.Controllers.UserController.CheckForAccount(UserService.Models.Auth.PrincipalDTO)">
+             <summary>
+             Provera kredencijala
+             </summary>
+             <returns>Uspešnost autentifikacije</returns>
+             <response code="200">Uspešna provera</response>
+            <response code="400">Neuspešna provera</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+    </members>
+</doc>
