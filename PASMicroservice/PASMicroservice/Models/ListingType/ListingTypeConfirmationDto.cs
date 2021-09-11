@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PASMicroservice.Entities
+namespace PASMicroservice.Models.ListingType
 {
-    public class CategoryConfirmation
+    public class ListingTypeConfirmationDto
     {
         // Properties
-        public Guid CategoryId { get; set; }
+        public int ListingTypeId { get; set; }
         public string Name { get; set; }
-        public Guid? ParentCategoryId { get; set; }
     }
 }

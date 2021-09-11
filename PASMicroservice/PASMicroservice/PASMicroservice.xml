@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PASMicroservice</name>
+    </assembly>
+    <members>
+        <member name="M:PASMicroservice.Controllers.ListingController.Get">
+            <summary>
+            Vraća sve listinge (proizvode i usluge)
+            </summary>
+            <returns>Lista listinga (proizvoda i usluga)</returns>
+            <remarks>
+            GET /api/listings
+            </remarks>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.GetById(System.Guid)">
+            <summary>
+            Vraća jedan listing
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Post(PASMicroservice.Models.Listing.ListingCreationDto)">
+            <summary>
+            
+            </summary>
+            <param name="listing"></param>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za kreiranje novog listinga \
+            POST /api/listings \
+            { \
+                "Name": "Lenovo laptop 110-15ISK", \
+                "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
+                "Price": 500, \
+                "PriceContact": false, \
+                "PriceDeal": false, \
+                "CategoryId": "8d47fd86-745d-4158-6d4a-08d9741e2107", \
+                "UserId": 1340 \
+            }
+            </remarks>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.ParentCategoryId">
+            <summary>
+            Strani ključ ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryDto">
+            <summary>
+            Predstavlja model kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.ParentCategoryId">
+            <summary>
+            Strani ključ ID roditelj kategorije
+            </summary>
+        </member>
+    </members>
+</doc>

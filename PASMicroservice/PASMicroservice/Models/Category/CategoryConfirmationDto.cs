@@ -8,11 +8,10 @@ namespace PASMicroservice.Models.Category
     public class CategoryConfirmationDto
     {
         // Properties
-        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
-        public Guid? ParentId { get; set; }
-
+        
         // Foreign keys
-        public int TypeId { get; set; }
+        public Guid? ParentCategoryId { get; set; }
     }
 }

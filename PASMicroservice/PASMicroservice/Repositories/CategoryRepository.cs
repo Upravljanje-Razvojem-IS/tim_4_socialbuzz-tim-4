@@ -29,41 +29,38 @@ namespace PASMicroservice.Repositories
         public CategoryConfirmation CreateCategory(Category category)
         {
             this.dbContext.Categories.Add(category);
-            var categoryConfirmation = GetCategoryById(category.Id);
+            var categoryConfirmation = GetCategoryById(category.CategoryId);
             Save();
 
             return new CategoryConfirmation
             {
-                Id = category.Id,
+                CategoryId = category.CategoryId,
                 Name = category.Name,
-                ParentId = category.ParentId,
-                TypeId = category.TypeId
+                ParentCategoryId = category.ParentCategoryId
             };
         }
 
         public CategoryConfirmation UpdateCategory(Category category)
         {
-            var existing = GetCategoryById(category.Id);
+            var existing = GetCategoryById(category.CategoryId);
 
             try
             {
-                existing.Id = category.Id;
+                existing.CategoryId = category.CategoryId;
                 existing.Name = category.Name;
-                existing.ParentId = category.ParentId;
-                existing.TypeId = category.TypeId;
+                existing.ParentCategoryId = category.ParentCategoryId;
 
                 this.dbContext.Categories.Update(existing);
                 Save();
 
-                var categoryConfirmation = GetCategoryById(category.Id);
+                var categoryConfirmation = GetCategoryById(category.CategoryId);
 
                 return new CategoryConfirmation
                 {
-                    Id = categoryConfirmation.Id,
+                    CategoryId = categoryConfirmation.CategoryId,
                     Name = categoryConfirmation.Name,
-                    ParentId = categoryConfirmation.ParentId,
-                    TypeId = categoryConfirmation.TypeId
-            };
+                    ParentCategoryId = categoryConfirmation.ParentCategoryId
+                };
             }
             catch (Exception e)
             {

@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace PASMicroservice.Entities
 {
-    public class CategoryConfirmation
+    public class ListingTypeConfirmation
     {
-        // Properties
-        public Guid CategoryId { get; set; }
+        public int ListingTypeId { get; set; }
         public string Name { get; set; }
-        public Guid? ParentCategoryId { get; set; }
     }
 }

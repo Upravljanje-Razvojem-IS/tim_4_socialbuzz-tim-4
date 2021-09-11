@@ -71,7 +71,7 @@ namespace PASMicroservice.Controllers
                 var categoryEntity = mapper.Map<Category>(category);
                 var confirmation = this.categoryRepository.CreateCategory(categoryEntity);
 
-                string location = linkGenerator.GetPathByAction("GetById", "Category", new { id = confirmation.Id });
+                string location = linkGenerator.GetPathByAction("GetById", "Category", new { id = confirmation.CategoryId });
 
                 logger.LogInformation("POST Category successful.");
                 return Created(location, mapper.Map<CategoryConfirmationDto>(confirmation));
@@ -89,7 +89,7 @@ namespace PASMicroservice.Controllers
         {
             try
             {
-                if (this.categoryRepository.GetCategoryById(category.Id) == null)
+                if (this.categoryRepository.GetCategoryById(category.CategoryId) == null)
                 {
                     logger.LogInformation("PUT Category not found.");
                     return NotFound();

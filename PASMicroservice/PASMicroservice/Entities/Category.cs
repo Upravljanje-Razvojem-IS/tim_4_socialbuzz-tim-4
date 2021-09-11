@@ -8,14 +8,12 @@ namespace PASMicroservice.Entities
     public class Category
     {
         // Properties
-        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
-        public List<ProductsAndServices> PAS { get; set; }
+        public List<Listing> Listings { get; set; }
 
         // Foreign keys
-        public Guid? ParentId { get; set; }
-        public Category Parent { get; set; }
-        public int TypeId { get; set; }
-        public PASType Type { get; set; }
+        public Guid? ParentCategoryId { get; set; }
+        public Category ParentCategory { get; set; }
     }
 }
