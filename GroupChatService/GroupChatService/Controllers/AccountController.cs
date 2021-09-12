@@ -10,8 +10,8 @@ namespace GroupChatService.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<User> _userManager;
-        private SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         public AccountController(
             UserManager<User> userManager,

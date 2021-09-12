@@ -18,7 +18,7 @@ namespace GroupChatService.Controllers
     [Authorize]
     public class HomeController : BaseController
     {
-        private IChatRepository _repo;
+        private readonly IChatRepository _repo;
         public HomeController(IChatRepository repo) => _repo = repo;
 
         public IActionResult Index()
