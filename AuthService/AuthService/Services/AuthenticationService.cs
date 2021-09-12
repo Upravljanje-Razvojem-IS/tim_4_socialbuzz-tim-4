@@ -1,6 +1,7 @@
 ﻿using AuthService.Models;
 using AuthService.Options;
 using AuthService.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,12 +15,16 @@ namespace AuthService.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private readonly ServicesSettings _settings;
         private readonly JwtSettings _jwtSettings;
         private readonly IAuthRepository _authRepository;
-        private readonly string _userServiceUrl = "http://localhost:5001/api/User/check";
 
-        public AuthenticationService(JwtSettings jwtSettings, IAuthRepository authRepository)
+        public AuthenticationService(IConfiguration configuration, JwtSettings jwtSettings, IAuthRepository authRepository)
         {
+            _settings = new ServicesSettings
+            {
+                UserService = configuration["Services:UserService"]
+            };
             _jwtSettings = jwtSettings;
             _authRepository = authRepository;
         }
@@ -41,7 +46,7 @@ namespace AuthService.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync(_userServiceUrl, principal).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync(_settings.UserService + "User/check", principal).Result;
                 CheckPrincipalResponse res = await response.Content.ReadAsAsync<CheckPrincipalResponse>();
                 if (!response.IsSuccessStatusCode)
                 {
