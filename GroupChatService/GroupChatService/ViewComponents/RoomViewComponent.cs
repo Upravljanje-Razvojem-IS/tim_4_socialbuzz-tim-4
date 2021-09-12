@@ -12,7 +12,11 @@ namespace GroupChatService.ViewComponents
 {
     public class RoomViewComponent : ViewComponent
     {
+<<<<<<< HEAD
         private AppDbContext _ctx;
+=======
+        private readonly AppDbContext _ctx;
+>>>>>>> it61g2017
         public RoomViewComponent(AppDbContext ctx)
         {
             _ctx = ctx;

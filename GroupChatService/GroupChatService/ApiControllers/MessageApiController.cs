@@ -1,9 +1,5 @@
-﻿using GroupChatService.Database;
-using GroupChatService.Hubs;
-using GroupChatService.Infrastructure;
+﻿using GroupChatService.Hubs;
 using GroupChatService.Infrastructure.Repository;
-using GroupChatService.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -11,26 +7,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GroupChatService.Controllers
-{
-    [Authorize]
-    [Route("[controller]")]
-    public class ChatController : BaseController
-    {
-        
-<<<<<<< HEAD
-        private IHubContext<ChatHub> _chat;
-=======
-        private readonly IHubContext<ChatHub> _chat;
->>>>>>> it61g2017
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-        public ChatController(
+namespace GroupChatService.APIControllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MessageApiController : ControllerBase
+    {
+        private readonly IHubContext<ChatHub> _chat;
+
+        public MessageApiController(
             IHubContext<ChatHub> chat)
         {
             _chat = chat;
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("/sendMessage")]
         public async Task<IActionResult> SendMessage(
             int roomId,
             string message,
