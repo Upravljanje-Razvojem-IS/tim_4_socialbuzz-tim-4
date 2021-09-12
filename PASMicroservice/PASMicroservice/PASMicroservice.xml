@@ -1,0 +1,825 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PASMicroservice</name>
+    </assembly>
+    <members>
+        <member name="T:PASMicroservice.Controllers.CategoryController">
+            <summary>
+            CategoryController izvršava CRUD operacije nad podacima o kategorijama.
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Get">
+            <summary>
+            Vraća sve kategorije listinga
+            </summary>
+            <returns>Lista kategorija</returns>
+            <remarks>
+            Primer zahteva za vraćanje svih kategorija \
+            GET /api/categories
+            </remarks>
+            <response code="200">Uspešno su vraćene sve kategorije.</response>
+            <response code="204">Ne postoji nijedna kategorija i vraća se prazan odgovor.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.GetById(System.Guid)">
+            <summary>
+            Vraća jednu kategoriju
+            </summary>
+            <param name="id">id kategorije</param>
+            <returns>Jedna kategorija</returns>
+            <remarks>
+            Primer zahteva za vraćanje kategorije sa traženim id-jem \
+            GET /api/categories/329f5f35-9ae7-4bd7-89ff-480cfa938804
+            </remarks>
+            <response code="200">Uspešno je vraćena kategorija.</response>
+            <response code="404">Ne postoji kategorija sa traženim id-jem.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Post(PASMicroservice.Models.Category.CategoryCreationDto)">
+            <summary>
+            Kreiranje nove kategorije
+            </summary>
+            <returns>Kreirana kategorija</returns>
+            <remarks>
+            Primer zahteva za kreiranje nove kategorije \
+            POST /api/categories \
+            { \
+                "Name": "Kompjuterske komponente", \
+            } \
+            Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
+            POST /api/categories \
+            { \
+                "Name": "Grafičke kartice", \
+                "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
+            } \
+            </remarks>
+            <response code="201">Uspešno je kreirana kategorija.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Put(PASMicroservice.Models.Category.CategoryUpdateDto)">
+            <summary>
+            Izmena postojeće kategorije
+            </summary>
+            <returns>Izmenjena kategorija</returns>
+            <remarks>
+            Primer zahteva za izmenu kategorije \
+            PUT /api/listings \
+            { \
+                "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+                "Name": "Računarske komponente i delovi", \
+            } \
+            Primer zahteva za izmenu kategorije sa opcionim obeležjima \
+            PUT /api/listings \
+            { \
+                "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
+                "Name": "Grafičke kartice", \
+                "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
+            } \
+            </remarks>
+            <response code="200">Uspešno je izmenjena kategorija.</response>
+            <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Delete(System.Guid)">
+            <summary>
+            Brisanje jedne kategorije
+            </summary>
+            <param name="id">id kategorije za brisanje</param>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za brisanje kategorije \
+            DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
+            </remarks>
+            <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
+            <response code="404">Ne postoji kategorija sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.CategoryController.Options">
+            <summary>
+            Vraća dozvoljene HTTP metode na endpoint-u
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za pregled dostupnih metoda \
+            OPTIONS /api/categories
+            </remarks>
+            <response code="200">Uspešno vraćene metode.</response>
+        </member>
+        <member name="T:PASMicroservice.Controllers.ListingController">
+            <summary>
+            ListingController izvršava CRUD operacije nad podacima o listinzima.
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Authenticate(PASMicroservice.Mocks.UserDto)">
+            <summary>
+            Sluzi za autentifikaciju korisnika
+            </summary>
+            <param name="user">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Get(System.String,System.String,System.String)">
+            <summary>
+            Vraća sve listinge uz upotrebu opcionih parametara name, categoryId i listingTypeId
+            </summary>
+            <returns>Lista listinga</returns>
+            <remarks>
+            Primer zahteva za vraćanje svih listinga i uz upotrebu parametara \
+            GET /api/listings \
+            GET /api/listings?name=RTX \
+            GET /api/listings?categoryId=dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa \
+            GET /api/listings?listingTypeId=1 \
+            GET /api/listings?name=SEO&amp;categoryId=c1df5575-00ce-4ca8-88c0-750c9fab1772&amp;listingTypeId=2 \
+            </remarks>
+            <param name="name">Naziv (naslov) listinga, ne mora da sadrži pun naziv već deo stringa u naslovu.</param>
+            <param name="categoryId">Id kategorije listinga.</param>
+            <param name="listingTypeId">Id tipa listinga. (1 = products, 2 = services)</param>
+            <response code="200">Uspešno su vraćeni svi listinzi.</response>
+            <response code="204">Ne postoji nijedan listing i vraća se prazan odgovor.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.GetById(System.Guid)">
+            <summary>
+            Vraća jedan listing
+            </summary>
+            <param name="id">id listinga</param>
+            <returns>Jedan listing</returns>
+            <remarks>
+            Primer zahteva za vraćanje listinga sa traženim id-jem \
+            GET /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+            </remarks>
+            <response code="200">Uspešno je vraćen listing.</response>
+            <response code="404">Ne postoji listing sa traženim id-jem.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Post(PASMicroservice.Models.Listing.ListingCreationDto)">
+            <summary>
+            Kreiranje novog listinga
+            </summary>
+            <returns>Kreiran listing</returns>
+            <remarks>
+            Primer zahteva za kreiranje novog listinga \
+            POST /api/listings \
+            { \
+                "Name": "Lenovo laptop 110-15ISK", \
+                "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
+                "Price": 500, \
+                "PriceContact": false, \
+                "PriceDeal": false, \
+                "CategoryId": "8d47fd86-745d-4158-6d4a-08d9741e2107", \
+                "ListingTypeId": 1, \
+                "UserId": 1337 \
+            }
+            </remarks>
+            <response code="201">Uspešno je kreiran listing.</response>
+            <response code="400">Ne postoji User sa datim UserId i nije moguće kreiranje.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Put(PASMicroservice.Models.Listing.ListingUpdateDto)">
+            <summary>
+            Izmena postojećeg listinga
+            </summary>
+            <returns>Izmenjen listing</returns>
+            <remarks>
+            Primer zahteva za izmenu listinga \
+            PUT /api/listings
+            { \
+                "ListingId": "7a466dbc-c6fd-4309-bb9b-08d974eac29a", \
+                "Name": "Lenovo laptop 110-15ISK", \
+                "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
+                "Price": 500, \
+                "PriceContact": false, \
+                "PriceDeal": false, \
+                "CategoryId": "8d47fd86-745d-4158-6d4a-08d9741e2107", \
+                "ListingTypeId": 1, \
+                "UserId": 1337 \
+            }
+            </remarks>
+            <response code="200">Uspešno je izmenjen listing.</response>
+            <response code="400">Ne postoji User sa datim UserId i nije moguće izmeniti listing.</response>
+            <response code="404">Ne postoji listing sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Delete(System.Guid)">
+            <summary>
+            Brisanje jednog listinga
+            </summary>
+            <param name="id">id listinga za brisanje</param>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za brisanje listinga \
+            DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+            </remarks>
+            <response code="204">Uspešno je obrisan listing i vraća odgovor bez sadržaja.</response>
+            <response code="404">Ne postoji listing sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingController.Options">
+            <summary>
+            Vraća dozvoljene HTTP metode na endpoint-u
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za pregled dostupnih metoda \
+            OPTIONS /api/listings
+            </remarks>
+            <response code="200">Uspešno vraćene metode.</response>
+        </member>
+        <member name="T:PASMicroservice.Controllers.ListingTypeController">
+            <summary>
+            ListingTypeController izvršava CRUD operacije nad podacima o tipovima listinga.
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Get">
+            <summary>
+            Vraća sve tipove listinga
+            </summary>
+            <returns>Lista tipova listinga</returns>
+            <remarks>
+            Primer zahteva za vraćanje svih tipova listinga \
+            GET /api/listingTypes
+            </remarks>
+            <response code="200">Uspešno su vraćeni svi tipovi listinga.</response>
+            <response code="204">Ne postoji nijedan tip listinga i vraća se prazan odgovor.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.GetById(System.Int32)">
+            <summary>
+            Vraća jedan tip listinga
+            </summary>
+            <param name="id">id tipa listinga</param>
+            <returns>Jedan tip listinga</returns>
+            <remarks>
+            Primer zahteva za vraćanje tipa listinga sa traženim id-jem \
+            GET /api/listingTypes/1
+            </remarks>
+            <response code="200">Uspešno je vraćen tip listinga.</response>
+            <response code="404">Ne postoji tip listinga sa traženim id-jem.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Post(PASMicroservice.Models.ListingType.ListingTypeCreationDto)">
+            <summary>
+            Kreiranje novog listinga
+            </summary>
+            <returns>Kreiran listing</returns>
+            <remarks>
+            Primer zahteva za kreiranje novog listinga \
+            POST /api/listingTypes \
+            { \
+                "Name": "jobs", \
+            } \
+            </remarks>
+            <response code="201">Uspešno je kreiran tip listinga.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Put(PASMicroservice.Models.ListingType.ListingTypeUpdateDto)">
+            <summary>
+            Izmena postojećeg tipa listinga
+            </summary>
+            <returns>Izmenjen tip listinga</returns>
+            <remarks>
+            Primer zahteva za izmenu tipa listinga \
+            PUT /api/listingTypes
+            { \
+                "ListingTypeId": 3, \
+                "Name": "poslovi", \
+            } \
+            </remarks>
+            <response code="200">Uspešno je izmenjen tip listinga.</response>
+            <response code="404">Ne postoji tip listinga sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Delete(System.Int32)">
+            <summary>
+            Brisanje jednog tipa listinga
+            </summary>
+            <param name="id">id tipa listinga za brisanje</param>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za brisanje tipa listinga \
+            DELETE /api/listingTypes/3 \
+            </remarks>
+            <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
+            <response code="404">Ne postoji tip listing sa datim id-jem.</response>
+            <response code="500">Greška na backend-u.</response>
+        </member>
+        <member name="M:PASMicroservice.Controllers.ListingTypeController.Options">
+            <summary>
+            Vraća dozvoljene HTTP metode na endpoint-u
+            </summary>
+            <returns></returns>
+            <remarks>
+            Primer zahteva za pregled dostupnih metoda \
+            OPTIONS /api/listingTypes
+            </remarks>
+            <response code="200">Uspešno vraćene metode.</response>
+        </member>
+        <member name="T:PASMicroservice.Entities.Category">
+            <summary>
+            Model entiteta kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.Listings">
+            <summary>
+            Lista listinga koji vuku ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Category.ParentCategory">
+            <summary>
+            Entitet roditelj kategorije odakle vuče ključ
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.CategoryConfirmation">
+            <summary>
+            Model entiteta potvrde kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.CategoryConfirmation.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.Listing">
+            <summary>
+            Model entiteta listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.Category">
+            <summary>
+            Kategorija odakle vuče ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.ListingType">
+            <summary>
+            Tip listinga odakle vuče ključ
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.Listing.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.ListingConfirmation">
+            <summary>
+            Model entiteta potvrde listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingConfirmation.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.ListingType">
+            <summary>
+            Model entiteta tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingType.Listings">
+            <summary>
+            Lista listinga koji vuku ključ
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Entities.ListingTypeConfirmation">
+            <summary>
+            Model entiteta potvrde tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingTypeConfirmation.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Entities.ListingTypeConfirmation.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryConfirmationDto">
+            <summary>
+            DTO model potvrde kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryConfirmationDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryCreationDto">
+            <summary>
+            DTO model kreiranja kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryCreationDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryDto">
+            <summary>
+            DTO model kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Category.CategoryUpdateDto">
+            <summary>
+            DTO model za izmenu kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.Name">
+            <summary>
+            Naziv kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Category.CategoryUpdateDto.ParentCategoryId">
+            <summary>
+            ID roditelj kategorije
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Category.CategoryUpdateDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je id roditelj kategorije isti kao id kategorije daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto">
+            <summary>
+            DTO model za potvrdu o tipu listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeConfirmationDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeCreationDto">
+            <summary>
+            DTO model za kreiranje tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeCreationDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeDto">
+            <summary>
+            DTO model za tip listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.ListingType.ListingTypeUpdateDto">
+            <summary>
+            DTO model za izmenu tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeUpdateDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.ListingType.ListingTypeUpdateDto.Name">
+            <summary>
+            Naziv tipa listinga
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingConfirmationDto">
+            <summary>
+            DTO model potvrde tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingConfirmationDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingCreationDto">
+            <summary>
+            DTO model kreiranja listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingCreationDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Listing.ListingCreationDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je cena manja od 0 ili nije zadata i bit za kontakt je false i bit za dogovor je false daje grešku u validaciji
+            Ako je ID kategorije prazan ili nov Guid daje grešku u validaciji
+            Ako je ID tipa listinga manji od 1 daje grešku u validaciji
+            Ako je ID korisnika manji od 1 daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingDto">
+            <summary>
+            DTO model listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="T:PASMicroservice.Models.Listing.ListingUpdateDto">
+            <summary>
+            DTO model izmene listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.ListingId">
+            <summary>
+            ID listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Name">
+            <summary>
+            Naziv listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Description">
+            <summary>
+            Opis listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.Price">
+            <summary>
+            Cena u listingu
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.PriceContact">
+            <summary>
+            Kontaktirati za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.PriceDeal">
+            <summary>
+            Dogovor za cenu bit
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.CategoryId">
+            <summary>
+            ID kategorije
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.ListingTypeId">
+            <summary>
+            ID tipa listinga
+            </summary>
+        </member>
+        <member name="P:PASMicroservice.Models.Listing.ListingUpdateDto.UserId">
+            <summary>
+            ID korisnika
+            </summary>
+        </member>
+        <member name="M:PASMicroservice.Models.Listing.ListingUpdateDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validacija unetih vrednosti
+            </summary>
+            <remarks>
+            Ako je cena manja od 0 ili nije zadata i bit za kontakt je false i bit za dogovor je false daje grešku u validaciji
+            Ako je ID kategorije prazan ili nov Guid daje grešku u validaciji
+            Ako je ID tipa listinga manji od 1 daje grešku u validaciji
+            Ako je ID korisnika manji od 1 daje grešku u validaciji
+            </remarks>
+            <returns>Rezultat validacije</returns>
+        </member>
+    </members>
+</doc>
