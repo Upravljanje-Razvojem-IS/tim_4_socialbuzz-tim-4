@@ -134,7 +134,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje novog listinga \
         /// POST /api/listings \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "Name": "Lenovo laptop 110-15ISK", \
         ///     "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
@@ -186,7 +186,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu listinga \
         /// PUT /api/listings
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "ListingId": "7a466dbc-c6fd-4309-bb9b-08d974eac29a", \
         ///     "Name": "Lenovo laptop 110-15ISK", \
@@ -245,7 +245,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje listinga \
         /// DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// </remarks>
         /// <response code="204">Uspešno je obrisan listing i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji listing sa datim id-jem.</response>

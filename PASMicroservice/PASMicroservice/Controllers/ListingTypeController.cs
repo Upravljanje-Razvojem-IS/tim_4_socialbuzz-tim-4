@@ -101,7 +101,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje novog listinga \
         /// POST /api/listingTypes \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "Name": "jobs", \
         /// } \
@@ -139,7 +139,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu tipa listinga \
         /// PUT /api/listingTypes
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "ListingTypeId": 3, \
         ///     "Name": "poslovi", \
@@ -184,7 +184,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje tipa listinga \
         /// DELETE /api/listingTypes/3 \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// </remarks>
         /// <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji tip listing sa datim id-jem.</response>
