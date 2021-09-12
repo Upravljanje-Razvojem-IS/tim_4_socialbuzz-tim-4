@@ -29,7 +29,6 @@ namespace PASMicroservice.Controllers
         private readonly IMapper mapper;
 
         private readonly ILoggerMockRepository<ListingTypeController> logger;
-        private readonly IAuthenticationMock authenticationMock;
         public ListingTypeController(IListingTypeRepository listingTypeRepository, LinkGenerator linkGenerator, IMapper mapper,
             ILoggerMockRepository<ListingTypeController> logger, IAuthenticationMock authenticationMock)
         {
@@ -38,7 +37,6 @@ namespace PASMicroservice.Controllers
             this.mapper = mapper;
 
             this.logger = logger;
-            this.authenticationMock = authenticationMock;
         }
 
         /// <summary>
@@ -58,7 +56,7 @@ namespace PASMicroservice.Controllers
         {
             var listingTypes = this.listingTypeRepository.GetTypes();
 
-            if (listingTypes == null || listingTypes.Count() == 0)
+            if (listingTypes == null || listingTypes.Count == 0)
             {
                 logger.LogInformation("GET ListingType no content.");
                 return NoContent();

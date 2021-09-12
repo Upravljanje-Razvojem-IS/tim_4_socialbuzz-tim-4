@@ -79,12 +79,12 @@ namespace PASMicroservice.Models.Listing
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Price <= 0 && PriceContact == false && PriceDeal == false)
+            if (Price <= 0 && !PriceContact && !PriceDeal)
                 yield return new ValidationResult(
                     "You have to set the price on listing, or choose the option to contact or make a deal.",
                     new[] { "ListingCreationDto" });
 
-            if (CategoryId == new Guid())
+            if (CategoryId == Guid.Empty)
                 yield return new ValidationResult(
                     "CategoryId is invalid.",
                     new[] { "ListingCreationDto" });
