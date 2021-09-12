@@ -42,11 +42,13 @@
             <remarks>
             Primer zahteva za kreiranje nove kategorije \
             POST /api/categories \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "Name": "Kompjuterske komponente", \
             } \
             Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
             POST /api/categories \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "Name": "Grafičke kartice", \
                 "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
@@ -63,12 +65,14 @@
             <remarks>
             Primer zahteva za izmenu kategorije \
             PUT /api/listings \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
                 "Name": "Računarske komponente i delovi", \
             } \
             Primer zahteva za izmenu kategorije sa opcionim obeležjima \
             PUT /api/listings \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
                 "Name": "Grafičke kartice", \
@@ -88,6 +92,7 @@
             <remarks>
             Primer zahteva za brisanje kategorije \
             DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             </remarks>
             <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
             <response code="404">Ne postoji kategorija sa datim id-jem.</response>
@@ -156,6 +161,7 @@
             <remarks>
             Primer zahteva za kreiranje novog listinga \
             POST /api/listings \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "Name": "Lenovo laptop 110-15ISK", \
                 "Description": "Polovan laptop sa sledećim specifikacijama: ...", \
@@ -179,6 +185,7 @@
             <remarks>
             Primer zahteva za izmenu listinga \
             PUT /api/listings
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "ListingId": "7a466dbc-c6fd-4309-bb9b-08d974eac29a", \
                 "Name": "Lenovo laptop 110-15ISK", \
@@ -205,6 +212,7 @@
             <remarks>
             Primer zahteva za brisanje listinga \
             DELETE /api/listings/e466cdac-718b-4f1e-bb9a-08d974eac29a
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             </remarks>
             <response code="204">Uspešno je obrisan listing i vraća odgovor bez sadržaja.</response>
             <response code="404">Ne postoji listing sa datim id-jem.</response>
@@ -259,6 +267,7 @@
             <remarks>
             Primer zahteva za kreiranje novog listinga \
             POST /api/listingTypes \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "Name": "jobs", \
             } \
@@ -274,6 +283,7 @@
             <remarks>
             Primer zahteva za izmenu tipa listinga \
             PUT /api/listingTypes
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             { \
                 "ListingTypeId": 3, \
                 "Name": "poslovi", \
@@ -292,6 +302,7 @@
             <remarks>
             Primer zahteva za brisanje tipa listinga \
             DELETE /api/listingTypes/3 \
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
             </remarks>
             <response code="204">Uspešno je obrisan tip listinga i vraća odgovor bez sadržaja.</response>
             <response code="404">Ne postoji tip listing sa datim id-jem.</response>

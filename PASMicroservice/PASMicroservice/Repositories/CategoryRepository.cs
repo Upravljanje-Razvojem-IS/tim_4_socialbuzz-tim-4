@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PASMicroservice.DBContexts;
 using PASMicroservice.Entities;
 
@@ -44,28 +45,20 @@ namespace PASMicroservice.Repositories
         {
             var existing = GetCategoryById(category.CategoryId);
 
-            try
+            existing.CategoryId = category.CategoryId;
+            existing.Name = category.Name;
+            existing.ParentCategoryId = category.ParentCategoryId;
+
+            this.dbContext.Categories.Attach(existing);
+            this.dbContext.Entry(existing).State = EntityState.Modified;
+            Save();
+
+            return new CategoryConfirmation
             {
-                existing.CategoryId = category.CategoryId;
-                existing.Name = category.Name;
-                existing.ParentCategoryId = category.ParentCategoryId;
-
-                this.dbContext.Categories.Update(existing);
-                Save();
-
-                var categoryConfirmation = GetCategoryById(category.CategoryId);
-
-                return new CategoryConfirmation
-                {
-                    CategoryId = categoryConfirmation.CategoryId,
-                    Name = categoryConfirmation.Name,
-                    ParentCategoryId = categoryConfirmation.ParentCategoryId
-                };
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+                CategoryId = existing.CategoryId,
+                Name = existing.Name,
+                ParentCategoryId = existing.ParentCategoryId
+            };
         }
 
         public void DeleteCategory(Guid id)

@@ -29,7 +29,6 @@ namespace PASMicroservice.Controllers
         private readonly IMapper mapper;
 
         private readonly ILoggerMockRepository<CategoryController> logger;
-        private readonly IAuthenticationMock authenticationMock;
 
         public CategoryController(ICategoryRepository categoryRepository, LinkGenerator linkGenerator, IMapper mapper,
             ILoggerMockRepository<CategoryController> logger, IAuthenticationMock authenticationMock)
@@ -39,7 +38,6 @@ namespace PASMicroservice.Controllers
             this.mapper = mapper;
 
             this.logger = logger;
-            this.authenticationMock = authenticationMock;
         }
 
         /// <summary>
@@ -59,7 +57,7 @@ namespace PASMicroservice.Controllers
         {
             var categories = this.categoryRepository.GetCategories();
 
-            if (categories == null || categories.Count() == 0)
+            if (categories == null || categories.Count == 0)
             {
                 logger.LogInformation("GET Category no content.");
                 return NoContent();

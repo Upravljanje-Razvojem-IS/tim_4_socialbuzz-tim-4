@@ -89,7 +89,7 @@ namespace PASMicroservice.Controllers
         {
             var listing = this.listingRepository.GetListings(name, categoryId, listingTypeId);
 
-            if (listing == null || listing.Count() == 0)
+            if (listing == null || listing.Count == 0)
             {
                 logger.LogInformation("GET Listing no content.");
                 return NoContent();

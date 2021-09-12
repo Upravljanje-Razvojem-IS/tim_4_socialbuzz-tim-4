@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PASMicroservice.DBContexts;
 using PASMicroservice.Entities;
 
@@ -42,25 +43,18 @@ namespace PASMicroservice.Repositories
         {
             var existing = GetTypeById(listingType.ListingTypeId);
 
-            try
-            {
-                existing.ListingTypeId = listingType.ListingTypeId;
-                existing.Name = listingType.Name;
+            existing.ListingTypeId = listingType.ListingTypeId;
+            existing.Name = listingType.Name;
 
-                this.dbContext.ListingTypes.Update(existing);
-                Save();
+            this.dbContext.ListingTypes.Attach(existing);
+            this.dbContext.Entry(existing).State = EntityState.Modified;
+            Save();
 
-                var listingTypeConfirmation = GetTypeById(listingType.ListingTypeId);
-                return new ListingTypeConfirmation
-                {
-                    ListingTypeId = listingTypeConfirmation.ListingTypeId,
-                    Name = listingTypeConfirmation.Name
-                };
-            } 
-            catch (Exception e)
+            return new ListingTypeConfirmation
             {
-                throw new Exception(e.Message);
-            }
+                ListingTypeId = existing.ListingTypeId,
+                Name = existing.Name
+            };
         }
 
         public void DeleteType(int id)
