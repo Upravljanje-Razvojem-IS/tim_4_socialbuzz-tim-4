@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UserService</name>
+    </assembly>
+    <members>
+        <member name="T:UserService.Controllers.RoleController">
+            <summary>
+            Kontroler sa endpoint-ima za podatke o ulogama
+            </summary>
+        </member>
+        <member name="M:UserService.Controllers.RoleController.GetRoles">
+             <summary>
+             Pregled svih uloga
+             </summary>
+             <returns>Lista uloga</returns>
+             <response code="200">Lista uloga</response>
+            <response code="401">Neautorizovani pristup</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.RoleController.GetRole(System.Guid)">
+             <summary>
+             Pretraga uloge po id-u
+             </summary>
+             <param name="id">Id uloge</param>
+             <returns>Uloga sa prosleđenim id-om</returns>
+            <response code="200">Uloga</response>
+             <response code="404">Uloga nije pronađena</response>
+             <response code="401">Neautorizovani pristup</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.RoleController.CreateRole(UserService.Models.DTOs.Role.RoleCreateAndUpdateDTO)">
+            <summary>
+            Kreiranje nove uloge
+            </summary>
+            <param name="role">Uloga</param>
+            <returns>Potvrda da je uloga kreirana</returns>
+            <response code="200">Kreirana uloga</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="409">Uloga nije jedinstvena</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.RoleController.UpdateRole(System.Guid,UserService.Models.DTOs.Role.RoleCreateAndUpdateDTO)">
+            <summary>
+            Izmena postojeće uloge
+            </summary>
+            <param name="id">Id uloge</param>
+            <param name="role">Uloga</param>
+            <returns>Potvrda da je uloga izmenjena</returns>
+            <response code="200"></response>
+            <response code="400">Uloga nije pronađena</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="409">Uloga nije jedinstvena</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.RoleController.DeleteApplicationRole(System.Guid)">
+            <summary>
+            Brisanje uloge iz sistema
+            </summary>
+            <param name="id">Id uloge</param>
+            <returns>Status 204 (NoContent)</returns>
+            <response code="204">Uloga uspešno obrisana</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="404">Uloga nije pronađena</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.#ctor(Microsoft.AspNetCore.Identity.UserManager{UserService.Models.Entities.User},AutoMapper.IMapper,UserService.Services.Users.IUsersService)">
+            <summary>
+            Kontroler sa endpoint-ima za podatke o korisniku
+            </summary>
+        </member>
+        <member name="M:UserService.Controllers.UserController.CheckForAccount(UserService.Models.Auth.PrincipalDTO)">
+             <summary>
+             Provera kredencijala
+             </summary>
+             <returns>Uspešnost autentifikacije</returns>
+             <response code="200">Uspešna provera</response>
+            <response code="400">Neuspešna provera</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.GetUsers">
+             <summary>
+             Pregled svih korisnika
+             </summary>
+             <returns>Lista uloga</returns>
+             <response code="200">Lista korisnika</response>
+            <response code="401">Neautorizovani pristup</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.GetUsersByType(System.String)">
+             <summary>
+             Pregled korisnika po ulozi
+             </summary>
+             <param name="id">Id uloge</param>
+             <returns>Lista korisnika sa prosleđenim id-om uloge</returns>
+            <response code="200">Lista korisnika</response>
+             <response code="404">Lista korisnika nije pronađena</response>
+             <response code="401">Neautorizovani pristup</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.GetUserById(System.Guid)">
+             <summary>
+             Pretraga korisnika po id-u
+             </summary>
+             <param name="id">Id korisnika</param>
+             <returns>Korisnik sa prosleđenim id-om</returns>
+            <response code="200">Korisnik</response>
+             <response code="404">Korisnik nije pronađen</response>
+             <response code="401">Neautorizovani pristup</response>
+             <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.CreateUser(UserService.Models.DTOs.User.UserCreateDTO)">
+            <summary>
+            Kreiranje novog korisnika (korporativnog ili personalnog)
+            </summary>
+            <param name="role">Korisnik</param>
+            <returns>Potvrda da je korisnik kreirana</returns>
+            <response code="200">Kreiran korisnik</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.CreateAdmin(UserService.Models.DTOs.User.UserCreateDTO)">
+            <summary>
+            Kreiranje novog korisnika (admin)
+            </summary>
+            <param name="role">Korisnik</param>
+            <returns>Potvrda da je korisnik kreirana</returns>
+            <response code="200">Kreiran korisnik</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+        <member name="M:UserService.Controllers.UserController.DeleteUser(System.Guid)">
+            <summary>
+            Brisanje korisnika iz sistema
+            </summary>
+            <param name="id">Id korisnika</param>
+            <returns>Status 204 (NoContent)</returns>
+            <response code="204">Korisnik uspešno obrisan</response>
+            <response code="401">Neautorizovani pristup</response>
+            <response code="404">Korisnik nije pronađen</response>
+            <response code="500">Greška na serveru</response>
+        </member>
+    </members>
+</doc>
