@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KImN2jrl0X1uHlllGu6Pv5sY39OmcRs8vn3WxK+uqfR8z+n8XNQgIbmTVO2oIDpcIQglWvlQwpYsr7zgwwdA1w==",
+  "dgSpecHash": "VFc14yLwWJ97VsN+dRcGJ9W+VAPT+FzdTzGBplYKr2qNxDU8Sagv3ekORS4WyTcwtNU/nDoWF3fBO0n6ASHUyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\AuthService\\AuthService\\AuthService.csproj",
+  "projectFilePath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\AuthService\\AuthService\\AuthService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DejanTosenberger\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DejanTosenberger\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",

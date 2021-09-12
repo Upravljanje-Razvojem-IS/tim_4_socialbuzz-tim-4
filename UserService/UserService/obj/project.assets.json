@@ -6239,11 +6239,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\UserService\\UserService\\UserService.csproj",
+      "projectUniqueName": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\UserService\\UserService\\UserService.csproj",
       "projectName": "UserService",
-      "projectPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\UserService\\UserService\\UserService.csproj",
+      "projectPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\UserService\\UserService\\UserService.csproj",
       "packagesPath": "C:\\Users\\DejanTosenberger\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\UserService\\UserService\\obj\\",
+      "outputPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\UserService\\UserService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DejanTosenberger\\AppData\\Roaming\\NuGet\\NuGet.Config",

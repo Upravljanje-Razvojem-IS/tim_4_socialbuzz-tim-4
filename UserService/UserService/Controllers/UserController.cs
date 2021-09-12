@@ -94,8 +94,14 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Pregled svih korisnika
+        /// </summary>
+        /// <returns>Lista uloga</returns>
+        /// <response code="200">Lista korisnika</response>
+        ///<response code="401">Neautorizovani pristup</response>
+        /// <response code="500">Greška na serveru</response>
         [HttpGet]
-        
         public ActionResult<IEnumerable<UserDTO>> GetUsers()
         {
             try
@@ -109,6 +115,15 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Pregled korisnika po ulozi
+        /// </summary>
+        /// <param name="id">Id uloge</param>
+        /// <returns>Lista korisnika sa prosleđenim id-om uloge</returns>
+        ///<response code="200">Lista korisnika</response>
+        /// <response code="404">Lista korisnika nije pronađena</response>
+        /// <response code="401">Neautorizovani pristup</response>
+        /// <response code="500">Greška na serveru</response>
         [Route("{userRole}")]
         [HttpGet]
         public ActionResult<IEnumerable<UserDTO>> GetUsersByType(string userRole)
@@ -141,6 +156,15 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Pretraga korisnika po id-u
+        /// </summary>
+        /// <param name="id">Id korisnika</param>
+        /// <returns>Korisnik sa prosleđenim id-om</returns>
+        ///<response code="200">Korisnik</response>
+        /// <response code="404">Korisnik nije pronađen</response>
+        /// <response code="401">Neautorizovani pristup</response>
+        /// <response code="500">Greška na serveru</response>
         [HttpGet("{id:Guid}")]
         public ActionResult<UserDTO> GetUserById(Guid id)
         {
@@ -162,6 +186,14 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Kreiranje novog korisnika (korporativnog ili personalnog)
+        /// </summary>
+        /// <param name="role">Korisnik</param>
+        /// <returns>Potvrda da je korisnik kreirana</returns>
+        /// <response code="200">Kreiran korisnik</response>
+        /// <response code="401">Neautorizovani pristup</response>
+        /// <response code="500">Greška na serveru</response>
         [HttpPost]
         [AllowAnonymous]
         public ActionResult<User> CreateUser(UserCreateDTO user)
@@ -184,6 +216,14 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Kreiranje novog korisnika (admin)
+        /// </summary>
+        /// <param name="role">Korisnik</param>
+        /// <returns>Potvrda da je korisnik kreirana</returns>
+        /// <response code="200">Kreiran korisnik</response>
+        /// <response code="401">Neautorizovani pristup</response>
+        /// <response code="500">Greška na serveru</response>
         [HttpPost("admin")]
         [Authorize(Roles = "admin")]
         public ActionResult<User> CreateAdmin(UserCreateDTO user)
@@ -205,6 +245,15 @@ namespace UserService.Controllers
             }
         }
 
+        /// <summary>
+        /// Brisanje korisnika iz sistema
+        /// </summary>
+        /// <param name="id">Id korisnika</param>
+        /// <returns>Status 204 (NoContent)</returns>
+        /// <response code="204">Korisnik uspešno obrisan</response>
+        /// <response code="401">Neautorizovani pristup</response>
+        /// <response code="404">Korisnik nije pronađen</response>
+        /// <response code="500">Greška na serveru</response>
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(Guid id)

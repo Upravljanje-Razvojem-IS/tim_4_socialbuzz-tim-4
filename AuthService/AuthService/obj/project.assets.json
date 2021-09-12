@@ -7576,11 +7576,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\AuthService\\AuthService\\AuthService.csproj",
+      "projectUniqueName": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\AuthService\\AuthService\\AuthService.csproj",
       "projectName": "AuthService",
-      "projectPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\AuthService\\AuthService\\AuthService.csproj",
+      "projectPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\AuthService\\AuthService\\AuthService.csproj",
       "packagesPath": "C:\\Users\\DejanTosenberger\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4\\AuthService\\AuthService\\obj\\",
+      "outputPath": "C:\\Users\\DejanTosenberger\\source\\repos\\tim_4_socialbuzz-tim-4_it21g2017\\AuthService\\AuthService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DejanTosenberger\\AppData\\Roaming\\NuGet\\NuGet.Config",
