@@ -102,13 +102,13 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za kreiranje nove kategorije \
         /// POST /api/categories \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "Name": "Kompjuterske komponente", \
         /// } \
         /// Primer zahteva za kreiranje kategorije sa opcionim obeležjima 
         /// POST /api/categories \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "Name": "Grafičke kartice", \
         ///     "ParentCategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804" \
@@ -147,14 +147,14 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za izmenu kategorije \
         /// PUT /api/listings \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "CategoryId": "329f5f35-9ae7-4bd7-89ff-480cfa938804", \
         ///     "Name": "Računarske komponente i delovi", \
         /// } \
         /// Primer zahteva za izmenu kategorije sa opcionim obeležjima \
         /// PUT /api/listings \
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// { \
         ///     "CategoryId": "dcb3e419-3f9a-4f45-ae1a-df2a57e7eefa" \
         ///     "Name": "Grafičke kartice", \
@@ -200,7 +200,7 @@ namespace PASMicroservice.Controllers
         /// <remarks>
         /// Primer zahteva za brisanje kategorije \
         /// DELETE /api/categories/7f3bc508-5b2e-4dfe-abdd-08d974ea8872
-        /// Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzE0MDA4MjUsImlzcyI6IlVSSVMudW5zLmFjLnJzIiwiYXVkIjoiVVJJUy51bnMuYWMucnMifQ.BnjGu6iJW3oSY_PzvS3iDEd3uY_oZJmtJFhGgdS37SQ
+        /// Authorization: Bearer jwt
         /// </remarks>
         /// <response code="204">Uspešno je obrisana kategorija i vraća odgovor bez sadržaja.</response>
         /// <response code="404">Ne postoji kategorija sa datim id-jem.</response>
